@@ -10,6 +10,8 @@ Welcome to IBIRYS36_on_FT3's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   intro.rst
+   requirements.rst
 
 
 Indices and tables
