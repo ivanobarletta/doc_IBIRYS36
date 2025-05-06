@@ -7,7 +7,7 @@ Welcome to IBIRYS36_on_FT3's documentation!
 ===========================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
    intro.rst
