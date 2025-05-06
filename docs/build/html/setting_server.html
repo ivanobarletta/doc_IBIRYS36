@@ -13,6 +13,7 @@
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ISSUES" href="issues.html" />
     <link rel="prev" title="Requirements" href="requirements.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
@@ -40,6 +41,24 @@ point. For details on the ecflow server capabilities / functionalities check the
 </div></blockquote>
 <section id="setting-up-port-and-host">
 <h2>Setting up PORT and HOST<a class="headerlink" href="#setting-up-port-and-host" title="Link to this heading">¶</a></h2>
+<p>The essential parameter associated to the ecflow server are the PORT and the HOST variables. The PORT and the HOST
+are used to interact with the server in case there are different servers active on the same machine.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ecflow_client<span class="w"> </span>--port<span class="o">=</span><span class="m">4545</span><span class="w"> </span>--host<span class="o">=</span>hostname<span class="w"> </span>--stats
+</pre></div>
+</div>
+<p>this will interact only with the server identified with port=4545 and host=hostname.</p>
+<p>It is advisable to set up the ecflow server by running the script ecflow_start.sh. The script, though, does
+not allow to create a server with a specific hostname but only allows to specify the port through command line
+argument. The hostname is taken from the prompt</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>username@hostname<span class="w"> </span>~<span class="o">]</span>$
+</pre></div>
+</div>
+<p>where hostname, on FTIII, is NOT always the same. One workaround is to do ssh into the desired hostname, and then
+run the ecflow_start.sh script</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh<span class="w"> </span>username@desired-hostname
+ecflow_start.sh<span class="w"> </span>-p<span class="w"> </span>port_number
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -68,6 +87,7 @@ point. For details on the ecflow server capabilities / functionalities check the
 <li class="toctree-l2"><a class="reference internal" href="#setting-up-port-and-host">Setting up PORT and HOST</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="issues.html">ISSUES</a></li>
 </ul>
 
 <div class="relations">
@@ -75,6 +95,7 @@ point. For details on the ecflow server capabilities / functionalities check the
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="requirements.html" title="previous chapter">Requirements</a></li>
+      <li>Next: <a href="issues.html" title="next chapter">ISSUES</a></li>
   </ul></li>
 </ul>
 </div>
