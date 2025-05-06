@@ -13,7 +13,7 @@ Welcome to IBIRYS36_on_FT3's documentation!
    intro.rst
    requirements.rst
    setting_server.rst
-
+   issues.rst 
 
 Indices and tables
 ==================
