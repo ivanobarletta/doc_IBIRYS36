@@ -5,7 +5,6 @@
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
-
 project = 'IBIRYS36_on_FT3'
 copyright = '2025, IvB'
 author = 'IvB'
@@ -13,17 +12,20 @@ release = '0.1'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
-
-extensions = []
+extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.viewcode',
+    'sphinx.ext.napoleon',
+]
 
 templates_path = ['_templates']
-exclude_patterns = []
-
-
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
-
-html_theme = 'alabaster'
 html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
+
+# -- Read the Docs specific settings -----------------------------------------
+# Make sure the target is unique
+master_doc = 'index'
