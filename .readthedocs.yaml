@@ -4,7 +4,7 @@ build:
   tools:
     python: 3.10  # Or your preferred Python version
   jobs:
-    job:
+    build:
         image: "python: 3.10"
         commands:
           - pip install -r requirements.txt
