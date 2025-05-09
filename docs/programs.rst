@@ -13,7 +13,7 @@ repository you can clone the ease repository
 
     git clone -b RE_IBIdev_2024 git@gitlab.mercator-ocean.fr:internal/ease.git ease
 
-then in the root directory of the repository there is the description file of the conda environment 
+In the root directory of the repository there is the description file of the conda environment 
 to create
 
 .. code-block:: bash
