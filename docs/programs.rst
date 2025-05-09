@@ -203,7 +203,9 @@ The python programs of IBIRYS36 require a specific environment. This is defined 
     prefix: /path/to/your/environments/conda/envs/ease_env
 
 
-
+Before installing the IBIRYS36 python program you have to activate ease_env. It is convenient
+to gather all the programs needed by IBIRYS36 in the same folder. In this guide it will be called
+$IBIRYS36_PROGRAMS_PATH. 
 
 
 Install NOOBS
@@ -213,9 +215,80 @@ NOOBS is the observation operator
 
 .. code-block:: bash
 
+    cd $IBIRYS_PROGRAMS_PATH
     git clone -b RE_IBIdev_2024 git@gitlab.mercator-ocean.fr:internal/noobs.git
     cd noobs/
     pip install ./
+
+Install Pyhana
+^^^^^^^^^^^^^^
+
+.. code-block:: bash
+
+    cd $IBIRYS_PROGRAMS_PATH
+    git clone -b RE_IBIdev_2024 git@gitlab.mercator-ocean.fr:mhamon/pyhana.git
+    cd pyhana/;
+    pip install -e ./
+    cd pyhana/hana/;
+    make clean; make
+
+Install py4ease
+^^^^^^^^^^^^^^
+
+.. code-block:: bash
+
+    cd $IBIRYS_PROGRAMS_PATH
+    git clone -b RE_IBIdev_2024 git@gitlab.mercator-ocean.fr:internal/py4ease.git
+    cd py4ease/
+    pip install ./
+
+
+=======
+Fortran Programs
+=======
+
+
+Install BIAS
+^^^^^^^^^^^^^^
+
+.. code-block:: bash
+
+    cd $IBIRYS_PROGRAMS_PATH
+    git clone -b RE_IBIdev_202403 git@gitlab.mercator-ocean.fr:olegallou/bias.git
+    cd bias/
+    sbatch compile.sub
+
+
+Install MROA
+^^^^^^^^^^^^^^
+
+.. code-block:: bash
+
+    cd $IBIRYS_PROGRAMS_PATH
+    git clone -b RE_IBIdev_2024 git@gitlab.mercator-ocean.fr:ctestut/MROA.git
+    cd MROA/
+    sbatch compile_MROA.sub
+
+
+Install MROATOOLS
+^^^^^^^^^^^^^^
+
+.. code-block:: bash
+
+    cd $IBIRYS_PROGRAMS_PATH
+    git clone -b oper_EIS202211 git@gitlab.mercator-ocean.fr:ctestut/MROATOOLS.git
+    cd MROATOOLS/
+    sbatch compile_MROATOOLS.sub
+
+Install NEMO3.6
+^^^^^^^^^^^^^^^^
+
+.. code-block:: bash
+
+    cd $IBIRYS_PROGRAMS_PATH
+    git clone git@gitlab.mercator-ocean.fr:internal/nemo3.6_ibirys36.git 
+    cd nemo3.6_ibirys36/NEMOGCM/CONFIG/
+    sbatch compile_NEMO_3.6.sub # set CONFIG=NEATL36
 
 
 
