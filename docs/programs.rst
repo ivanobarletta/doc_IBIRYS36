@@ -2,6 +2,8 @@
 Python Programs
 ***************
 
+.. _ease_env-label:
+
 Install EASE conda environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

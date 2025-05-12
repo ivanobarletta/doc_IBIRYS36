@@ -5,6 +5,8 @@ Setting up The Ecflow Server
 The functionality of the suite relies on the configuration of the server, which is the central
 point. For details on the ecflow server capabilities / functionalities check the page `ecflow-server <https://ecflow.readthedocs.io/en/5.14.0/glossary.html#term-ecflow_server>`_
 
+To install the server follow the instruction given in :ref:`ease_env-label`. 
+
 Setting up PORT and HOST
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -37,4 +39,4 @@ To check the status of the server type:
 
 .. code-block:: bash
 
-   
+     
