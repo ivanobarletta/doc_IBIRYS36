@@ -1,6 +1,6 @@
-*****************
-Create Harm Files
-*****************
+**********************
+Create Harmonics Files
+**********************
 
 Some files need to be treated without the contribution of tides. The removal of tide effect from fields is done through pyhana, that
 requires static files that contatin tidal harmonics informations. 
@@ -20,7 +20,7 @@ used in the NEMO computations. More specifically, pyhana requires files organize
         0031/res_harm_ssh_0031.nc
         
             
-where res_harm_ssh_????.nc are the aforementioned files for the case of 32 XIOS processes. Settin the following paths
+where res_harm_ssh_????.nc are the aforementioned files for the case of 32 XIOS processes. Setting the following paths
 
 .. code-block:: bash
 
@@ -29,7 +29,7 @@ where res_harm_ssh_????.nc are the aforementioned files for the case of 32 XIOS 
     DIRNML=/path/to/RUNS/IBIRYS36/{nameoftest}/paraminput/obsopr/FCST/M000/     # path containing noobs namelist
 
 
-Assuming that the file that contains the harmonic for the whole domain is in ${DIRDAT} and is named tide_dta_grid_T.nc and 
+and assuming that the file containing the harmonics for the whole domain is in ${DIRDAT} and is named tide_dta_grid_T.nc and 
 that the NOOBS namelist is in ${DIRNML} and is named like NOOBS_modelgrid_R{cycledate}.nml you can do the following:
 
 .. code-block:: bash
@@ -64,4 +64,4 @@ that the NOOBS namelist is in ${DIRNML} and is named like NOOBS_modelgrid_R{cycl
        done
     done
 
-
+This will create the desired files to be used by pyhana. 
