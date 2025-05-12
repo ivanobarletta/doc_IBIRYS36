@@ -7,8 +7,7 @@ Python Programs
 Install EASE conda environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Several programs of IBIRYS36 are coded in python. Before installing them is 
-better to create a common conda environment. If you have access to MOi gitlab
+It is convenient to create a conda environment that has both EASE and Ecflow functionalities. If you have access to MOi gitlab
 repository you can clone the ease repository 
 
 .. code-block:: bash
@@ -246,7 +245,7 @@ Install Pyhana
     make clean; make
 
 Install py4ease
-^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 
@@ -283,7 +282,7 @@ Install MROA
 
 
 Install MROATOOLS
-^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 
@@ -301,6 +300,7 @@ Install NEMO3.6
     git clone git@gitlab.mercator-ocean.fr:internal/nemo3.6_ibirys36.git 
     cd nemo3.6_ibirys36/NEMOGCM/CONFIG/
     sbatch compile_NEMO_3.6.sub # set CONFIG=NEATL36
+
 
 
 

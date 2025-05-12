@@ -14,8 +14,10 @@ Welcome to IBIRYS36_on_FT3's documentation!
    requirements.rst
    programs.rst
    setting_server.rst
+   command_line_instructions.rst
    issues.rst 
-   create_harm_files.rst 
+   create_harm_files.rst
+
 
 Indices and tables
 ==================
