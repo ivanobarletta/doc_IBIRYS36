@@ -1,0 +1,1522 @@
+:>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+:
+: MROA obs namelist :
+: -------------------
+:
+:>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+:
+:
+:'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+:       id      identification parameters
+:,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+:
+: title       : title of the run, which will be written in the log file.
+:
+ &id
+   title      = 'SYSTEM'
+/ 
+:
+:'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+:       io      input output, pre- post-processing parameters
+:,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+:
+: idebug                                      : Level of debugging messages written to the log file.
+: nsets                                       : Number of data sets in input (maximum=MAXSETS).
+: cga_setnam                (1|nsets),DEF=NONE: setnam of data set
+: fndat                     (1|nsets),DEF=NONE: Name of data sets.
+: settype                   (1|nsets),DEF=0   : Data type associated with each dataset.
+: cga_activstructdtanam_set (1|nsets),DEF=NONE: Name of structdta for each set
+: iga_setinterp             (1|nsets),DEF=0   : Interpolation type associated with each dataset.(0:4 pts,1:gradient)
+: iga_bogus                 (1|nsets),DEF=0   : [-1]  bogus data set with storage in db.[is|vp|uv|ds] (as real data) (%dv=0.0<=>ONC bogus)
+:                                                [0]   real data :
+:                                                [1]   ONC bogus data set with storage in db.bogus (%dv=0.0)
+: iga_buildvo               (1|nsets),DEF=0   : data value use
+:                                               [0] [MO|Mean|Ens]%vo=data value and %dv=(%vo-%vf) in modint
+:                                               [1] [MO|Mean|Ens]%dv=data value and %vo=%vf+%dv   in modint
+: ig_numgrpbogus_start                        : range min of numgrpbogus array (ig_numgrpbogus_start<1)
+: ig_numgrpbogus_end                          : range max of numgrpbogus array (ig_numgrpbogus_end>-1) 
+: iga_numgrpbogus           (1|nsets),DEF=0   :  numgpr of bogus
+:                                                [-i] : sequence of group of bogus before adapt numgrpbogus[-(i+1)] is done before numgrpbogus[-i]
+:                                                 [0] : classique bogus with no_adapt
+:                                                 [i] : sequence of group of bogus after no_adapt numgrpbogus[i+1] is done after numgrpbogus[i]
+: verif                     (1|nsets),DEF=1   : Says whether datasets contain verification data.
+: ig_tverif                                   : Activ or not algorithm in Unit_postmisfit removing obs in COM file following [min|max]tverif
+: rg_[min|max]tverif                  DEF=0.0 : [min|max] in time related to nowcast_tm1 of the available obs in the analyse 
+:                                               tdata<(nowcast_tm1+mintverif) are in verification mode
+:                                               tdata>(nowcast_tm1+tint+maxtverif) are in verification mode
+: rga_[min|max]tverif       (1|nsets),DEF=0.0 : [min|max] in time related to nowcast_tm1 of the available obs in the analyse
+:                                               
+: iubias                    (1|nsets),DEF=0   :
+: idloadr                   (1|nsets),DEF=-1  :
+: iga_canevas               (1|nsets),DEF=0   : Activation [0=no,1] of canevas.bin file writing or reading
+:                                               including vertices(4) and lambda(4)
+: iga_algopackstatus        (1|nsets),DEF=1   :
+: iga_algomisfitmax         (1|nsets),DEF=0   : type of algo for Maximum value of available misfit for each dataset.
+: rga_misfitmax             (1|nsets),DEF=1.0 : Maximum value of available misfit for each dataset.
+:                                               For altimetry, in meters.
+:                                               For SST, in degree (a priori mettre 6.)
+:                                               For SSS, mettre a prori 1.5 (facteur 4 par rapport a la SST)
+: rga_minsigmaobs_misfitmax (1|nsets),DEF=1.0 : minimum value of available sigmaobs for each data sets (if minsigmaobs<0 then minsigmaobs=abs(minsigmaobs)*sigma)
+: rga_minsigmaens_misfitmax (1|nsets),DEF=1.0 : minimum value of available sigmaens for each data sets (if minsigmaens<0 then minsigmaens=abs(minsigmaens)*sigma)
+: iga_algomisfitmin         (1|nsets),DEF=0   : type of algo for Minimum value of available misfit for each dataset.
+: rga_misfitmin             (1|nsets),DEF=0.0 :
+: rga_maxsigmaobs_misfitmin (1|nsets),DEF=0.0 : 
+: rga_maxsigmaens_misfitmin (1|nsets),DEF=0.0 : 
+: rga_shifttimestep         (1|nsets),DEF=0.0 : Shift of TimeStep indice 
+:                                               for 3DFGAT computation TimeStep=fct(t+shifttimestep)
+: rga_mintimestep           (1|nsets),DEF=0.0 : min in time over [0.0;rg_tint] of the TimeStep indice 
+:                                               for the 3DFGAT computation TimeStep=fct(max(t,minTimeStep)))
+: rga_maxtimestep           (1|nsets),DEF=0.0 : max in time over [-rg_tint;0.0] of the TimeStep indice 
+:                                               for the 3DFGAT computation TimeStep=fct(min(t,rg_tint+maxTimeStep)))
+: ig_datamskall                               : [0:1]  0: unactif 1: use of fdatamskallz (mask is applied on SWnode data only)
+: cg_fdatamskallz                             : fname of fdatamskallz file
+: iga_datamsk               (1|nsets),DEF=0   : [0:1] 0: unactif 1: use of fdatamskz for each set (mask is applied on SWnode data only
+: cga_fdatamskz             (1|nsets),DEF=NONE: fname of fdatamskz file
+: iga_initoestd             (1|nsets),DEF=0   : [0:2]  0: unactif 1: use of initoestd 2: use of finitoestdz             oestd=initoestd
+: rga_initoestd             (1|nsets),DEF=1.0 : value of oestd
+: cga_finitoestdz           (1|nsets),DEF=NONE: fname of finitoestdz file
+: iga_amplinitoestd         (1|nsets),DEF=0   : [0:1]  0: unactif 1: use of amplinitoestd                               oestd=(oestd.or.initoestd)*amplinitoestd 
+: rga_amplinitoestd         (1|nsets),DEF=1.0 : value of amplification for oestd
+: iga_famplinitoestdz       (1|nsets),DEF=0   : [0:1]  0: unactif 1: use of famplinitoestdz                             oestd=(oestd.or.initoestd)*amplinitoestd
+: cga_famplinitoestdz       (1|nsets),DEF=NONE: fname of famplinitoestdz file
+: iga_initoeweight          (1|nsets),DEF=0   : [0:2]  0: unactif 1: use of initoeweight 2: use of finitoeweightz     oeweight=initoeweight
+: rga_initoeweight          (1|nsets),DEF=1.0 : initial value of oeweight
+: cga_finitoeweightz        (1|nsets),DEF=NONE: fname of finitoeweightz file
+: iga_amplinitoeweight      (1|nsets),DEF=0   : [0:1]  0: unactif 1: use of amplinitoeweight                          oeweight=(oeweight.or.initoeweight)*amplinitoeweight
+: rga_amplinitoeweight      (1|nsets),DEF=1.0 : value of amplification for oeweight
+: iga_famplinitoeweightz    (1|nsets),DEF=0   : [0:1]  0: unactif 1: use of famplinitoeweightz                        oeweight=(oeweight.or.initoeweight)*amplinitoeweight
+: cga_famplinitoeweightz    (1|nsets),DEF=NONE: fname of famplinitoeweightz file
+:
+: ig_obstmsk                                  : Activ or not algorithm in compress removing obs in loading step following [min|max]obstmsk
+: rg_[min|max]obstmsk                 DEF=0.0 : [min|max] in time related to nowcast_tm1[|+tint] of the available obs in the analyse
+:                                               tdata<(nowcast_tm1+minobstmsk) are not loaded in the analysis
+:                                               tdata>(nowcast_tm1+tint+maxobstmsk)                   :are not loaded in the analysis
+: rga_[min|max]obstmsk      (1|nsets),DEF=0.0 : [min|max] in time related to nowcast_tm1[|+tint] of the available obs in the analyse
+: ig_fobsmskallz                              : [0:1]  0: unactif 1: use of fobsmskallz (mask is applied on SWnode obsonly)
+: cg_fobsmskallz                              : fname of fobsmskallz file
+: rg_valuefobsmskallz       (1|nsets),DEF=0.0 : mask value in fobsmskallz
+: iga_fobsmskz              (1|nsets),DEF=0   : [0:1] 0: unactif 1: use of fobsmskz for each set (mask is applied on SWnode obs only)
+: cga_fobsmskz              (1|nsets),DEF=NONE: fname of fobsmskz file
+: rga_valuefobsmskz         (1|nsets),DEF=0.0 : mask value in fobsmskz
+: iga_amploeweight          (1|nsets),DEF=0   : [0:2]  0: unactif 1|2: use of amploeweight 
+:                                                      [1|2] : oeweight=[oeweight*amploeweight|amploeweight]
+: rga_amploeweight          (1|nsets),DEF=1.0 : amplification value of oeweight
+: iga_famploeweightz        (1|nsets),DEF=0   : [-2:2]  0: unactif [/=0]: use of famploeweightz
+:                         			[1:2]   famploeweightz is amploeweight
+:                         			[-2:-1] famploeweightz is weight file in range[0.0:1.0] 
+:                                 		and amploeweight=(1.0-weight)*limitfamploeweightz0+weight*limitfamploeweightz1
+:                         			[-2,2] amploeweight is applied on oestd following oestd=oestd*(amploeweight)**0.5
+: cga_famploeweightz        (1|nsets),DEF=NONE: fname of famploeweightz file
+: rga_limitfamploeweightz01 (1:2,1|nsets),DEF=1.0 : range limit values associated to range weight [0.0:1.0] 
+: iga_fampldrzoeweightz     (1|nsets),DEF=0   : [0:1]  0: unactif 1: use of fampldrzoeweightz     oeweight=oeweight*ampldrzoeweight
+: cga_fampldrzoeweightz     (1|nsets),DEF=NONE: fname of fampldrzoeweightz file
+
+: iga_minoestd              (1|nsets),DEF=0   : [0:2]  0: unactif 1: use of fminoestdz 2: use of minoestd
+: cga_fminoestdz            (1|nsets),DEF=NONE: fname of fminoestdz file oeweight=MAX(oeweight,(fminoestdz/oestd)**2)
+: rga_minoestd              (1|nsets),DEF=1.0 : min value of oeweight       oeweight=MAX(oeweight,(minoeweight/oestd)**2)
+: iga_zcorrel               (1|nsets),DEF=0   : [-5:2]  0: unactif [-5:-1] various algo used in Unit_loadoeweight [1:2] various algo use in indatVPnetcdf|indatVPclim loader
+: rga_zlengthcorrel         (1|nsets),DEF=0.0 : z length correlation used under iga_zcorrel=[-5:-3]
+: iga_grpcorrel             (1|nsets),DEF=0   : [-1:n] 0: unactiv -1: activ and decorrelated from all other set : j in [1:] num of group of correlated set
+: iga_rgrpcorrel            (1|nsets),DEF=0   : [0:2]  0: unactif 1: use of rlengthgrpcorrel 2: use of frlengthgrpcorrelz
+: rga_rlengthgrpcorrel      (1|nsets),DEF=1.0 : r length correlation (km)
+: cga_frlengthgrpcorrelz    (1|nsets),DEF=NONE: fname of rlengthgrpcorrel file (km)
+: iga_tgrpcorrel            (1|nsets),DEF=0   : [0:1]  0: unactif 1: use of tlengthgrpcorrel
+: rga_tlengthgrpcorrel      (1|nsets),DEF=1.0 : time length correlation (days)
+: cga_ftlengthgrpcorrelz    (1|nsets),DEF=NONE: fname of tlengthgrpcorrel file (days)
+: iga_activadaptHcovker     (1|nsets),DEF=0   : 0 do not use this setid for analysis and/or estimation of alpha 
+:                                                          through activadaptHcov and/or activadaptker routines
+:                                               1 use in activadaptHcov routine only
+:                                               2 use in activadaptHcov and activadaptker routine
+:                                               3 use in activadaptker routine only
+: iga_algoice               (1|nsets),DEF=0   : definit traitement des erreurs en fonction de la glace par setid 
+: iga_algoISHr              (1|nsets),DEF=0   : definit vecteur Hr lors de la projection sur les modes
+:
+: iga_equivalentmod         (1|nsets),DEF=0   : definit equivalent modele 
+:                  sla (0 instantenaous ssh, 1 F_ssh, 2 F_(ssh-diffhbar), 3 F_(ssh-diffhhdyn)   )
+:                  sst (0 instantenaous, 1 daily mean , 2 night mean)  
+:                  freeboard (0 instantenaous freeboard, 1 instantenaous sivolu) 
+:
+: ampmax                                      : in meters
+: ifreq                                       :
+: ihwin                                       :
+: ig_nmasks                                   :
+: ig_w[count|rej|dia|ola]                     : 0=nofa 1=f 2=a, 3=fa
+: iga_wcount                (1|nsets),DEF=0   : write countcheck data in logfile 0=no, [-1;1]=yes;  -x=only whole domain
+: iga_wrej                  (1|nsets),DEF=0   : write rejected data 0=no, n=yes, 1=yes
+: iga_wdia                  (1|nsets),DEF=0   : write off-line dia [0:2] 
+:                                               0:No [-1;1]:one dia [-2;2]:dia each day in addition to the main dia
+:                                               -x=only whole domain
+: iga_wola                  (1|nsets),DEF=0   : write off-line analysis data 0=no, 1=yes
+: lg_ifrelenv                                 : says whether we will reload the previous environment.
+:
+: iga_finfobubset           (1|nsets),DEF=0   : [0:4] [0]:infobubset [1:4] various type of info writed in infobubset file
+: rga_infobubsetrmax        (1|nsets),DEF=0.0 : max dist (km) to compute nearest|mean (iga_infobubset case=3|4)
+:
+ &io  
+   idebug = 0,
+   nsets = 144,
+![1-19] serie for altimeter
+   cga_setnam(1)  = '{ALT01}',
+   cga_setnam(2)  = '{ALT02}',                    ! OCEAN,FORCING analysis
+   cga_setnam(3)  = '{ALT03}',                    ! OCEAN,FORCING analysis
+   cga_setnam(4)  = '{ALT04}',                    ! OCEAN,FORCING analysis
+   cga_setnam(5)  = '{ALT05}',                    ! OCEAN,FORCING analysis
+   cga_setnam(6)  = '{ALT06}',                    ! OCEAN,FORCING analysis
+   cga_setnam(7)  = '{ALT07}',                    ! OCEAN,FORCING analysis
+   cga_setnam(8)  = '{ALT08}',                    ! OCEAN,FORCING analysis
+   cga_setnam(9)  = '{ALT09}',                    ! OCEAN,FORCING analysis
+   cga_setnam(10) = '{ALT10}',                    ! OCEAN,FORCING analysis
+   cga_setnam(11) = '{ALT11}',                    ! OCEAN,FORCING analysis
+   cga_setnam(12) = '{ALT12}',                    ! OCEAN,FORCING analysis
+   cga_setnam(13) = '{ALT13}',                    ! OCEAN,FORCING analysis
+   cga_setnam(14) = '{ALT14}',                    ! OCEAN,FORCING analysis
+   cga_setnam(15) = '{ALT15}',                    ! OCEAN,FORCING analysis
+   cga_setnam(16) = '{ALT16}',                    ! OCEAN,FORCING analysis
+   cga_setnam(17) = '{ALT17}',                    ! OCEAN,FORCING analysis
+   cga_setnam(18) = '{ALT18}',                    ! OCEAN,FORCING analysis
+   cga_setnam(19) = '{ALT19}',                    ! OCEAN,FORCING analysis
+![20-39] serie for real insitu data in VP type
+   cga_setnam(20) = '{VP20}',                     ! OCEAN analysis
+   cga_setnam(21) = '{VP21}',                     ! verif
+   cga_setnam(39) = '{VP39}',                     ! verif
+![40-59] serie for real oceanic data in DS type
+   cga_setnam(40) = '{DS40}',                     ! OCEAN,FORCING analysis
+   cga_setnam(41) = '{DS41}',                     ! verif
+   cga_setnam(42) = '{DS42}',                     ! verif
+   cga_setnam(43) = '{DS43}',                     ! verif
+   cga_setnam(44) = '{DS44}',                       ! verif
+![60-79] serie for real ice data in DS type
+   cga_setnam(60) = 'NONE',                       ! ICE analysis
+   cga_setnam(61) = 'NONE',                       ! ICE analysis
+   cga_setnam(62) = 'NONE',                       ! verif
+   cga_setnam(63) = 'NONE',                       ! verif
+![100-119] serie for oceanic bogus data in IS type
+   cga_setnam(100) = 'BOGUS_HunderICE',           ! OCEAN analysis
+![120-139] serie for oceanic bogus data in VP type
+   cga_setnam(120) = 'BOGUS_RUNOFF',              ! OCEAN analysis
+   cga_setnam(121) = 'BOGUS_TSunderICE',          ! OCEAN analysis
+   cga_setnam(122) = 'BOGUS_UVunderICE',          ! OCEAN analysis if exist UV
+   cga_setnam(124) = 'BOGUS_TSonTROP',            ! OCEAN analysis
+   cga_setnam(125) = 'BOGUS_UVonTROP',            ! OCEAN analysis if exist UV
+![140-159] serie for oceanic bogus data in DS type
+   cga_setnam(140) = 'BOGUS_HBRST',               ! OCEAN,FORCING analysis
+![1-19] serie for altimeter
+   fndat(1)  = '{ALT01}.list',                    ! OCEAN,FORCING analysis
+   fndat(2)  = '{ALT02}.list',                    ! OCEAN,FORCING analysis
+   fndat(3)  = '{ALT03}.list',                    ! OCEAN,FORCING analysis
+   fndat(4)  = '{ALT04}.list',                    ! OCEAN,FORCING analysis
+   fndat(5)  = '{ALT05}.list',                    ! OCEAN,FORCING analysis
+   fndat(6)  = '{ALT06}.list',                    ! OCEAN,FORCING analysis
+   fndat(7)  = '{ALT07}.list',                    ! OCEAN,FORCING analysis
+   fndat(8)  = '{ALT08}.list',                    ! OCEAN,FORCING analysis
+   fndat(9)  = '{ALT09}.list',                    ! OCEAN,FORCING analysis
+   fndat(10) = '{ALT10}.list',                    ! OCEAN,FORCING analysis
+   fndat(11) = '{ALT11}.list',                    ! OCEAN,FORCING analysis
+   fndat(12) = '{ALT12}.list',                    ! OCEAN,FORCING analysis
+   fndat(13) = '{ALT13}.list',                    ! OCEAN,FORCING analysis
+   fndat(14) = '{ALT14}.list',                    ! OCEAN,FORCING analysis
+   fndat(15) = '{ALT15}.list',                    ! OCEAN,FORCING analysis
+   fndat(16) = '{ALT16}.list',                    ! OCEAN,FORCING analysis
+   fndat(17) = '{ALT17}.list',                    ! OCEAN,FORCING analysis
+   fndat(18) = '{ALT18}.list',                    ! OCEAN,FORCING analysis
+   fndat(19) = '{ALT19}.list',                    ! OCEAN,FORCING analysis
+![20-39] serie for real insitu data in VP type
+   fndat(20) = '{VP20}.list',                     ! OCEAN analysis
+   fndat(21) = '{VP21}.list',                     ! verif
+   fndat(39) = '{VP39}.list',                     ! verif
+![40-59] serie for real oceanic data in DS type
+   fndat(40) = '{DS40}.list',                     ! OCEAN,FORCING analysis
+   fndat(41) = '{DS41}.list',                     ! verif
+   fndat(42) = '{DS42}.list',                     ! verif
+   fndat(43) = '{DS43}.list',                     ! verif
+   fndat(44) = '{DS44}.list',                     ! verif
+![60-79] serie for real ice data in DS type
+   fndat(60) = '{DS60}.list',                     ! ICE analysis
+   fndat(61) = '{DS61}.list',                     ! ICE analysis
+   fndat(62) = '{DS62}.list',                     ! verif
+   fndat(63) = '{DS63}.list',                     ! verif
+   fndat(64) = '{DS64}.list',                     ! verif
+   fndat(65) = '{DS65}.list',                     ! verif
+   fndat(70) = '{DS70}.list',                     ! verif
+   fndat(71) = '{DS71}.list',                     ! verif
+   fndat(72) = '{DS72}.list',                     ! verif
+   fndat(80) = '{DS80}.list',                     ! verif
+![100-109] serie for oceanic bogus data in DS type
+   fndat(100) = 'IS_BOGUS_HunderICE.list',            ! OCEAN analysis
+![120-139] serie for oceanic bogus data in VP type
+   fndat(120) = 'VP_BOGUS_RUNOFF.list',               ! OCEAN analysis
+   fndat(121) = 'VP_BOGUS_TSunderICE.list',           ! OCEAN analysis
+   fndat(122) = 'VP_BOGUS_UVunderICE.list',           ! OCEAN analysis if exist UV
+   fndat(124) = 'VP_BOGUS_TSonTROP.list',             ! OCEAN analysis
+   fndat(125) = 'VP_BOGUS_UVonTROP.list',             ! OCEAN analysis if exist UV
+![140-159] serie for oceanic bogus data in DS type
+   fndat(140) = 'DS_BOGUS_HBRST.list',                ! OCEAN,FORCING analysis
+   settype(1)  = 0
+   settype(2)  = 0,
+   settype(3)  = 0,
+   settype(4)  = 0,
+   settype(5)  = 0,
+   settype(6)  = 0,
+   settype(7)  = 0,
+   settype(8)  = 0,
+   settype(9)  = 0,
+   settype(10) = 0,
+   settype(11) = 0,
+   settype(12) = 0,
+   settype(13) = 0,
+   settype(14) = 0,
+   settype(15) = 0,
+   settype(16) = 0,
+   settype(17) = 0,
+   settype(18) = 0,
+   settype(19) = 0,
+   settype(20) = 1,
+   settype(21) = 1,
+   settype(39) = 1,
+   settype(40) = 3,
+   settype(41) = 3,
+   settype(42) = 3,
+   settype(43) = 3,
+   settype(44) = 3,
+   settype(60) = 3,
+   settype(61) = 3,
+   settype(62) = 3,
+   settype(63) = 3,
+   settype(100) = 0,
+   settype(120) = 1,
+   settype(121) = 1,
+   settype(122) = 1,
+   settype(124) = 1,
+   settype(125) = 1,
+   settype(140) = 3,
+   cga_activstructdtanam_set(1)  = '{STRUCTNAM_IS01}',
+   cga_activstructdtanam_set(2)  = '{STRUCTNAM_IS02}',
+   cga_activstructdtanam_set(3)  = '{STRUCTNAM_IS03}',
+   cga_activstructdtanam_set(4)  = '{STRUCTNAM_IS04}',
+   cga_activstructdtanam_set(5)  = '{STRUCTNAM_IS05}',
+   cga_activstructdtanam_set(6)  = '{STRUCTNAM_IS06}',
+   cga_activstructdtanam_set(7)  = '{STRUCTNAM_IS07}',
+   cga_activstructdtanam_set(8)  = '{STRUCTNAM_IS08}',
+   cga_activstructdtanam_set(9)  = '{STRUCTNAM_IS09}',
+   cga_activstructdtanam_set(10) = '{STRUCTNAM_IS10}',
+   cga_activstructdtanam_set(11) = '{STRUCTNAM_IS11}',
+   cga_activstructdtanam_set(12) = '{STRUCTNAM_IS12}',
+   cga_activstructdtanam_set(13) = '{STRUCTNAM_IS13}',
+   cga_activstructdtanam_set(14) = '{STRUCTNAM_IS14}',
+   cga_activstructdtanam_set(15) = '{STRUCTNAM_IS15}',
+   cga_activstructdtanam_set(16) = '{STRUCTNAM_IS16}',
+   cga_activstructdtanam_set(17) = '{STRUCTNAM_IS17}',
+   cga_activstructdtanam_set(18) = '{STRUCTNAM_IS18}',
+   cga_activstructdtanam_set(19) = '{STRUCTNAM_IS19}',
+   cga_activstructdtanam_set(20) = '{STRUCTNAM_VP20}',
+   cga_activstructdtanam_set(21) = '{STRUCTNAM_VP21}',
+   cga_activstructdtanam_set(40) = '{STRUCTNAM_DS40}',
+   cga_activstructdtanam_set(41) = '{STRUCTNAM_DS41}',
+   cga_activstructdtanam_set(42) = '{STRUCTNAM_DS42}',
+   cga_activstructdtanam_set(43) = '{STRUCTNAM_DS43}',
+   cga_activstructdtanam_set(44) = '{STRUCTNAM_DS44}',
+   cga_activstructdtanam_set(60) = '{STRUCTNAM_DS60}',
+   cga_activstructdtanam_set(61) = '{STRUCTNAM_DS61}',
+   cga_activstructdtanam_set(62) = '{STRUCTNAM_DS62}',
+   cga_activstructdtanam_set(63) = '{STRUCTNAM_DS63}',
+   cga_activstructdtanam_set(64) = '{STRUCTNAM_DS64}',
+   cga_activstructdtanam_set(65) = '{STRUCTNAM_DS65}',
+   cga_activstructdtanam_set(70) = '{STRUCTNAM_DS70}',
+   cga_activstructdtanam_set(71) = '{STRUCTNAM_DS71}',
+   cga_activstructdtanam_set(72) = '{STRUCTNAM_DS72}',
+   iga_setinterp(100) = 1,
+   iga_setinterp(120) = 1,
+   iga_setinterp(121) = 1,
+   iga_setinterp(122) = 1,
+   iga_setinterp(124) = 1,
+   iga_setinterp(125) = 1,
+   iga_setinterp(140) = 1,
+   iga_bogus(100) = -1,
+   iga_bogus(120) = -1,
+   iga_bogus(121) = -1,
+   iga_bogus(122) = -1,
+   iga_bogus(124) = -1,
+   iga_bogus(125) = -1,
+   iga_bogus(140) = -1,
+   iga_buildvo(1)=0,
+   ig_numgrpbogus_start = -1,
+   ig_numgrpbogus_end = 1,
+   iga_numgrpbogus(100) = -1,
+   iga_numgrpbogus(120) = -1,
+   iga_numgrpbogus(121) = -1,
+   iga_numgrpbogus(122) = -1,
+   iga_numgrpbogus(124) = -1,
+   iga_numgrpbogus(125) = -1,
+   iga_numgrpbogus(140) = -1,
+   verif(1)  = 0,
+   verif(2)  = 0,
+   verif(3)  = 0,
+   verif(4)  = 0,
+   verif(5)  = 0,
+   verif(6)  = 0,
+   verif(7)  = 0,
+   verif(8)  = 0,
+   verif(9)  = 0,
+   verif(10) = 0,
+   verif(11) = 0,
+   verif(12) = 0,
+   verif(13) = 0,
+   verif(14) = 0,
+   verif(15) = 0,
+   verif(16) = 0,
+   verif(17) = 0,
+   verif(18) = 0,
+   verif(19) = 0,
+   verif(20) = 0,
+   verif(21) = 0,
+   verif(39) = 0,
+   verif(40) = 0,
+   verif(41) = 0,
+   verif(42) = 0,
+   verif(43) = 0,
+   verif(44) = 0,
+   verif(60) = 0,
+   verif(61) = 0,
+   verif(62) = 0,
+   verif(63) = 0,
+   verif(100) = 0, ! IS_BOGUS_HunderICE
+   verif(120) = 0, ! VP_BOGUS_RUNOFF
+   verif(121) = 0, ! VP_BOGUS_TSunderICE
+   verif(122) = 0, ! VP_BOGUS_UVunderICE
+   verif(124) = 0, ! VP_BOGUS_TSonTROP
+   verif(125) = 0, ! VP_BOGUS_UVonTROP
+   verif(140) = 0, ! DS_BOGUS_HBRST
+   ig_tverif=1,
+!
+!   rg_mintverif = -[7.0|0.0],         IAU[2|1]4C7
+!   rg_mintverif = -[10.0|5.0|0.0],    IAU[3|2|1]4C5
+!   rg_mintverif = -[9.0|6.0|3.0|0.0], IAU[4|3|2|1]4C3
+!
+   rg_mintverif = 0.0,
+   rg_maxtverif = 0.0,
+!
+!   rga_mintverif(1) = rg_mintverif,
+!
+   rga_mintverif(1) = 0.0,
+!
+!   rga_maxtverif([40|41|60|61]) = -[4.0|0.0],         IAU[2|1]4C7
+!   rga_maxtverif([40|41|60|61]) = -[7.0|2.0|0.0],     IAU[3|2|1]4C5
+!   rga_maxtverif([40|41|60|61]) = -[6.0|3.0|0.0|0.0], IAU[4|3|2|1]4C3
+!
+   rga_maxtverif(1) = 0.0,
+   iubias(1)   = 0,
+   idloadr(1)  = {LOADER01},
+   idloadr(2)  = {LOADER02},
+   idloadr(3)  = {LOADER03},
+   idloadr(4)  = {LOADER04},
+   idloadr(5)  = {LOADER05},
+   idloadr(6)  = {LOADER06},
+   idloadr(7)  = {LOADER07},
+   idloadr(8)  = {LOADER08},
+   idloadr(9)  = {LOADER09},
+   idloadr(10) = {LOADER10},
+   idloadr(11) = {LOADER11},
+   idloadr(12) = {LOADER12},
+   idloadr(13) = {LOADER13},
+   idloadr(14) = {LOADER14},
+   idloadr(15) = {LOADER15},
+   idloadr(16) = {LOADER16},
+   idloadr(17) = {LOADER17},
+   idloadr(18) = {LOADER18},
+   idloadr(19) = {LOADER19},
+   idloadr(20) = {LOADER20},
+   idloadr(40) = {LOADER40},
+   idloadr(41) = {LOADER41},
+   idloadr(42) = {LOADER42},
+   idloadr(43) = {LOADER43},
+   idloadr(44) = {LOADER44},
+   idloadr(60) = {LOADER60},
+   idloadr(61) = {LOADER61},
+   idloadr(62) = {LOADER62},
+   idloadr(63) = {LOADER63},
+   idloadr(64) = {LOADER64},
+   idloadr(65) = {LOADER65},
+   idloadr(70) = {LOADER70},
+   idloadr(71) = {LOADER71},
+   idloadr(72) = {LOADER72},
+   idloadr(80) = {LOADER80},
+   idloadr(100) = -1,
+   idloadr(120) = -1,
+!!missrunoff    idloadr(120) = 2,
+   !idloadr(121) = 2,
+   !idloadr(122) = 2,
+   ! idloadr(130) = 2,
+   !idloadr(140) = 7,
+   idloadr(121) = -1,
+   idloadr(122) = -1,
+   idloadr(130) = -1,
+   idloadr(140) = -1,
+   iga_canevas(40) = 0,
+   iga_canevas(41) = 0,
+   iga_canevas(42) = 0,
+   iga_canevas(43) = 0,
+   iga_canevas(44) = 0,
+   iga_canevas(60) = 0,
+   iga_canevas(61) = 0,
+   iga_canevas(62) = 0,
+   iga_canevas(63) = 0,
+   iga_canevas(100) = 0,
+   iga_canevas(120) = 0,
+   iga_canevas(121) = 0,
+   iga_canevas(122) = 0,
+   iga_canevas(124) = 0,
+   iga_canevas(125) = 0,
+   iga_canevas(140) = 0,
+   iga_algopackstatus(1) = 1,
+   iga_algomisfitmax(1) = 1,
+   iga_algomisfitmax(2)  = 1,
+   iga_algomisfitmax(3)  = 1,
+   iga_algomisfitmax(4)  = 1,
+   iga_algomisfitmax(5)  = 1,
+   iga_algomisfitmax(6)  = 1,
+   iga_algomisfitmax(7)  = 1,
+   iga_algomisfitmax(8)  = 1,
+   iga_algomisfitmax(9)  = 1,
+   iga_algomisfitmax(10) = 1,
+   iga_algomisfitmax(11) = 1,
+   iga_algomisfitmax(12) = 1,
+   iga_algomisfitmax(13) = 1,
+   iga_algomisfitmax(14) = 1,
+   iga_algomisfitmax(15) = 1,
+   iga_algomisfitmax(16) = 1,
+   iga_algomisfitmax(17) = 1,
+   iga_algomisfitmax(18) = 1,
+   iga_algomisfitmax(19) = 1,
+   iga_algomisfitmax(20) = 1,
+   iga_algomisfitmax(21) = 1,
+   iga_algomisfitmax(40) = 1,
+   iga_algomisfitmax(41) = 1,
+   iga_algomisfitmax(42) = 1,
+   iga_algomisfitmax(43) = 1,
+   iga_algomisfitmax(44) = 1,
+   rga_misfitmax(1)  = {MMSFIT01},
+   rga_misfitmax(2)  = {MMSFIT02},
+   rga_misfitmax(3)  = {MMSFIT03},
+   rga_misfitmax(4)  = {MMSFIT04},
+   rga_misfitmax(5)  = {MMSFIT05},
+   rga_misfitmax(6)  = {MMSFIT06},
+   rga_misfitmax(7)  = {MMSFIT07},
+   rga_misfitmax(8)  = {MMSFIT08},
+   rga_misfitmax(9)  = {MMSFIT09},
+   rga_misfitmax(10) = {MMSFIT10},
+   rga_misfitmax(11) = {MMSFIT11},
+   rga_misfitmax(12) = {MMSFIT12},
+   rga_misfitmax(13) = {MMSFIT13},
+   rga_misfitmax(14) = {MMSFIT14},
+   rga_misfitmax(15) = {MMSFIT15},
+   rga_misfitmax(16) = {MMSFIT16},
+   rga_misfitmax(17) = {MMSFIT17},
+   rga_misfitmax(18) = {MMSFIT18},
+   rga_misfitmax(19) = {MMSFIT19},
+   rga_misfitmax(20) = 4.0,
+   rga_misfitmax(21) = 4.0,
+   rga_misfitmax(39) = 4.0,
+   rga_misfitmax(40) = {MMSFIT40},
+   rga_misfitmax(41) = {MMSFIT41},
+   rga_misfitmax(42) = {MMSFIT42},
+   rga_misfitmax(43) = {MMSFIT43},
+   rga_misfitmax(44) = {MMSFIT44},
+!misfitmax_sigma=4._8*rd_maxsigmaobs+4._8*rd_maxsigmaens  for algomisfitmax=1,2
+!misfitmin=3._8*rd_maxsigmaobs+3._8*rd_maxsigmaens        for algomisfitmax=2
+!misfitmax_algomisfitmax=max(rga_misfitmax,misfitmax_sigma)
+!misfitmin_algomisfitmax=rga_misfitmax.0.75
+   rga_minsigmaobs_misfitmax(1) = 0.1,
+   rga_minsigmaens_misfitmax(1) = 0.1,
+!
+   iga_algomisfitmin(1) = 0,
+   rga_misfitmin(1) = 0.0,
+   rga_maxsigmaobs_misfitmin(1) = 0.0,
+   rga_maxsigmaens_misfitmin(1) = 0.0,
+   rga_shifttimestep(40) = {TSHIFT40}, 
+   rga_shifttimestep(41) = {TSHIFT41},
+   rga_shifttimestep(42) = {TSHIFT42},
+   rga_shifttimestep(43) = {TSHIFT43},
+   rga_shifttimestep(44) = {TSHIFT44},
+   rga_shifttimestep(60) = {TSHIFT60},
+   rga_shifttimestep(61) = {TSHIFT61},
+   rga_shifttimestep(62) = {TSHIFT62},
+   rga_shifttimestep(63) = {TSHIFT63},
+   rga_mintimestep(1) = 0.0,
+   rga_maxtimestep(1) = 0.0,
+   ig_datamskall = 0,	
+   cg_fdatamskallz = 'NONE.cmz',
+   iga_datamsk(1) = 0,
+   cga_fdatamskz(1) = 'NONE.cmz',
+   iga_initoestd(1) = 0,
+   rga_initoestd(1) = 1.0,
+   cga_finitoestdz(1) = 'NONE.cmz',
+   iga_amplinitoestd(1) = 0,
+   rga_amplinitoestd(1) = 1.0,
+   iga_famplinitoestdz(1) = 0,
+   cga_famplinitoestdz(1) = 'NONE.cmz',
+   iga_initoeweight(1) = 0,
+   rga_initoeweight(1) = 1.0,
+   cga_finitoeweightz(1) = 'NONE.cmz',
+   iga_amplinitoeweight(1) = 0,
+   rga_amplinitoeweight(1) = 1.0,
+   iga_famplinitoeweightz(1) = 0,
+   cga_famplinitoeweightz(1) = 'NONE.cmz',
+   ig_obstmsk=1,
+!
+!   rg_minobstmsk = -[7.0|0.0],         IAU[2|1]4C7
+!   rg_minobstmsk = -[10.0|5.0|0.0],    IAU[3|2|1]4C5
+!   rg_minobstmsk = -[9.0|6.0|3.0|0.0], IAU[4|3|2|1]4C3
+!
+   rg_minobstmsk = 0.0,
+   rg_maxobstmsk = 0.0,
+!
+!   rga_minobstmsk(1) = rg_minobstmsk,
+!
+   rga_minobstmsk(1) = 0.0,
+!
+!   rga_maxobstmsk([40|41|60|61]) = -[4.0|0.0],         IAU[2|1]4C7
+!   rga_maxobstmsk([40|41|60|61]) = -[7.0|2.0|0.0],     IAU[3|2|1]4C5
+!   rga_maxobstmsk([40|41|60|61]) = -[6.0|3.0|0.0|0.0], IAU[4|3|2|1]4C3
+!
+   rga_maxobstmsk(1) = 0.0,
+   ig_fobsmskallz = 0,	
+   cg_fobsmskallz = 'NONE.cmz',
+   rg_valuefobsmskallz = 0.0,
+   iga_fobsmskz(1) = {MOI_assim_oceobsmask},
+   iga_fobsmskz(2) = {MOI_assim_oceobsmask},
+   iga_fobsmskz(3) = {MOI_assim_oceobsmask},
+   iga_fobsmskz(4) = {MOI_assim_oceobsmask},
+   iga_fobsmskz(5) = {MOI_assim_oceobsmask},
+   iga_fobsmskz(6) = {MOI_assim_oceobsmask},
+   iga_fobsmskz(7) = {MOI_assim_oceobsmask},
+   iga_fobsmskz(8) = {MOI_assim_oceobsmask},
+   iga_fobsmskz(9) = {MOI_assim_oceobsmask},
+   iga_fobsmskz(10) = {MOI_assim_oceobsmask},
+   iga_fobsmskz(11) = {MOI_assim_oceobsmask},
+   iga_fobsmskz(12) = {MOI_assim_oceobsmask},
+   iga_fobsmskz(13) = {MOI_assim_oceobsmask},
+   iga_fobsmskz(14) = {MOI_assim_oceobsmask},
+   iga_fobsmskz(15) = {MOI_assim_oceobsmask},
+   iga_fobsmskz(16) = {MOI_assim_oceobsmask},
+   iga_fobsmskz(17) = {MOI_assim_oceobsmask},
+   iga_fobsmskz(18) = {MOI_assim_oceobsmask},
+   iga_fobsmskz(19) = {MOI_assim_oceobsmask},
+   iga_fobsmskz(20) = {MOI_assim_oceobsmask},
+   iga_fobsmskz(21) = {MOI_assim_oceobsmask},
+   iga_fobsmskz(39) = {MOI_assim_oceobsmask},
+   iga_fobsmskz(40) = {MOI_assim_oceobsmask},
+   iga_fobsmskz(41) = {MOI_assim_oceobsmask},
+   iga_fobsmskz(42) = {MOI_assim_oceobsmask},
+   iga_fobsmskz(43) = {MOI_assim_oceobsmask},
+   iga_fobsmskz(44) = {MOI_assim_oceobsmask},
+   iga_fobsmskz(60) = {MOI_assim_iceobsmask}, 
+   iga_fobsmskz(61) = {MOI_assim_iceobsmask}, 
+   iga_fobsmskz(100) = {MOI_assim_ocebgsmask},
+   iga_fobsmskz(121) = {MOI_assim_ocebgsmask},
+   iga_fobsmskz(122) = {MOI_assim_ocebgsmask},
+   cga_fobsmskz(1) = '{MOI_assim_oceobsmaskf}',
+   cga_fobsmskz(2) = '{MOI_assim_oceobsmaskf}',
+   cga_fobsmskz(3) = '{MOI_assim_oceobsmaskf}',
+   cga_fobsmskz(4) = '{MOI_assim_oceobsmaskf}',
+   cga_fobsmskz(5) = '{MOI_assim_oceobsmaskf}',
+   cga_fobsmskz(6) = '{MOI_assim_oceobsmaskf}',
+   cga_fobsmskz(7) = '{MOI_assim_oceobsmaskf}',
+   cga_fobsmskz(8) = '{MOI_assim_oceobsmaskf}',
+   cga_fobsmskz(9) = '{MOI_assim_oceobsmaskf}',
+   cga_fobsmskz(10) = '{MOI_assim_oceobsmaskf}',
+   cga_fobsmskz(11) = '{MOI_assim_oceobsmaskf}',
+   cga_fobsmskz(12) = '{MOI_assim_oceobsmaskf}',
+   cga_fobsmskz(13) = '{MOI_assim_oceobsmaskf}',
+   cga_fobsmskz(14) = '{MOI_assim_oceobsmaskf}',
+   cga_fobsmskz(15) = '{MOI_assim_oceobsmaskf}',
+   cga_fobsmskz(16) = '{MOI_assim_oceobsmaskf}',
+   cga_fobsmskz(17) = '{MOI_assim_oceobsmaskf}',
+   cga_fobsmskz(18) = '{MOI_assim_oceobsmaskf}',
+   cga_fobsmskz(19) = '{MOI_assim_oceobsmaskf}',
+   cga_fobsmskz(20) = '{MOI_assim_oceobsmaskf}',
+   cga_fobsmskz(21) = '{MOI_assim_oceobsmaskf}',
+   cga_fobsmskz(39) = '{MOI_assim_oceobsmaskf}',
+   cga_fobsmskz(40) = '{MOI_assim_oceobsmaskf}',
+   cga_fobsmskz(41) = '{MOI_assim_oceobsmaskf}',
+   cga_fobsmskz(42) = '{MOI_assim_oceobsmaskf}',
+   cga_fobsmskz(43) = '{MOI_assim_oceobsmaskf}',
+   cga_fobsmskz(44) = '{MOI_assim_oceobsmaskf}',
+   cga_fobsmskz(60) = '{MOI_assim_iceobsmaskf}',
+   cga_fobsmskz(61) = '{MOI_assim_iceobsmaskf}',
+   cga_fobsmskz(100) = '{MOI_assim_ocebgsmaskf}',
+   cga_fobsmskz(121) = '{MOI_assim_ocebgsmaskf}',
+   cga_fobsmskz(122) = '{MOI_assim_ocebgsmaskf}',
+   rga_valuefobsmskz(1) = {MOI_assim_oceobsmaskv},
+   rga_valuefobsmskz(2) ={MOI_assim_oceobsmaskv},
+   rga_valuefobsmskz(3) ={MOI_assim_oceobsmaskv},
+   rga_valuefobsmskz(4) ={MOI_assim_oceobsmaskv},
+   rga_valuefobsmskz(5) ={MOI_assim_oceobsmaskv},
+   rga_valuefobsmskz(6) ={MOI_assim_oceobsmaskv},
+   rga_valuefobsmskz(7) ={MOI_assim_oceobsmaskv},
+   rga_valuefobsmskz(8) ={MOI_assim_oceobsmaskv},
+   rga_valuefobsmskz(9) ={MOI_assim_oceobsmaskv},
+   rga_valuefobsmskz(10) ={MOI_assim_oceobsmaskv},
+   rga_valuefobsmskz(11) ={MOI_assim_oceobsmaskv},
+   rga_valuefobsmskz(12) ={MOI_assim_oceobsmaskv},
+   rga_valuefobsmskz(13) ={MOI_assim_oceobsmaskv},
+   rga_valuefobsmskz(14) ={MOI_assim_oceobsmaskv},
+   rga_valuefobsmskz(15) ={MOI_assim_oceobsmaskv},
+   rga_valuefobsmskz(16) ={MOI_assim_oceobsmaskv},
+   rga_valuefobsmskz(17) ={MOI_assim_oceobsmaskv},
+   rga_valuefobsmskz(18) ={MOI_assim_oceobsmaskv},
+   rga_valuefobsmskz(19) ={MOI_assim_oceobsmaskv},
+   rga_valuefobsmskz(20) ={MOI_assim_oceobsmaskv},
+   rga_valuefobsmskz(21) ={MOI_assim_oceobsmaskv},
+   rga_valuefobsmskz(39) ={MOI_assim_oceobsmaskv},
+   rga_valuefobsmskz(40) ={MOI_assim_oceobsmaskv},
+   rga_valuefobsmskz(41) ={MOI_assim_oceobsmaskv},
+   rga_valuefobsmskz(42) ={MOI_assim_oceobsmaskv},
+   rga_valuefobsmskz(43) ={MOI_assim_oceobsmaskv},
+   rga_valuefobsmskz(44) ={MOI_assim_oceobsmaskv},
+   rga_valuefobsmskz(60) = {MOI_assim_iceobsmaskv},
+   rga_valuefobsmskz(61) = {MOI_assim_iceobsmaskv},
+   rga_valuefobsmskz(100) = {MOI_assim_ocebgsmaskv},
+   rga_valuefobsmskz(121) = {MOI_assim_ocebgsmaskv},
+   rga_valuefobsmskz(122) = {MOI_assim_ocebgsmaskv},
+   iga_amploeweight(1) = 1,
+   iga_amploeweight(2) = 1,
+   iga_amploeweight(3) = 1,
+   iga_amploeweight(4) = 1,
+   iga_amploeweight(5) = 1,
+   iga_amploeweight(6) = 1,
+   iga_amploeweight(7) = 1,
+   iga_amploeweight(8) = 1,
+   iga_amploeweight(9) = 1,
+   iga_amploeweight(10) = 1,
+   iga_amploeweight(11) = 1,
+   iga_amploeweight(12) = 1,
+   iga_amploeweight(13) = 1,
+   iga_amploeweight(14) = 1,
+   iga_amploeweight(15) = 1,
+   iga_amploeweight(16) = 1,
+   iga_amploeweight(17) = 1,
+   iga_amploeweight(18) = 1,
+   iga_amploeweight(19) = 1,
+   iga_amploeweight(20) = 1,
+   iga_amploeweight(39) = 1,
+   iga_amploeweight(40) = 1,
+   iga_amploeweight(41) = 1,
+   iga_amploeweight(42) = 1,
+   iga_amploeweight(43) = 1,
+   iga_amploeweight(44) = 1,
+   iga_amploeweight(60) = 1,
+   iga_amploeweight(61) = 1,
+   iga_amploeweight(100) = 1,
+   iga_amploeweight(120) = 1,
+   iga_amploeweight(121) = 1,
+   iga_amploeweight(122) = 1,
+   iga_amploeweight(124) = 1,
+   iga_amploeweight(125) = 1,
+   iga_amploeweight(140) = 1,
+   rga_amploeweight(1) = 1.0,
+   rga_amploeweight(2) = 1.0,
+   rga_amploeweight(3) = 1.0,
+   rga_amploeweight(4) = 1.0,
+   rga_amploeweight(5) = 1.0,
+   rga_amploeweight(6) = 1.0,
+   rga_amploeweight(7) = 1.0,
+   rga_amploeweight(8) = 1.0,
+   rga_amploeweight(9) = 1.0,
+   rga_amploeweight(10) = 1.0,
+   rga_amploeweight(11) = 1.0,
+   rga_amploeweight(12) = 1.0,
+   rga_amploeweight(13) = 1.0,
+   rga_amploeweight(14) = 1.0,
+   rga_amploeweight(15) = 1.0,
+   rga_amploeweight(16) = 1.0,
+   rga_amploeweight(17) = 1.0,
+   rga_amploeweight(18) = 1.0,
+   rga_amploeweight(19) = 1.0,
+   rga_amploeweight(20) = 1.0,
+   rga_amploeweight(39) = 1.0,
+   rga_amploeweight(40) = 1.0,
+   rga_amploeweight(41) = 1.0,
+   rga_amploeweight(42) = 1.0,
+   rga_amploeweight(43) = 1.0,
+   rga_amploeweight(44) = 1.0,
+   rga_amploeweight(60) = 1.0,
+   rga_amploeweight(61) = 1.0,
+   rga_amploeweight(100) = 0.01,!1.0,!0.01
+   rga_amploeweight(120) = 0.1,!0.01
+   rga_amploeweight(121) = 0.01,!1.0,!0.01
+   rga_amploeweight(122) = 0.01,!1.0,!0.01
+   rga_amploeweight(124) = 0.1,!1.0,!0.01
+   rga_amploeweight(125) = 0.01,!1.0,!0.01
+   rga_amploeweight(140) = 0.01,!0.0001
+   iga_famploeweightz(1) = {MOI_assim_oceobswgt},
+   iga_famploeweightz(2) = {MOI_assim_oceobswgt},
+   iga_famploeweightz(3) = {MOI_assim_oceobswgt},
+   iga_famploeweightz(4) = {MOI_assim_oceobswgt},
+   iga_famploeweightz(5) = {MOI_assim_oceobswgt},
+   iga_famploeweightz(6) = {MOI_assim_oceobswgt},
+   iga_famploeweightz(7) = {MOI_assim_oceobswgt},
+   iga_famploeweightz(8) = {MOI_assim_oceobswgt},
+   iga_famploeweightz(9) = {MOI_assim_oceobswgt},
+   iga_famploeweightz(10) = {MOI_assim_oceobswgt},
+   iga_famploeweightz(11) = {MOI_assim_oceobswgt},
+   iga_famploeweightz(12) = {MOI_assim_oceobswgt},
+   iga_famploeweightz(13) = {MOI_assim_oceobswgt},
+   iga_famploeweightz(14) = {MOI_assim_oceobswgt},
+   iga_famploeweightz(15) = {MOI_assim_oceobswgt},
+   iga_famploeweightz(16) = {MOI_assim_oceobswgt},
+   iga_famploeweightz(17) = {MOI_assim_oceobswgt},
+   iga_famploeweightz(18) = {MOI_assim_oceobswgt},
+   iga_famploeweightz(19) = {MOI_assim_oceobswgt},
+   iga_famploeweightz(20) = {MOI_assim_oceobswgt},
+   iga_famploeweightz(21) = {MOI_assim_oceobswgt},
+   iga_famploeweightz(39) = {MOI_assim_oceobswgt},
+   iga_famploeweightz(40) = {MOI_assim_oceobswgt},
+   iga_famploeweightz(41) = {MOI_assim_oceobswgt},
+   iga_famploeweightz(42) = {MOI_assim_oceobswgt},
+   iga_famploeweightz(43) = {MOI_assim_oceobswgt},
+   iga_famploeweightz(44) = {MOI_assim_oceobswgt},
+   iga_famploeweightz(60) = {MOI_assim_iceobswgt},
+   iga_famploeweightz(61) = {MOI_assim_iceobswgt},
+   iga_famploeweightz(100) = {MOI_assim_ocebgswgt},
+   iga_famploeweightz(121) = {MOI_assim_ocebgswgt},
+   iga_famploeweightz(122) = {MOI_assim_ocebgswgt},
+   cga_famploeweightz(1) = '{MOI_assim_oceobswgtf}',
+   cga_famploeweightz(2) = '{MOI_assim_oceobswgtf}',
+   cga_famploeweightz(3) = '{MOI_assim_oceobswgtf}',
+   cga_famploeweightz(4) = '{MOI_assim_oceobswgtf}',
+   cga_famploeweightz(5) = '{MOI_assim_oceobswgtf}',
+   cga_famploeweightz(6) = '{MOI_assim_oceobswgtf}',
+   cga_famploeweightz(7) = '{MOI_assim_oceobswgtf}',
+   cga_famploeweightz(8) = '{MOI_assim_oceobswgtf}',
+   cga_famploeweightz(9) = '{MOI_assim_oceobswgtf}',
+   cga_famploeweightz(10) = '{MOI_assim_oceobswgtf}',
+   cga_famploeweightz(11) = '{MOI_assim_oceobswgtf}',
+   cga_famploeweightz(12) = '{MOI_assim_oceobswgtf}',
+   cga_famploeweightz(13) = '{MOI_assim_oceobswgtf}',
+   cga_famploeweightz(14) = '{MOI_assim_oceobswgtf}',
+   cga_famploeweightz(15) = '{MOI_assim_oceobswgtf}',
+   cga_famploeweightz(16) = '{MOI_assim_oceobswgtf}',
+   cga_famploeweightz(17) = '{MOI_assim_oceobswgtf}',
+   cga_famploeweightz(18) = '{MOI_assim_oceobswgtf}',
+   cga_famploeweightz(19) = '{MOI_assim_oceobswgtf}',
+   cga_famploeweightz(20) = '{MOI_assim_oceobswgtf}',
+   cga_famploeweightz(21) = '{MOI_assim_oceobswgtf}',
+   cga_famploeweightz(39) = '{MOI_assim_oceobswgtf}',
+   cga_famploeweightz(40) = '{MOI_assim_oceobswgtf}',
+   cga_famploeweightz(41) = '{MOI_assim_oceobswgtf}',
+   cga_famploeweightz(42) = '{MOI_assim_oceobswgtf}',
+   cga_famploeweightz(43) = '{MOI_assim_oceobswgtf}',
+   cga_famploeweightz(44) = '{MOI_assim_oceobswgtf}',
+   cga_famploeweightz(60) = '{MOI_assim_iceobswgtf}',
+   cga_famploeweightz(61) = '{MOI_assim_iceobswgtf}',
+   cga_famploeweightz(100) = '{MOI_assim_ocebgswgtf}',
+   cga_famploeweightz(121) = '{MOI_assim_ocebgswgtf}',
+   cga_famploeweightz(122) = '{MOI_assim_ocebgswgtf}',
+   rga_limitfamploeweightz01(1:2,1) = {MOI_assim_oceobswgtv},
+   rga_limitfamploeweightz01(1:2,2) = {MOI_assim_oceobswgtv},
+   rga_limitfamploeweightz01(1:2,3) = {MOI_assim_oceobswgtv},
+   rga_limitfamploeweightz01(1:2,4) = {MOI_assim_oceobswgtv},
+   rga_limitfamploeweightz01(1:2,5) = {MOI_assim_oceobswgtv},
+   rga_limitfamploeweightz01(1:2,6) = {MOI_assim_oceobswgtv},
+   rga_limitfamploeweightz01(1:2,7) = {MOI_assim_oceobswgtv},
+   rga_limitfamploeweightz01(1:2,8) = {MOI_assim_oceobswgtv},
+   rga_limitfamploeweightz01(1:2,9) = {MOI_assim_oceobswgtv},
+   rga_limitfamploeweightz01(1:2,10) = {MOI_assim_oceobswgtv},
+   rga_limitfamploeweightz01(1:2,11) = {MOI_assim_oceobswgtv},
+   rga_limitfamploeweightz01(1:2,12) = {MOI_assim_oceobswgtv},
+   rga_limitfamploeweightz01(1:2,13) = {MOI_assim_oceobswgtv},
+   rga_limitfamploeweightz01(1:2,14) = {MOI_assim_oceobswgtv},
+   rga_limitfamploeweightz01(1:2,15) = {MOI_assim_oceobswgtv},
+   rga_limitfamploeweightz01(1:2,16) = {MOI_assim_oceobswgtv},
+   rga_limitfamploeweightz01(1:2,17) = {MOI_assim_oceobswgtv},
+   rga_limitfamploeweightz01(1:2,18) = {MOI_assim_oceobswgtv},
+   rga_limitfamploeweightz01(1:2,19) = {MOI_assim_oceobswgtv},
+   rga_limitfamploeweightz01(1:2,20) = {MOI_assim_oceobswgtv},
+   rga_limitfamploeweightz01(1:2,21) = {MOI_assim_oceobswgtv},
+   rga_limitfamploeweightz01(1:2,39) = {MOI_assim_oceobswgtv},
+   rga_limitfamploeweightz01(1:2,40) = {MOI_assim_oceobswgtv},
+   rga_limitfamploeweightz01(1:2,41) = {MOI_assim_oceobswgtv},
+   rga_limitfamploeweightz01(1:2,42) = {MOI_assim_oceobswgtv},
+   rga_limitfamploeweightz01(1:2,43) = {MOI_assim_oceobswgtv},
+   rga_limitfamploeweightz01(1:2,44) = {MOI_assim_oceobswgtv},
+   rga_limitfamploeweightz01(1:2,60) = {MOI_assim_iceobswgtv},
+   rga_limitfamploeweightz01(1:2,61) = {MOI_assim_iceobswgtv},
+   rga_limitfamploeweightz01(1:2,100) =  {MOI_assim_ocebgswgtv},
+   rga_limitfamploeweightz01(1:2,121) = {MOI_assim_ocebgswgtv},
+   rga_limitfamploeweightz01(1:2,122) = {MOI_assim_ocebgswgtv},
+   iga_fampldrzoeweightz(1) = 0,
+   cga_fampldrzoeweightz(1) = 'NONE.cmz',
+   iga_minoestd(1) = 0,
+   cga_fminoestdz(1) = 'NONE.cmz',  
+   rga_minoestd(1) = 0.0,
+   iga_zcorrel(20) = 2,
+   iga_zcorrel(21) = 2,
+   rga_zlengthcorrel(1) = 10.0,
+   iga_grpcorrel(1) = -1,
+   iga_grpcorrel(2) = 1,
+   iga_grpcorrel(3) = 1,
+   iga_grpcorrel(4) = 1,
+   iga_grpcorrel(5) = 1,
+   iga_grpcorrel(6) = 1,
+   iga_grpcorrel(7) = 1,
+   iga_grpcorrel(8) = 1,
+   iga_grpcorrel(9) = 1,
+   iga_grpcorrel(10) = 1,
+   iga_grpcorrel(11) = 0,
+   iga_grpcorrel(12) = 0,
+   iga_grpcorrel(13) = 0,
+   iga_grpcorrel(14) = 0,
+   iga_grpcorrel(15) = 0,
+   iga_grpcorrel(16) = 0,
+   iga_grpcorrel(17) = 0,
+   iga_grpcorrel(18) = 0,
+   iga_grpcorrel(19) = 0,
+!Insitu noncorrele
+   iga_grpcorrel(40) = -1,
+   iga_grpcorrel(41) = -1,
+   iga_grpcorrel(42) = 0,
+   iga_grpcorrel(43) = 0,
+   iga_grpcorrel(44) = 0,
+   iga_grpcorrel(60) = -1,
+   iga_grpcorrel(61) = -1,
+   iga_grpcorrel(62) = 0,
+   iga_grpcorrel(63) = 0,
+   iga_grpcorrel(100) = -1,
+   iga_grpcorrel(120) = -1,
+   iga_grpcorrel(121) = -1,
+   iga_grpcorrel(122) = -1,
+   iga_grpcorrel(124) = -1,
+   iga_grpcorrel(125) = -1,
+   iga_grpcorrel(140) = -1,
+   iga_rgrpcorrel(1) = 1,
+   rga_rlengthgrpcorrel(1) = 20.0,
+   rga_rlengthgrpcorrel(2) = 20.0,
+   rga_rlengthgrpcorrel(3) = 20.0,
+   rga_rlengthgrpcorrel(4) = 20.0,
+   rga_rlengthgrpcorrel(5) = 20.0,
+   rga_rlengthgrpcorrel(6) = 20.0,
+   rga_rlengthgrpcorrel(7) = 20.0,
+   rga_rlengthgrpcorrel(8) = 20.0,
+   rga_rlengthgrpcorrel(9) = 20.0,
+   rga_rlengthgrpcorrel(10) = 20.0,
+   rga_rlengthgrpcorrel(11) = 20.0,
+   rga_rlengthgrpcorrel(12) = 20.0,
+   rga_rlengthgrpcorrel(13) = 20.0,
+   rga_rlengthgrpcorrel(14) = 20.0,
+   rga_rlengthgrpcorrel(15) = 20.0,
+   rga_rlengthgrpcorrel(16) = 20.0,
+   rga_rlengthgrpcorrel(17) = 20.0,
+   rga_rlengthgrpcorrel(18) = 20.0,
+   rga_rlengthgrpcorrel(19) = 20.0,
+!Insitu noncorrele
+   rga_rlengthgrpcorrel(40) = 80.0,
+   rga_rlengthgrpcorrel(41) = 80.0,
+   rga_rlengthgrpcorrel(42) = 80.0,
+   rga_rlengthgrpcorrel(43) = 80.0,
+   rga_rlengthgrpcorrel(44) = 80.0,
+   rga_rlengthgrpcorrel(60) = 40.0,
+   rga_rlengthgrpcorrel(61) = 40.0,
+   rga_rlengthgrpcorrel(62) = 40.0,
+   rga_rlengthgrpcorrel(63) = 40.0,
+   rga_rlengthgrpcorrel(100) = 40.0,
+   rga_rlengthgrpcorrel(120) = 40.0,
+   rga_rlengthgrpcorrel(121) = 40.0,
+   rga_rlengthgrpcorrel(122) = 40.0,
+   rga_rlengthgrpcorrel(124) = 40.0,
+   rga_rlengthgrpcorrel(125) = 40.0,
+   rga_rlengthgrpcorrel(140) = 40.0,
+   cga_frlengthgrpcorrelz(1) = 'NONE.cmz',
+   iga_tgrpcorrel(1) = 1,
+   rga_tlengthgrpcorrel(1) = 1.0,
+   rga_tlengthgrpcorrel(2) = 1.0,
+   rga_tlengthgrpcorrel(3) = 1.0,
+   rga_tlengthgrpcorrel(4) = 1.0,
+   rga_tlengthgrpcorrel(5) = 1.0,
+   rga_tlengthgrpcorrel(6) = 1.0,
+   rga_tlengthgrpcorrel(7) = 1.0,
+   rga_tlengthgrpcorrel(8) = 1.0,
+   rga_tlengthgrpcorrel(9) = 1.0,
+   rga_tlengthgrpcorrel(10) = 1.0,
+   rga_tlengthgrpcorrel(11) = 1.0,
+   rga_tlengthgrpcorrel(12) = 1.0,
+   rga_tlengthgrpcorrel(13) = 1.0,
+   rga_tlengthgrpcorrel(14) = 1.0,
+   rga_tlengthgrpcorrel(15) = 1.0,
+   rga_tlengthgrpcorrel(16) = 1.0,
+   rga_tlengthgrpcorrel(17) = 1.0,
+   rga_tlengthgrpcorrel(18) = 1.0,
+   rga_tlengthgrpcorrel(19) = 1.0,
+!Insitu noncorrele
+   rga_tlengthgrpcorrel(40) = 3.0,
+   rga_tlengthgrpcorrel(41) = 3.0,
+   rga_tlengthgrpcorrel(42) = 3.0,
+   rga_tlengthgrpcorrel(43) = 3.0,
+   rga_tlengthgrpcorrel(44) = 3.0,
+   rga_tlengthgrpcorrel(60) = 3.0,
+   rga_tlengthgrpcorrel(61) = 3.0,
+   rga_tlengthgrpcorrel(62) = 3.0,
+   rga_tlengthgrpcorrel(63) = 3.0,
+   rga_tlengthgrpcorrel(100) = 3.0,
+   rga_tlengthgrpcorrel(120) = 3.0,
+   rga_tlengthgrpcorrel(121) = 3.0,
+   rga_tlengthgrpcorrel(122) = 3.0,
+   rga_tlengthgrpcorrel(124) = 3.0,
+   rga_tlengthgrpcorrel(125) = 3.0,
+   rga_tlengthgrpcorrel(140) = 3.0,
+   cga_ftlengthgrpcorrelz(1) = 'NONE.cmz',
+!
+   iga_activadaptHcovker(1)  = {ANAUSE01},
+   iga_activadaptHcovker(2)  = {ANAUSE02}, 
+   iga_activadaptHcovker(3)  = {ANAUSE03},
+   iga_activadaptHcovker(4)  = {ANAUSE04},
+   iga_activadaptHcovker(5)  = {ANAUSE05},
+   iga_activadaptHcovker(6)  = {ANAUSE06},
+   iga_activadaptHcovker(7)  = {ANAUSE07},
+   iga_activadaptHcovker(8)  = {ANAUSE08},
+   iga_activadaptHcovker(9)  = {ANAUSE09},
+   iga_activadaptHcovker(10) = {ANAUSE10},
+   iga_activadaptHcovker(11) = {ANAUSE11},
+   iga_activadaptHcovker(12) = {ANAUSE12},
+   iga_activadaptHcovker(13) = {ANAUSE13},
+   iga_activadaptHcovker(14) = {ANAUSE14},
+   iga_activadaptHcovker(15) = {ANAUSE15},
+   iga_activadaptHcovker(16) = {ANAUSE16},
+   iga_activadaptHcovker(17) = {ANAUSE17},
+   iga_activadaptHcovker(18) = {ANAUSE18},
+   iga_activadaptHcovker(19) = {ANAUSE19},
+!
+   iga_activadaptHcovker(20) = {ANAUSE20},
+!
+   iga_activadaptHcovker(40) = {ANAUSE40},
+   iga_activadaptHcovker(41) = {ANAUSE41},
+   iga_activadaptHcovker(42) = {ANAUSE42},
+   iga_activadaptHcovker(43) = {ANAUSE43},
+   iga_activadaptHcovker(44) = {ANAUSE44},
+   iga_activadaptHcovker(60) = {ANAUSE60},
+   iga_activadaptHcovker(61) = {ANAUSE61},
+!
+   iga_algoice(1)  = 5,
+   iga_algoice(2)  = 5,
+   iga_algoice(3)  = 5,
+   iga_algoice(4)  = 5,
+   iga_algoice(5)  = 5,
+   iga_algoice(6)  = 5,
+   iga_algoice(7)  = 5,
+   iga_algoice(8)  = 5,
+   iga_algoice(9)  = 5,
+   iga_algoice(10) = 5,
+   iga_algoice(11) = 5,
+   iga_algoice(12) = 5,
+   iga_algoice(13) = 5,
+   iga_algoice(14) = 5,
+   iga_algoice(15) = 5,
+   iga_algoice(16) = 5,
+   iga_algoice(17) = 5,
+   iga_algoice(18) = 5,
+   iga_algoice(19) = 5,
+   iga_algoice(20) = 5,
+   iga_algoice(21) = 5,
+   iga_algoice(39) = 5,
+   iga_algoice(40) = 5, ! -6 SSTforICE
+   iga_algoice(100) = -5,
+   iga_algoice(120) = -1,
+   iga_algoice(121) = -5,
+   iga_algoice(122) = -5,
+   iga_algoice(124) = -1,
+   iga_algoice(125) = -1,
+   iga_algoice(140) = -1,
+! 
+! iga_algoISHr !3 !proj on [(H) or (SSHEIGH) following key_Hr_SSHEIG]
+! iga_algoISHr !4, !proj on [(H-HBRST) following key_Hr_HHBRSTHBRTEMSAL]
+!
+   iga_algoISHr(1)  = 3,
+   iga_algoISHr(2)  = 3,
+   iga_algoISHr(3)  = 3,
+   iga_algoISHr(4)  = 3,
+   iga_algoISHr(5)  = 3,
+   iga_algoISHr(6)  = 3,
+   iga_algoISHr(7)  = 3,
+   iga_algoISHr(8)  = 3,
+   iga_algoISHr(9)  = 3,
+   iga_algoISHr(10) = 3,
+   iga_algoISHr(11) = 3,
+   iga_algoISHr(12) = 3,
+   iga_algoISHr(13) = 3,
+   iga_algoISHr(14) = 3,
+   iga_algoISHr(15) = 3,
+   iga_algoISHr(16) = 3,
+   iga_algoISHr(17) = 3,
+   iga_algoISHr(18) = 3,
+   iga_algoISHr(19) = 3,
+   iga_algoISHr(100) = 3,
+   iga_equivalentmod(1) = 2,   !F_(ssh-diffhbar)
+   iga_equivalentmod(2) = 2,   !F_(ssh-diffhbar)
+   iga_equivalentmod(3) = 2,   !F_(ssh-diffhbar)
+   iga_equivalentmod(4) = 2,   !F_(ssh-diffhbar)
+   iga_equivalentmod(5) = 2,   !F_(ssh-diffhbar)
+   iga_equivalentmod(6) = 2,   !F_(ssh-diffhbar)
+   iga_equivalentmod(7) = 2,   !F_(ssh-diffhbar)
+   iga_equivalentmod(8) = 2,   !F_(ssh-diffhbar)
+   iga_equivalentmod(9) = 2,   !F_(ssh-diffhbar)
+   iga_equivalentmod(10) = 2,  !F_(ssh-diffhbar)
+   iga_equivalentmod(11) = 2,  !F_(ssh-diffhbar)
+   iga_equivalentmod(12) = 2,  !F_(ssh-diffhbar)
+   iga_equivalentmod(13) = 2,  !F_(ssh-diffhbar)
+   iga_equivalentmod(14) = 2,  !F_(ssh-diffhbar)
+   iga_equivalentmod(15) = 2,  !F_(ssh-diffhbar)
+   iga_equivalentmod(16) = 2,  !F_(ssh-diffhbar)
+   iga_equivalentmod(17) = 2,  !F_(ssh-diffhbar)
+   iga_equivalentmod(18) = 2,  !F_(ssh-diffhbar)
+   iga_equivalentmod(19) = 2,  !F_(ssh-diffhbar)
+   iga_equivalentmod(40) = 1,  !nigth sst
+   iga_equivalentmod(41) = 1,  !nigth sst
+   iga_equivalentmod(42) = 2,  !daily sst
+   iga_equivalentmod(43) = 2,  !daily sst
+   iga_equivalentmod(44) = 2,  !daily sst
+   iga_equivalentmod(100) = 2,  !F_(ssh-diffhbar)
+   ampmax      = 1.5,
+   ifreq       = 1,
+   ihwin       = 0,
+   ig_nmasks   = 0,
+   ig_wcount   = 3,
+   iga_wcount(1) = -1,
+   ig_wrej     = 0,
+   iga_wrej(1) = 0,
+   ig_wdia     = 3,
+   iga_wdia(1)  = 2,
+   iga_wdia(2)  = 2,
+   iga_wdia(3)  = 2,
+   iga_wdia(4)  = 2,
+   iga_wdia(5)  = 2,
+   iga_wdia(6)  = 2,
+   iga_wdia(7)  = 2,
+   iga_wdia(8)  = 2,
+   iga_wdia(9)  = 2,
+   iga_wdia(10) = 2,
+   iga_wdia(11) = 2,
+   iga_wdia(12) = 2,
+   iga_wdia(13) = 2,
+   iga_wdia(14) = 2,
+   iga_wdia(15) = 2,
+   iga_wdia(16) = 2,
+   iga_wdia(17) = 2,
+   iga_wdia(18) = 2,
+   iga_wdia(19) = 2,
+   iga_wdia(20) = 2,
+   iga_wdia(21) = 2,
+   iga_wdia(40) = 2,
+   iga_wdia(41) = 2,
+   iga_wdia(42) = 2,
+   iga_wdia(43) = 2,
+   iga_wdia(44) = 2,
+   iga_wdia(60) = 2,
+   iga_wdia(61) = 2,
+   iga_wdia(62) = 2,
+   iga_wdia(63) = 2,
+   iga_wdia(64) = 2,
+   iga_wdia(65) = 2,
+   iga_wdia(70) = 2,
+   iga_wdia(71) = 2,
+   iga_wdia(72) = 2,
+   iga_wdia(73) = 2,
+   iga_wdia(74) = 2,
+   iga_wdia(83) = 2,
+   iga_wdia(84) = 2,
+   ig_wola     = 3,
+   iga_wola(1)  = 1,
+   iga_wola(2)  = 1,
+   iga_wola(3)  = 1,
+   iga_wola(4)  = 1,
+   iga_wola(5)  = 1,
+   iga_wola(6)  = 1,
+   iga_wola(7)  = 1,
+   iga_wola(8)  = 1,
+   iga_wola(9)  = 1,
+   iga_wola(10) = 1,
+   iga_wola(11) = 1,
+   iga_wola(12) = 1,
+   iga_wola(13) = 1,
+   iga_wola(14) = 1,
+   iga_wola(15) = 1,
+   iga_wola(16) = 1,
+   iga_wola(17) = 1,
+   iga_wola(18) = 1,
+   iga_wola(19) = 1,
+   iga_wola(20) = 1,
+   iga_wola(21) = 1,
+   iga_wola(40) = 1,
+   iga_wola(60) = 1,
+   iga_wola(61) = 1,
+   lg_ifrelenv = .false.,
+!   iga_finfobubset(1)   = 10,
+   iga_finfobubset(1)   = 9,
+   rga_infobubsetrmax(1) = 100.
+/
+:
+:'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+:       ssh      ssh parameters
+:,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+:
+: ig_applymssh       : [ 0 = no use | 1 = use param | 2 = use nml ] for mssh
+: lg_mssh_pgr_shift  : load a file dedicated to mssh pgr shift [available only if ig_applymssh/=0]
+: lg_mssh_glacier_melting_shift : load a file dedicated to mssh glacier_melting shift [available only if ig_applymssh/=0]
+: lg_mssh_steric_trend : apply a additive trend due to steric effect [available only if ig_applymssh/=0]
+: rg_mssh_steric_trend : trend value (mm/year) due to steric effect [available only if ig_applymssh/=0]
+: rg_mssh_shift      : value of the mssh shift
+: rg_mssh_shiftnrt   : value of the addiditional mssh shift for nrt period (in addition to rg_mssh_shift)
+: cg_fnmssh          : file name of mssh
+: cg_fvmssh          : varname in mssh file
+: cg_frmssh          : file name of reshape file for mssh file
+: lg_apply_gmsl_corr : load a file dedicated to GMSL correction (Greiner-Meyssignac 2017)
+: cg_fncorrgmsl      : file name of GMSL monthly correction
+: ig_applyerrmssh    : [ 0 = no use | 1 = use param | 2 = use nml ] for mssh error
+: cg_fnerrmssh       : file name of mssh error
+: cg_fverrmssh       : varname in mssh error file
+: cg_frerrmssh       : file name of reshape file for mssh error file
+: ig_applyerrreprssh : [ 0 = no use | 1 = use param | 2 = use nml ] for ssh representativity error
+: cg_fnerrreprssh    : file name of ssh representativity error
+: cg_fverrreprssh    : varname in ssh representativity error file
+: cg_frerrreprssh    : file name of reshape file for ssh representativity error file
+: ig_applyerrenvisat : [ 0 = no use | 1 = use param | 2 = use nml ] for envisat error
+: cg_fnerrenvisat    : file name of envisat error
+: cg_fverrenvisat    : varname in envisat error file
+: cg_frerrenvisat    : file name of reshape file for envisat error file
+: cg_fntemclimref    : file name of reference 3D temperature climatology
+: cg_fvtemclimref    : varname in reference 3D temperature climatology file
+: cg_frtemclimref    : file name of reshape file for reference 3D temperature climatology file
+: cg_fnsalclimref    : file name of reference 3D salinity climatology
+: cg_fvsalclimref    : varname in reference 3D salinity climatology file
+: cg_frsalclimref    : file name of reshape file for reference 3D salinity climatology file
+: lg_alti_[glo|med|blacksea|arctic] : use of regional specific altimetric files
+: ig_diawri_eqvsla   : sla output is provided as it is computed for the sla equivalent in the innovation [0:no,1:sla,2:sla+mssh]
+:
+ &ssh
+   ig_applymssh=2,
+   lg_mssh_pgr_shift=.TRUE.,
+   lg_mssh_glacier_melting_shift=.FALSE.,
+   lg_mssh_steric_trend=.TRUE.,
+   rg_mssh_steric_trend=-1.4,
+   rg_mssh_shift=-0.087,
+!
+   rg_mssh_shiftnrt=0.,
+   cg_fnmssh='MSSH_FREERUN_NEATL36_V6.2_2013-2019_corrected.nc',
+   cg_fvmssh='mssh',
+   cg_frmssh='',
+   lg_apply_gmslcorr=.FALSE.,
+   cg_fn_gmslcorr='GMSL_correction_monthly_1993_2012_extrap_quadratic.txt',
+   ig_applyerrmssh=2,
+   cg_fnerrmssh='MSSH_error_IBI36_202109.nc',
+   cg_fverrmssh='error',
+   cg_frerrmssh='',
+   ig_applyerrreprssh=0,
+   cg_fnerrreprssh='COASTAL_BATHY_obserror_NEATL36.nc',
+   cg_fverrreprssh='SLA_REPRESENTATIVITY',
+   cg_frerrreprssh='',
+   ig_applyerrenvisat=0,
+   cg_fnerrenvisat='ENVISAT_ERROR_eORCA025.nc',
+   cg_fverrenvisat='ENVISAT_ERROR',
+   cg_frerrenvisat='',
+   cg_fntemclimref='CLIMATO_NAME_Tem_ORCA025annual.nc',
+   cg_fvtemclimref='votemper',
+   cg_frtemclimref='',
+   cg_fnsalclimref='CLIMATO_NAME_Sal_ORCA025annual.nc',
+   cg_fvsalclimref='vosaline',
+   cg_frsalclimref='',
+   lg_alti_glo=.FALSE.,
+   lg_alti_med=.FALSE.,
+   lg_alti_blacksea=.FALSE.,
+   lg_alti_arctic=.FALSE.,
+   ig_diawri_eqvsla=1
+/
+:
+:'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+:       subroa      subroa parameters
+:,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+:
+: ig_nsubroa                         : number of sub analyses (must be in [1:ip_maxsubroa])
+: cga_namsubroa      (1|NSUBROA)     : array of subroa nam
+: iga_activsubroa                    : in [0:2] do not(0) or activ(1) or activ&writecmx(2) each subroa
+: ig_algomergesubroa                 : type of algorithme for merging the increments coming 
+:                                      from each each sub analyse (must be in [0:1)
+:                                      defining the ensemble of subroa num (in [-bitmax(ig_nsubroa):-1])
+:                                      or targeted(in [1:ig_nsubroa]) by each setid
+: iga_ptsubroa       (1|nsets),DEF=0 : pointer array by set to the subroa num (must be in [-ig_nsubroa:ig_nsubroa]) 
+:
+ &subroa
+   ig_nsubroa = 1,
+   cga_namsubroa(1) = 'OCEAN',	
+   cga_namsubroa(2) = 'ICE',	
+   cga_namsubroa(3) = 'FORCING',
+   iga_activsubroa(1) = 1,	
+   iga_activsubroa(2) = 1,	
+   iga_activsubroa(3) = 1,	
+   ig_algomergesubroa = 2,    !OCEAN,ICE,FORCING analysis
+!
+!-2,  ! -(1*2+0*4+0*8) OCEAN analysis
+!-4,  ! -(0*2+1*4+0*8) ICE analysis
+!-10, ! -(1*2+0*4+1*8) OCEAN,FORCING analysis
+!-14, ! -(1*2+1*4+1*8) OCEAN,ICE,FORCING analysis
+!
+   iga_ptsubroa(1) = -2,
+   iga_ptsubroa(2) = -2,
+   iga_ptsubroa(3) = -2,
+   iga_ptsubroa(4) = -2,
+   iga_ptsubroa(5) = -2,
+   iga_ptsubroa(6) = -2,
+   iga_ptsubroa(7) = -2,
+   iga_ptsubroa(8) = -2,
+   iga_ptsubroa(9) = -2,
+
+   iga_ptsubroa(10) = -2,
+   iga_ptsubroa(11) = -2,
+   iga_ptsubroa(12) = -2,
+   iga_ptsubroa(13) = -2,
+   iga_ptsubroa(14) = -2,
+   iga_ptsubroa(15) = -2,
+   iga_ptsubroa(16) = -2,
+   iga_ptsubroa(17) = -2,
+   iga_ptsubroa(18) = -2,
+   iga_ptsubroa(19) = -2,
+   iga_ptsubroa(20) = -2,
+   iga_ptsubroa(40) = -10,
+   iga_ptsubroa(41) = -10,
+   iga_ptsubroa(60) = -4,
+   iga_ptsubroa(61) = -4,
+   iga_ptsubroa(100) = -2,
+   iga_ptsubroa(120) = -2,
+   iga_ptsubroa(121) = -2,
+   iga_ptsubroa(122) = -2,
+   iga_ptsubroa(124) = -2,
+   iga_ptsubroa(125) = -2,
+   iga_ptsubroa(140) = -2
+/
+:
+:'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+:       par      SAM2 parameter 
+:,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+:
+: iga_fHlargescale     (1|nsets),DEF=0    : existence ou non [0=non,1] par setid de fHlargescale
+: cga_fHlargescale     (1|nsets),DEF=NONE :
+: iga_setbubwdist      (1|nsets),DEF=0    : existence ou non par setid [0,1] de amplification erreur observation fonction de la distance au centre 
+: iga_settimewdist     (1|nsets),DEF=0    : existence ou non par setid [0,1] de amplification erreur observation fonction de la distance a la date analyse courante
+:
+  &par
+   iga_fHlargescale(1)     = 0,
+   cga_fHlargescale(1)     = 'NONE.cmz',
+   iga_setbubwdist(1)  = 1,
+   iga_settimewdist(1) = 1
+/
+:
+:'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+:       sta     Statistical models
+:,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+:
+: ifgeovar              : Covariance radii and influence radii vary or not with
+:                         geographic location.
+: rgx (1|nsets),DEF=0.0 : Guess error correlation radii for 0 time lag in x (km).
+: rgy (1|nsets),DEF=0.0 : Guess error correlation radii for 0 time lag in y (km).
+: rgt (1|nsets),DEF=0.0 : Guess error correlation radii for 0 time lag in time.
+: rox (1|nsets),DEF=0.0 : Obser error correlation radii for 0 time lag in x (km).
+: roy (1|nsets),DEF=0.0 : Obser error correlation radii for 0 time lag in y (km).
+: rot (1|nsets),DEF=0.0 : Obser error correlation radii for 0 time lag in time.
+: ig_resfscale          : resolution of f[x|y|t]scale (regular (1/res)x(1/res) degree) ex res [1,4,12]
+: cg_fxscale            : fname of xscale
+: cg_fyscale            : fname of yscale
+: cg_ftscale            : fname of tscale
+:
+ &sta 
+   ifgeovar   = 1,
+   rgx(1)     = 3.0,
+   rgx(2)     = 3.0,
+   rgx(3)     = 3.0,
+   rgx(4)     = 3.0,
+   rgx(5)     = 3.0,
+   rgx(6)     = 3.0,
+   rgx(7)     = 3.0,
+   rgx(8)     = 3.0,
+   rgx(9)     = 3.0,
+   rgx(10)    = 3.0,!2.6,
+   rgx(20)    = 3.0,
+   rgx(39)    = 3.0,
+   rgx(40)    = 3.0,
+   rgx(41)    = 3.0,
+   rgx(42)    = 3.0,!2.6,
+   rgx(43)    = 3.0,!2.6,
+   rgx(44)    = 3.0,!2.6,
+   rgx(60)    = 3.0,
+   rgx(61)    = 3.0,
+   rgx(100)   = 3.0,!0.65,
+   rgx(120)   = 3.0,!0.65,
+   rgx(121)   = 3.0,!0.65,
+   rgx(122)   = 3.0,!0.65,
+   rgx(124)   = 3.0,!0.65,
+   rgx(125)   = 3.0,!0.65,
+   rgx(140)   = 1.5,
+   rgy(1)     = 3.0,
+   rgy(2)     = 3.0,
+   rgy(3)     = 3.0,
+   rgy(4)     = 3.0,
+   rgy(5)     = 3.0,
+   rgy(6)     = 3.0,
+   rgy(7)     = 3.0,
+   rgy(8)     = 3.0,
+   rgy(9)     = 3.0,
+   rgy(10)    = 3.0,!2.6,
+   rgy(20)    = 3.0,
+   rgy(39)    = 3.0,
+   rgy(40)    = 3.0,
+   rgy(41)    = 3.0,
+   rgy(42)    = 3.0,!2.6,
+   rgy(43)    = 3.0,!2.6,
+   rgy(44)    = 3.0,!2.6,
+   rgy(60)    = 3.0,
+   rgy(61)    = 3.0,
+   rgy(100)   = 3.0,!0.65,
+   rgy(120)   = 3.0,!0.65,
+   rgy(121)   = 3.0,!0.65,
+   rgy(122)   = 3.0,!0.65,
+   rgy(124)   = 3.0,!0.65,
+   rgy(125)   = 3.0,!0.65,
+   rgy(140)   = 1.5,
+   rgt(1)     = 1.0,
+   rox(1)     = 1.,
+   roy(1)     = 1.,
+   rot(1)     = 1.,
+   rg_maxrgx  = 10000.0,
+   rg_maxrgy  = 10000.0,
+   rg_maxrgt  = 365.0,
+   rg_minrgx  = 15.0,
+   rg_minrgy  = 15.0,
+   rg_minrgt  = 1.0,
+   ig_resfscale	= 4,
+   cg_fxscale='TABUL_ORCA_XSCALE_4x4_v202201.opa',
+   cg_fyscale='TABUL_ORCA_YSCALE_4x4_v202201.opa',
+   cg_ftscale='TABUL_ORCA_TSCALE_4x4_v202201.opa'
+/
+:
+:'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+:       sop       Suboptimal analysis parameters
+:,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+:
+: rix                                     :
+: riy                                     :
+: rit                                     :
+: rga_amplrix                             :
+: rga_amplriy                             :
+: rga_amplrit                             :
+: nsel                   (1|nsets),DEF=1  :
+: algoselecttype         (1|nsets),DEF=1  :
+: rga_rangemaxdistredun  (1|nsets),DEF=0.0:
+: rga_maxdtimeactivredun (1|nsets),DEF=0.0:
+: iga_minnselactivredun  (1|nsets),DEF=0  :
+: rga_mindistactivredun  (1|nsets),DEF=0.0:
+:
+ &sop
+   rix     = 12.0,
+   riy     = 12.0,
+   rit     = 2.0,
+   rga_amplrix(1) = 0.5,
+   rga_amplrix(2) = 0.5,
+   rga_amplrix(3) = 0.5,
+   rga_amplrix(4) = 0.5,
+   rga_amplrix(5) = 0.5,
+   rga_amplrix(6) = 0.5,
+   rga_amplrix(7) = 0.5,
+   rga_amplrix(8) = 0.5,
+   rga_amplrix(9) = 0.5,
+   rga_amplrix(10) = 0.5,!1.0,
+   rga_amplrix(20) = 0.5,
+   rga_amplrix(39) = 0.5,
+   rga_amplrix(40) = 0.5,
+   rga_amplrix(41) = 0.5,
+   rga_amplrix(42) = 0.5,!1.0,
+   rga_amplrix(43) = 0.5,!1.0,
+   rga_amplrix(44) = 0.5,!1.0,
+   rga_amplrix(60) = 0.5,
+   rga_amplrix(61) = 0.5,
+   rga_amplrix(100) = 0.5,!0.25,
+   rga_amplrix(120) = 0.5,!0.25,
+   rga_amplrix(121) = 0.5,!0.25,
+   rga_amplrix(122) = 0.5,!0.25,
+   rga_amplrix(124) = 0.5,!0.25,
+   rga_amplrix(125) = 0.5,!0.25,
+   rga_amplrix(140) = 0.25,
+   rga_amplriy(1) = 0.5,
+   rga_amplriy(2) = 0.5,
+   rga_amplriy(3) = 0.5,
+   rga_amplriy(4) = 0.5,
+   rga_amplriy(5) = 0.5,
+   rga_amplriy(6) = 0.5,
+   rga_amplriy(7) = 0.5,
+   rga_amplriy(8) = 0.5,
+   rga_amplriy(9) = 0.5,
+   rga_amplriy(10) = 0.5,!1.0,
+   rga_amplriy(20) = 0.5,
+   rga_amplriy(39) = 0.5,
+   rga_amplriy(40) = 0.5,
+   rga_amplriy(41) = 0.5,
+   rga_amplriy(42) = 0.5,!1.0,
+   rga_amplriy(43) = 0.5,!1.0,
+   rga_amplriy(44) = 0.5,!1.0,
+   rga_amplriy(60) = 0.5,
+   rga_amplriy(61) = 0.5,
+   rga_amplriy(100) = 0.5,!0.25,
+   rga_amplriy(120) = 0.5,!0.25,
+   rga_amplriy(121) = 0.5,!0.25,
+   rga_amplriy(122) = 0.5,!0.25,
+   rga_amplriy(124) = 0.5,!0.25,
+   rga_amplriy(125) = 0.5,!0.25,
+   rga_amplriy(140) = 0.25,
+   rga_amplrit(1) = 1.0,
+   nsel(1)  = 150,!1500,
+   nsel(2)  = 150,!1500,
+   nsel(3)  = 150,!1500,
+   nsel(4)  = 150,!1500,
+   nsel(5)  = 150,!1500,
+   nsel(6)  = 150,!1500,
+   nsel(7)  = 150,!1500,
+   nsel(8)  = 150,!1500,
+   nsel(9)  = 150,!1500,
+   nsel(10) = 1500,
+   nsel(11) = 150,!1500,
+   nsel(12) = 150,!1500,
+   nsel(13) = 150,!1500,
+   nsel(14) = 150,!1500,
+   nsel(15) = 150,!1500,
+   nsel(16) = 150,!1500,
+   nsel(17) = 150,!1500,
+   nsel(18) = 150,!1500,
+   nsel(19) = 150,!1500,
+   nsel(20) = 100,!1000,
+   nsel(21) = 100,!1000,
+   nsel(39) = 150,!2000,
+   nsel(40) = 400,!2000,
+   nsel(41) = 1500,!2000,
+   nsel(42) = 1500,
+   nsel(43) = 1500,
+   nsel(44) = 1500,
+   nsel(60) = 400,!2000,
+   nsel(61) = 400,!2000,
+   nsel(100) = 75,
+   nsel(120) = 27,
+   nsel(121) = 27,
+   nsel(122) = 27,
+   nsel(124) = 27,
+   nsel(125) = 27,
+   nsel(140) = 175,
+   algoselecttype(1) = 1,
+   rga_rangemaxdistredun(1) = 0.0,
+   rga_maxdtimeactivredun(1) = 0.0,
+   iga_minnselactivredun(1) = 0,
+   rga_mindistactivredun(1) = 0.0
+/
+:
+:'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+:      can        Geographical canvas -  Grid parameters
+:,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+:
+: ifconv      :
+:
+ &can
+   ifconv     = 3
+/

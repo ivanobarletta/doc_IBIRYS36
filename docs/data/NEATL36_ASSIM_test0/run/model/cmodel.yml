@@ -1,0 +1,18 @@
+ocean:
+ - namelist_cfg
+ - namelist_ref
+
+bgc:
+ - namelist_top_cfg
+ - namelist_top_ref
+ - namelist_pisces_cfg  
+ - namelist_pisces_ref 
+    
+xios:
+ - axis_def.xml 
+ - domain_def.xml
+ - field_def.xml
+ - file_def.xml
+ - file_def_crs.xml
+ - grid_def.xml
+ - iodef.xml

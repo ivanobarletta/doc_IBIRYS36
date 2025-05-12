@@ -1,0 +1,657 @@
+#version @verroa_i
+@verroa1
+#
+##DIMENSION
+##----------
+#jpnsubroa(in [1:]) jpnroatgrid(in [1:]) jpnroasgrid(in [1:])
+1 5 2
+#jpnroaset(in [1:]) jpnreadnam(in [1:]) jpnroatimes(in [1:])
+30 10 7
+#jpndeltatgrid(in [1:]) jpndeltasgrid(in [1:]) jpndeltakgrid(in [1:])
+5 2 7
+#jpnstructdtadelta(in [1:]) jpnvarstructdta(in [1:]) jpndeltatimes(in [1:])
+1 13 7
+#grpbogus_start(in [:0]) grpbogus_end(in [0:])
+-1 1
+#
+#maxfinforoa(in [0:3]) 
+3
+#maxfinfogrpbogus(in [0:3]) maxfinfortypegrpbogus(in [0:2]
+3 1
+#
+##Definition of roatgrid
+##----------------------
+#
+##LOOP roatgrid[1:jpnroatgrid]
+##----------------------------
+#roatgridnam_i
+#jpnroatimes_i(in [1:jpnroatimes]) [in|out]rodeltatimes_i(in [0:1])
+#troatimesgrid_i[1:nroatimesgrid_i]
+##ENDLOOP roatgrid[1:jpnroatgrid]
+##-------------------------------
+#
+#ROAT_4DC7
+#7 0 0
+#1.0 2.0 3.0 4.0 5.0 6.0 7.0          ###IAU14C7
+#-6.0 -5.0 -4.0 -3.0 -2.0 -1.0 0.0    ###IAU24C7
+#
+#ROAT_4DC5
+#5 0 0
+#1.0 2.0 3.0 4.0 5.0                  ###IAU14C5
+#-4.0 -3.0 -2.0 -1.0 0.0              ###IAU24C5
+#-9.0 -8.0 -7.0 -6.0 -5.0             ###IAU34C5
+#
+#ROAT_4DC3
+#3 0 0
+#1.0 2.0 3.0                          ###IAU14C3
+#-2.0 -1.0 0.0                        ###IAU24C3
+#-5.0 -4.0 -3.0                       ###IAU34C3
+#-8.0 -7.0 -6.0                       ###IAU44C3
+#
+ROAT_4DC7
+7 0 0
+1.0 2.0 3.0 4.0 5.0 6.0 7.0
+#
+ROAT_4DC7t
+3 0 0
+1.0 4.0 7.0
+#
+ROAT_4DC7b
+2 0 0
+1.0 7.0
+#
+ROAT_MIDC7
+1 0 0
+4.0
+#
+ROAT_ENDC7
+1 0 0
+7.0
+#
+#
+##Definition of roasgrid
+##----------------------
+#
+##LOOP roasgrid[1:jpnroasgrid]
+##----------------------------
+#roasgridnam_i
+#existdatagap_i(in [0:1]) keepbogusgap_i(in [0:1]) [reducegrid|roa]canmsk_i(in [0:1])
+#freducegridcan[msk|weight]_i froacanmsk_i'
+##ENDLOOP roasgrid[1:jpnroasgrid]
+##-------------------------------
+#
+NEATL36_CANSAMPL3
+#1 0 1 0 #OITKF
+#1 1 1 0 #En
+1 0 1 0
+reducecanmsk_NEATL36_sampling3.cmz reducecanweight_NEATL36_sampling3.cmz roacanmsk3.cmz
+#
+#
+NEATL36_CANSAMPL6
+#1 0 1 0 #OITKF
+#1 1 1 0 #En
+1 0 1 0
+reducecanmsk_NEATL36_sampling6.cmz reducecanweight_NEATL36_sampling6.cmz roacanmsk6.cmz
+#
+##Definition of deltatgrid
+##------------------------
+#
+##LOOP deltatgrid[1:jpndeltatgrid]
+##--------------------------------
+#deltatgridnam_i
+#jpndeltatimes_i(in [1:jpndeltatimes])
+#tdeltatimesgrid_i[1:ndeltatimesgrid_i]
+##ENDLOOP deltatgrid[1:jpndeltatgrid]
+##-----------------------------------
+#
+#DELTAT_4DC7
+#7
+#1.0 2.0 3.0 4.0 5.0 6.0 7.0          ###IAU14C7
+#-6.0 -5.0 -4.0 -3.0 -2.0 -1.0 0.0    ###IAU24C7
+#
+#DELTAT_4DC5
+#5
+#1.0 2.0 3.0 4.0 5.0                  ###IAU14C5
+#-4.0 -3.0 -2.0 -1.0 0.0              ###IAU24C5
+#-9.0 -8.0 -7.0 -6.0 -5.0             ###IAU34C5
+#
+#DELTAT_4DC3
+#3
+#1.0 2.0 3.0                          ###IAU14C3
+#-2.0 -1.0 0.0                        ###IAU24C3
+#-5.0 -4.0 -3.0                       ###IAU34C3
+#-8.0 -7.0 -6.0                       ###IAU44C3
+#
+DELTAT_4DC7
+7
+1.0 2.0 3.0 4.0 5.0 6.0 7.0
+#
+DELTAT_4DC7t
+3
+1.0 4.0 7.0
+#
+DELTAT_4DC7b
+2
+1.0 7.0
+#
+DELTAT_MIDC7
+1
+4.0
+#
+DELTAT_ENDC7
+1
+7.0
+#
+##Definition of deltasgrid
+##------------------------
+#
+##LOOP deltasgrid[1:jpndeltasgrid]
+##--------------------------------
+#deltasgridnam_i jroasgriddeltasgrid_i(in [0:jpnroasgrid]) 0=>new sgrid
+#subbloc inc only if jroasgriddeltasgrid_i==0
+#[reducegrid|delta]incmsk_i(in [0:1])
+#freducegridinc[msk|weight]_i fdeltaincmsk_i'
+##ENDLOOP deltasgrid[1:jpndeltasgrid]
+##-----------------------------------
+#
+NEATL36_INCSAMPL3 1
+#1 0
+#reducecanmsk_NEATL36_sampling2.cmz reducecanweight_NEATL36_sampling2.cmz deltaincmsk2.cmz
+#
+NEATL36_INCSAMPL6 2
+#1 0
+#reducecanmsk_NEATL36_sampling4.cmz reducecanweight_NEATL36_sampling4.cmz deltaincmsk4.cmz
+#
+#
+##Definition of deltakgrid
+##------------------------
+#structdtadeltanam by group of jpnreadnam
+#structdtadeltanam[1:jpnreadnam:]
+#structdtadeltanam[jpnreadnam+1:2*jpnreadnam]
+#structdtadeltanam[j*jpnreadnam+1:jpnstructdtadelta]
+#
+HSSTHTSUV
+#
+##LOOP deltakgrid[1:jpndeltakgrid]
+##--------------------------------
+#deltakgridnam_i
+#nvarstructdtadelta_i[1:jpnstructdtadelta]
+#SUBLOOP deltakgridstructdta[1:jpnstructdtadelta]
+#subbloc dtanamstructdtadelta_ij by group of jpnreadnam only if nvarstructdtadelta_ij>0
+#dtanamstructdtadelta[1:jpnreadnam:]
+#dtanamstructdtadelta[jpnreadnam+1:2*jpnreadnam]
+#dtanamstructdtadelta[j*jpnreadnam+1:nvarstructdtadelta_ij]
+#jdelta[t|s]grid_ij(in [1:jpndelta[t|s]grid])
+##ENDSUBLOOP deltakgridstructdta[1:jpnstructdtadelta]
+##ENDLOOP deltakgrid[1:jpndeltagrid]
+##----------------------------------
+#
+#deltakgridnam_1 (iau ana123.0,sampling2)
+OCEAN
+#nvarstructdtadelta_i[1:jpnstructdtadelta]
+8
+SSHEIG SST H HBRST TEM SAL U V
+1 1
+#
+#deltakgridnam_2 (limitedvar ana2.0,sampling2)
+OCEAN2D
+#nvarstructdtadelta_i[1:jpnstructdtadelta]
+4
+SSHEIG SST H HBRST
+4 1
+#
+#deltakgridnam_3 (fullvar ana2.0,sampling4)
+OCEANs4
+#nvarstructdtadelta_i[1:jpnstructdtadelta]
+8
+SSHEIG SST H HBRST TEM SAL U V
+4 2
+#
+#deltakgridnam_4 (limitedvar ana2.0,sampling4)
+OCEAN2Ds4
+#nvarstructdtadelta_i[1:jpnstructdtadelta]
+4
+SSHEIG SST H HBRST
+4 2
+#
+#deltakgridnam_5 (limitedvar ana2.0,sampling4)
+OCEAN2DSSHs4
+#nvarstructdtadelta_i[1:jpnstructdtadelta]
+3
+SSHEIG H HBRST
+4 2
+#
+#deltakgridnam_6 (limitedvar ana2.0,sampling4)
+OCEAN2DSSTs4
+#nvarstructdtadelta_i[1:jpnstructdtadelta]
+1
+SST
+2 1
+#
+#deltakgridnam_7 (limitedvar ana2.0,sampling4)
+OCEAN2Ds4
+#nvarstructdtadelta_i[1:jpnstructdtadelta]
+6
+SSHEIG SST H HBRST TEM SAL
+4 2
+#
+##Definition of subroa
+##------------------------
+#
+##LOOP subroa[1:jpnsubroa]
+##------------------------
+#subroanam_i algokerana_i maxroatimeskerana(in [1:])
+#validsubroa_i(in [0:1]) jpnroaset_i(in [1:jpnroaset])
+#
+##subbloc roasetnam_i by group of jpnreadsetnam
+#roasetnam[1:jpnreadsetnam:]
+#roasetnam[jpnreadsetnam+1:2*jpnreadsetnam]
+#roasetnam[j*jpnreadsetnam+1:jpnroaset_i]
+#
+#algoadaptinnov_i(in [1:3])
+##subbloc adaptinnov_ens_start|size_i only if algoadaptinnov_i=3
+#adaptDUP_ensval_start_i(in [0:1]) adaptDUP_ensval_size_i(in [0:])
+#
+#jroatgrid_i(in [1:jpnroatgrid]) jroasgrid_i(in [1:jpnroasgrid])
+#
+#jdeltakgrid_[m0|mean|ens]_i(in [0:jpndeltakgrid]) (0=>unvalid)
+##subbloc delta_start|size_i only if jdeltakgrid_ens_i>0
+#delta_start_i(in [0:1]) delta_size_i(in [0:])
+#
+#algoboguswdist_i(in [0:2]) fct[bub|time]boguswdist_i(in [0:[2|3]]) start[bub|time]boguswdist_i(in [0.0:])
+#algoadaptHcovwdist_i(in [0:2]) fct[bub|time]adaptHcovwdist_i(in [0:[2|3]]) start[bub|time]Hcovwdist_i(in [0.0:])
+#algoadaptkerwdist_i(in [0:2]) fct[bub|time]adaptkerwdist_i(in [0:[2|3]]) start[bub|time]adaptkerwdist_i(in [0.0:])
+#grpbogus_[start|end|adaptHcovlaunch]_i(in [ig_grpbogus_[start|end|start]:0])
+#algogrpbogus_i[grpbogus_start:grpbogus_end] (in [0:1])
+#amplgrpbogus_i[grpbogus_start:grpbogus_end] (in ]0.:])
+#normgrpbogus_i[grpbogus_start:grpbogus_end] (in [0:3])
+#finfogrpbogus_i[grpbogus_start:grpbogus_end] (in [0:3])
+#finfolambdafgrpbogus_i[grpbogus_start:grpbogus_end] (in [0:2])
+#finfolambdaagrpbogus_i[grpbogus_start:grpbogus_end] (in [0:2])
+#
+#validadapt[Hcov|ker]_i(in [0:1]) readlog_i(in [0:1])
+#
+##subbloc adaptHcov_i only if validadaptHcov_i>0
+################################################
+#
+#[algoNw|pwnroeweight]adaptHcov_i(in [0:1]) algogammaadaptHcov_i(in [0:2])
+#
+#algomsklambdaadaptHcov_i(in [0:1])
+##subbloc cutlambdaadaptHcov_i only if algomsklambdaadaptHcov_i/=0
+#algocutlambdaadaptHcov_i(in [-4:4]) [jpr[min|max]|tr[lambda|vardr]max]ratecutlambdaadaptHcov_i(in [0.:1.])
+#
+#algo[up|shape|adapt]lambdaHcov_i(in [0:[1|2|2]])
+##subbloc shapelambdaadaptHcov_i only if algoshapelambdaadaptHcov_i>0
+#[iter|merge[|2|l]]varEnrshapelambdaadaptHcov_i(in [0:]|[0.:1.])
+#[iter|merge[|2|l]]vardrshapelambdaadaptHcov_i(in [0:]| [0.:1.])
+#
+#algoupKadaptHcov_i(in [-4:4] algoalphaminmaxadaptHcov_i(in [-5:5]) algoupPaadaptHcov_i(in [-3:5])
+##subbloc [K|Pa]adaptHcov_i only if algoup[K|Pa]adaptHcov_i/=0
+#K[min|max]critadaptHcov_i up[alpha|beta][min|max]adaptHcov_i (min|max in ]:min:1.0:max:[)       Warning(log10 if readlog==1)
+##subbloc algoadaptlambdaadaptHcov_i only if algoupKadaptHcov_i/=0 and algoadaptlambdaadaptHcov_i==2
+#lambda[min|max]critadaptHcov_i upalphalambda[min|max]adaptHcov_i (min|max in ]:min:1.0:max:[)   Warning(log10 if readlog==1)
+##subbloc PaadaptHcov_i only if algoupPaadaptHcov_i=[4:5]
+#alpha0upPaadaptHcov_i isnr0[min|max]upPaadaptHcov_i                                             Warning(log10 if readlog==1)
+#
+#algomergeabadaptHcov_i(in [-2:2])
+##subbloc mergeabadaptHcov_i only if algomergeabadaptHcov_i/=0
+#mergeabadaptHcov_i(in [1:2]) mergeabroatimesadaptHcov(in [1:2]) fmergeabwadaptHcovz(in [-1,1])
+##subbloc mergeabadaptHcov_i only if mergeabadaptHcov_i=1
+#mergeabadaptHcov_i[1] or [1:nroatimesgrid(jroatgrid_i)] in [0.0:1.0]
+##subbloc fmergeabadaptHcovz_i only if mergeabadaptHcov_i=2
+#fmergeabadaptHcovz_i[1] or [1:nroatimesgrid(jroatgrid_i)]
+#
+#algobiasadaptHcov_i(in [-2:2])
+##subbloc bias_i only if algobiasadaptHcov_i/=0
+#c[o|f|a]biasadaptHcov_i(in [[0.|0.|-co]:[) capplybiasadaptHcov_i(in [0.:1.0])
+#
+##subbloc adaptker_i only if validadaptker_i>0
+################################################
+#
+#[algoNw|pwnroeweight]adaptker_i(in [0:1]) algogammaadaptker_i(in [0:2])
+#
+#algomsklambdaadaptker_i(in [0:1])
+##subbloc cutlambdaadaptker_i only if algomsklambdaadaptker_i/=0 
+#algocutlambdaadaptker_i(in [-4:4]) jpr[min|max]|tr[lambda|vardr]max]ratecutlambdaadaptker_i(in [0.:1.])
+#
+#algo[up|shape|adapt]lambdaker_i(in [0:[1|2|2]])
+##subbloc shapelambdaadaptker_i only if algoshapelambdaadaptker_i>0
+#[iter|merge[|2|l]]varEnrshapelambdaadaptker_i(in [0:]|[0.:1.])
+#[iter|merge[|2|l]]vardrshapelambdaadaptker_i(in [0:]| [0.:1.])
+#
+#algoupKadaptker_i(in [-4:4] algoalphaminmaxadaptker_i(in [-5:5]) algoupPaadaptker_i(in [-3:5])
+##subbloc [K|Pa]adaptker_i only if algoup[K|Pa]adaptker_i/=0
+#K[min|max]critadaptker_i up[alpha|beta][min|max]adaptker_i (min|max in ]:min:1.0:max:[)       Warning(log10 if readlog==1)
+##subbloc algoadaptlambdaadaptker_i only if algoupKadaptker_i/=0 and algoadaptlambdaadaptker_i==2
+#lambda[min|max]critadaptker_i upalphalambda[min|max]adaptker_i (min|max in ]:min:1.0:max:[)   Warning(log10 if readlog==1)
+##subbloc Paadaptker_i only if algoupPaadaptker_i=[4:5]
+#alpha0upPaadaptker_i isnr0[min|max]upPaadaptker_i                                             Warning(log10 if readlog==1)
+#
+#algomergeabadaptker_i(in [-2:2])
+##subbloc mergeabadaptker_i only if algomergeabadaptker_i/=0
+#mergeabadaptker_i(in [1:2]) mergeabroatimesadaptker(in [1:2]) fmergeabwadaptkerz(in [-1,1])
+##subbloc mergeabadaptker_i only if mergeabadaptker_i=1
+#mergeabadaptker_i[1] or [1:nroatimesgrid(jroatgrid_i)] in [0.0:1.0]
+##subbloc fmergeabadaptkerz_i only if mergeabadaptker_i=2
+#fmergeabadaptkerz_i[1] or [1:nroatimesgrid(jroatgrid_i)]
+#
+#algobiasadaptker_i(in [-2:2])
+##subbloc bias_i only if algobiasadaptker_i/=0
+#c[o|f|a]biasadaptker_i(in [[0.|0.|-co]:[) capplybiasadaptker_i(in [0.:1.0])
+#
+#applyETFadaptker_i(in [-1:1]) uperrETFadaptker_i(in [0:1])
+#algoETF12adaptker_i(in [0:2])
+##subbloc ETF12|massPa_i only if algoETF12adaptker_i/=0
+#c[o|f|a]ETF12adaptker_i(in [[0.|0.|max(-co,-cf)]:[) acriter[min|max]adaptker_i(in ]0.:1.0[|[min:1.0])
+#algomassPaadaptker_i(in [0:2]) massPa[min|max]adaptker_i(in [0.|massPamin:[) massParateminadaptker_i(in [0.:1.0[)
+#massPaconvcritadaptker_i(in ]0.:[) massPaitermaxadaptker_i(in [1:[)
+#uperrETF1onlyadaptker_i(in [0:1])
+#
+##subbloc ETPF_i only if algokerana_i=[OITPF|LETPF]
+#algo[wmed|normw|wETPF]adaptker_i(in [0:[1|2|1]])
+#algouperrETPFadaptker_i(in [-3:3]) coeferrETPFadaptker_i(in [0.:1.0])
+#
+#applyResd(in [-1:1])
+##subbloc applyResd_i only if applyResdadaptker_i/=0
+#algoResdadaptker_i(in [1:2]) algocrittrvarResdadaptker_i(in [0:3]) algoupalphaResdadaptker_i(in [0:2]) algofupalphawtResdadaptkerz_i(in [-2:2]) 
+#critvar[Resd|Regr]adaptker_i(in [0.:1.0])
+#upalpha[|lambda]Resdadaptker_i(in [1.0:[|[1.0:upalpha])        Warning(log10 if readlog==1)
+##subbloc applyResd_i only if applyResdadaptker_i/=0 and algofupalphawtResdadaptkerz_i/=0
+#fupalphawtResdadaptkerz_i[1] or [1:nroatimesgrid(jroatgrid_i)]
+#
+#[Hcov|Robs]iw_i(in [-1:1])
+###########################
+##subbloc Hcoviw_i only if Hcoviw_i/=0
+#algoHcoviwroatimes(in [1:2]) Hcovinit_i(in [0:2]) Hcovweight_i(in [0:2])
+##in subbloc_Hcov Hcoviwroatimes=[1|nroatimesgrid(jroatgridrodelta_i)] if algoHcoviwroatimes_i=[1|2]
+##subbloc Hcovinit_i only if Hcovinit_i=1
+#Hcovinit_i[1] or [1:nroatimesgrid(jroatgridrodelta_i)]
+##subbloc fHcovinitz_i only if Hcovinit_i=2
+#fHcovinitz_i[1] or [1:nroatimesgrid(jroatgridrodelta_i)]
+##subbloc Hcovweight_i only if Hcovweight_i=1
+#Hcovweight_i[1] or [1:nroatimesgrid(jroatgridrodelta_i)]
+##subbloc fHcovweightz_i only if Hcovweight_i=2
+#fHcovweightz_i[1] or [1:nroatimesgrid(jroatgridrodelta_i)]
+#
+##subbloc Robsiw_i only if Robsiw_i/=0
+#algoRobsiwroatimes(in [1:2]) Robsinit_i(in [0:2]) Robsweight_i(in [-2:2])
+##in subbloc_Robs Robsiwroatimes=[1|nroatimesgrid(jroatgridrodelta_i)] if algoRobsiwroatimes_i=[1|2]
+##subbloc Robsinit_i only if Robsinit_i=1
+#Robsinit_i[1] or [1:nroatimesgrid(jroatgridrodelta_i)]
+##subbloc fRobsinitz_i only if Robsinit_i=2
+#fRobsinitz_i[1] or [1:nroatimesgrid(jroatgridrodelta_i)]
+##subbloc Robsweight_i only if Robsweight_i=[-2:-1,1]
+#Robsweight_i[1] or [1:nroatimesgrid(jroatgridrodelta_i)]
+##subbloc fRobsweightz_i only if Robsweight_i=[-2:-1,2]
+#fRobsweightz_i[1] or [1:nroatimesgrid(jroatgridrodelta_i)
+#
+#finforoa_i(in [0:3])
+#
+##subbloc finfo[o|g|r|m]adaptHcov_i only if validadaptHcov_i>0
+################################################
+#nfinfo[o|g|r|m]adaptHcov_i(in [0:[3|3|18|3]])
+##for j=[o|g|r|m] subbloc finfo[o|g|r|m]adaptHcov_i only if nfinfo[o|g|r|m]adaptHcov_i>0
+#jroa[t|s]gridfinfo(j)adaptHcov_i(in [1:jpnroa[t|s]grid])
+##finfo(j)adaptHcovnam by group of jpnreadnam
+#finfo(j)adaptHcovnam_i[1:jpnreadnam:]
+#finfo(j)adaptHcovnam_i[jpnreadnam+1:2*jpnreadnam]
+#...
+#finfo(j)adaptHcovnam_i[j*jpnreadnam+1:nfinfo(j)adaptHcov_i]
+#j=o
+#finfooadaptHcov_i[1:nfinfooadaptHcov_i](in [0:2])
+#j=g
+#finfogadaptHcov_i[1:nfinfogadaptHcov_i](in [0:3])
+#
+#
+##subbloc finfo[o|g|r|m]adaptker_i only if validadaptker_i>0
+################################################
+#nfinfo[o|g|r|m]adaptker_i(in [0:[3|3|18|3]])
+##for j=[o|g|r|m] subbloc finfo[o|g|r|m]adaptker_i only if nfinfo[o|g|r|m]adaptker_i>0
+#jroa[t|s]gridfinfo(j)adaptker_i(in [1:jpnroa[t|s]grid])
+##finfo(j)adaptkernam by group of jpnreadnam
+#finfo(j)adaptkernam_i[1:jpnreadnam:]
+#finfo(j)adaptkernam_i[jpnreadnam+1:2*jpnreadnam]
+#...
+#finfo(j)adaptkernam_i[j*jpnreadnam+1:nfinfo(j)adaptker_i]
+#j=o
+#finfooadaptker_i[1:nfinfooadaptker_i](in [0:2])
+#j=g
+#finfogadaptker_i[1:nfinfogadaptker_i](in [0:3])
+#
+#
+#nfinfoinc_i(in [0:]) jdeltakgrid_finfoinc_i(in [0:jpndeltakgrid])
+#subbloc finfoinc_i only if nfinfoinc_i>0
+#finfoincnam by group of jpnreadnam
+#finfoincnam_i[1:jpnreadnam:]
+#finfoincnam_i[jpnreadnam+1:2*jpnreadnam]
+#...
+#finfoincnam_i[j*jpnreadnam+1:nfinfoinc_i]
+#
+#nfinfodiagP_i(in [0:]) jdeltakgrid_finfodiagP_i(in [0:jpndeltakgrid])
+#subbloc finfodiagP_i only if nfinfodiagP_i>0
+#finfodiagPnam by group of jpnreadnam
+#finfodiagPnam_i[1:jpnreadnam:]
+#finfodiagPnam_i[jpnreadnam+1:2*jpnreadnam]
+#...
+#finfodiagPnam_i[j*jpnreadnam+1:nfinfodiagP_i]
+#
+#nfinfoScov_i(in [0:]) jdeltakgrid_finfoScov_i(in [0:jpndeltakgrid]) finfoScov_start|size_i(in [0:[1:]])
+#subbloc finfoScov_i only if nfinfoScov_i>0
+#finfoScovnam by group of jpnreadnam
+#finfoScovnam_i[1:jpnreadnam:]
+#finfoScovnam_i[jpnreadnam+1:2*jpnreadnam]
+#...
+#finfoScovnam_i[j*jpnreadnam+1:nfinfoScov_i]
+#
+#
+#bloc OCE
+##-------------
+OCE_M000_000 OITKF 3
+1 30
+#subbloc roasetnam_i by group of jpnreadsetnam
+{ALT01} {ALT02} {ALT03} {ALT04} {ALT05} {ALT06} {ALT07} {ALT08} {ALT09} {ALT10}
+{ALT11} {ALT12} {ALT13} {ALT14} {ALT15} {ALT16} {ALT17} {ALT18} {ALT19} {VP20}
+{VP21} {VP22} {VP39} {DS40} {DS41} {DS42} {DS43} {DS60} {DS61} BOGUS_RUNOFF
+#algoadaptinnov_i(in [1:3])
+1
+#subbloc adaptinnov_ens_start|size_i only if algoadaptinnov_i=3
+#1 8 
+#jroatgrid_i(in [1:jpnroatgrid]) jroasgrid_i(in [1:jpnroasgrid])
+#2 1 (3 analyses 1, 4 et 7)
+4 1
+#jdeltakgrid_[m0|mean|ens]_i(in [0:jpndeltakgrid]) (0=>unvalid)
+1 0 0
+#10 0 0
+#8 0 0
+#subbloc delta_start|size_i only if jdeltakgrid_ens_i>0
+#1 8 
+#
+#algoboguswdist ...
+2 1 1 0.0 0.0
+#algoadaptHcovwdist ...
+2 1 1 0.0 0.0
+#algoadaptkerwdist ...
+2 1 1 0.0 0.0
+#
+#grpbogus_[start|end|adaptHcovlaunch]
+-1 0 0
+1 0
+0.5 0.5
+#normgrpbogus_i[grpbogus_start:grpbogus_end] (in [0:3])
+0 0
+#finfogrpbogus_i[grpbogus_start:grpbogus_end] (in [0:3])
+3 0
+#finfolambdafgrpbogus_i[grpbogus_start:grpbogus_end] (in [0:2])
+1 0
+#finfolambdaagrpbogus_i[grpbogus_start:grpbogus_end] (in [0:2])
+1 0
+#
+#validadapt[Hcov|ker]_i(in [0:1]) readlog_i(in [0:1])
+1 1 1
+#
+##subbloc adaptHcov_i only if validadaptHcov_i>0
+################################################
+#
+#[algoNw|pwnroeweight]adaptHcov_i(in [0:1]) algogammaadaptHcov_i(in [0:2])
+0 1 2
+#
+#algomsklambdaadaptHcov_i(in [0:1])
+1
+##subbloc cutlambdaadaptHcov_i only if algomsklambdaadaptHcov_i/=0
+#algocutlambdaadaptHcov_i(in [-4:4]) [jpr[min|max]|tr[lambda|vardr]max]ratecutlambdaadaptHcov_i(in [0.:1.])
+4 0.0 1.0 0.99 0.99
+#
+#algo[up|shape|adapt]lambdaHcov_i(in [0:[1|2|2]])
+0 0 0
+#1 0 1 #uplambda
+#1 0 2
+#
+#algoupKadaptHcov_i(in [-4:4] algoalphaminmaxadaptHcov_i(in [-5:5]) algoupPaadaptHcov_i(in [-3:5])
+3 -4 0
+##subbloc [K|Pa]adaptHcov_i only if algoup[K|Pa]adaptHcov_i/=0
+#K[min|max]critadaptHcov_i up[alpha|beta][min|max]adaptHcov_i (min|max in ]:min:1.0:max:[)       Warning(log10 if readlog==1)
+#0.0 0.3 -1.0 0.6 0.0 0.0
+#0.0 0.3  0.0 0.6 0.0 0.0
+-3.9 0.3  0.0 3.9 0.0 0.0
+##subbloc algoadaptlambdaadaptHcov_i only if algoupKadaptHcov_i/=0 and algoadaptlambdaadaptHcov_i==2
+#lambda[min|max]critadaptHcov_i upalphalambda[min|max]adaptHcov_i (min|max in ]:min:1.0:max:[)   Warning(log10 if readlog==1)
+#0.0 0.3 0.0 0.3
+#0.0 0.6 0.0 0.5
+#
+#algomergeabadaptHcov_i(in [-2:2])
+0
+#
+#algobiasadaptHcov_i(in [-2:2])
+0
+#
+##subbloc adaptker_i only if validadaptker_i>0
+##############################################
+#
+#[algoNw|pwnroeweight]adaptker_i(in [0:1]) algogammaadaptker_i(in [0:2])
+0 1 2
+#
+#algomsklambdaadaptker_i(in [0:1])
+1
+##subbloc cutlambdaadaptker_i only if algomsklambdaadaptker_i/=0
+#algocutlambdaadaptker_i(in [-4:4]) [jpr[min|max]|tr[lambda|vardr]max]ratecutlambdaadaptker_i(in [0.:1.])
+4 0.0 1.0 0.99 0.99
+#
+#algo[up|shape|adapt]lambdaker_i(in [0:[1|2|2]])
+0 0 0
+#
+#algoupKadaptker_i(in [-4:4] algoalphaminmaxadaptker_i(in [-5:5]) algoupPaadaptker_i(in [-3:5])
+0 0 0
+#
+#algomergeabadaptker_i(in [-2:2])
+0
+#
+#algobiasadaptker_i(in [-2:2])
+0
+#2
+##subbloc bias_i only if algobiasadaptker_i/=0
+#c[o|f|a]biasadaptker_i(in [[0.|0.|-co]:[) capplybiasadaptker_i(in [0.:1.0])
+#3.0 3.0 3.0 1.0
+#
+#applyETFadaptker_i(in [-1:1]) uperrETFadaptker_i(in [0:1])
+1 1
+#algoETF12adaptker_i(in [0:2])
+0
+#
+#applyResd(in [-1:1])
+1
+##subbloc applyResd_i only if algoapplyResdadaptker_i/=0
+#algoResdadaptker_i(in [1:2]) algocritvarResdadaptker_i(in [0:3]) algoupalphaResdadaptker_i(in [0:2]) fupalpharoatimesResdadaptkerz_i(in [0:2]) fupalphawResdadaptkerz_i(in [-1,1])
+#critvar[Resd|Regr]adaptker_i(in [0.:1.0])
+#upalpha[|lambda]Resdadaptker_i(in [1.0:[|[1.0:upalpha])        Warning(log10 if readlog==1)
+2 2 1 0 1
+1.0 0.04
+#1.0 0.5
+0.0 0.0
+#
+##subbloc applyResd_i only if applyResdadaptker_i/=0 and algofupalphawtResdadaptkerz_i/=0
+#fupalphawtResdadaptkerz_i[1] or [1:nroatimesgrid(jroatgrid_i)]
+#None.cmz
+#
+##########################
+#[Hcov|Robs]iw_i(in [-1:1]) Warning(log10 if [Hcov|Robs]iw_i==-1)
+-1 -1
+#
+#subbloc Hcoviw_i only if Hcoviw_i>0
+#algoHcoviwroatimes(in [1:2]) Hcovinit_i(in [0:2]) Hcovweight_i(in [0:2])
+1 0 1
+#Hcovweight_i[1] or [1:nroatimesgrid(jroatgridrodelta_i)]
+0.0
+#
+##subbloc Robsiw_i only if validRobsiw_i>0
+#algoRobsiwroatimes(in [1:2]) Robsinit_i(in [0:2]) Robsweight_i(in [-2:2])
+1 0 0
+##subbloc Robsweight_i only if Robsweight_i=[-2:-1,1]
+#Robsweight_i[1] or [1:nroatimesgrid(jroatgridrodelta_i)]
+#0.0
+##subbloc fRobsweightz_i only if Robsweight_i=[-2:-1,2]
+#fRobsweightz_i[1] or [1:nroatimesgrid(jroatgridrodelta_i)
+#None.cmz
+#
+#finforoa_i(in [0:1])
+0
+#3
+#
+##subbloc finfo[o|g|r|m]adaptHcov_i only if validadaptHcov_i>0
+################################################
+#nfinfo[o|g|r|m]adaptHcov_i(in [0:[3|4|18|3]]))
+1 2 3 0
+#
+#finfoo
+4 1
+alpha
+1
+#
+#finfog
+4 1
+snr dr
+3 3
+#
+#finfor
+4 1
+lambdaf0 lambdaf vardr
+#
+#finfom
+#4 1
+#drf
+#
+#subbloc finfo[o|g|r|m]adaptker_i only if validadaptker_i>0
+################################################
+#nfinfo[o|g|r|m]adaptker_i(in [0:[3|4|18|3]]))
+1 2 3 0
+#
+#finfoo
+4 1
+alpha
+1
+#
+#finfog
+4 1
+snr dr
+3 3
+#
+#finfor
+4 1
+lambdaf0 lambdaf vardr
+#
+#finfom
+#4 1
+#drf
+#
+#nfinfoinc_i(in [0:]) jdeltakgrid_finfoinc_i(in [0:jpndeltakgrid])
+8 4
+incBiasHcov incResdHcov incRegrHcov incBiasker incResdker incRegrker incETKFker incRcntker
+#
+#nfinfodiagP_i(in [0:]) jdeltakgrid_finfodiagP_i(in [0:jpndeltakgrid])
+6 7
+diagPf0 diagPf1 diagPf diagPa logvarPf1Pf0 logvarPaPf
+#
+#nfinfoScov_i(in [0:]) jdeltakgrid_finfoScov_i(in [0:jpndeltakgrid]) finfoScov_start|size_i(in [0:[1:]])
+0 4 1 2
+#Sf0 Sf Sa
+#
+#

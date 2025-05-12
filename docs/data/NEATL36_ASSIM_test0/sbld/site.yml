@@ -1,0 +1,20 @@
+# edit please:
+# Third party package ecf_submit information
+troika: '/mnt/netapp2/Store_uni/home/empresa/now/iba/conda/envs/ecflow/bin/troika'
+troika_config: '/home/empresa/now/iba/tools/ease/troika.yaml'
+
+# calc information
+calc_host: login210-19
+calc_user: emnowiba
+calc_outdir: /mnt/lustre/scratch/nlsas/home/empresa/now/iba/RUNS/IBIRYS36/test0/ecflow-jobs
+
+front_host: login
+front_host_port: '4040'
+ecflow_server_dir: /home/empresa/now/iba/ecflow_server/
+front_user: emnowiba
+front_outdir: /mnt/lustre/scratch/nlsas/home/empresa/now/iba/RUNS/IBIRYS36/test0/ecflow-jobs
+
+calc_host_conda_env: /mnt/netapp2/Store_uni/home/empresa/now/iba/tools/ease_lib_IBIRYS36/ease_env
+
+# The suite will be hosted at chain_dir/ecflow/%SUITE_NAME%
+chain_dir: /home/empresa/now/iba/tools/ease

@@ -1,0 +1,19 @@
+---
+mroa:
+  oce:
+    - definecov_oce.txt
+    - defineroa_oce.txt
+    - definestructdta_oce.txt
+    - mroanml_ctl_oce
+    - mroanml_obs_oce
+    - definestatevector_oce.xml
+    - definestatevector.xml
+
+bias:
+  - namelist_pyregrid_preBIAS.nml
+  - namelist_bias
+  - delta.yml
+
+interpdelta:
+  - namelist_pyregrid_BIAS.nml
+

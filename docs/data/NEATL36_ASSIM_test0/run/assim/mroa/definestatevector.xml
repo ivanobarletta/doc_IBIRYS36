@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+
+<structures>
+	<files exec_dir="/home/empresa/now/iba/tools/ease_lib_IBIRYS36/MROATOOLS/bin/" exec_reduc2full="canredcmx2cmx.x" exec_full2nc="cpmx2cdf.x"  exec="/home/empresa/now/iba/tools/ease_lib_IBIRYS36/MROATOOLS/bin/cdf2cmx.x" grid="/mnt/lustre/scratch/nlsas/home/empresa/now/iba/RUNS/IBIRYS36/staticinput/assim/canevas.grd" reducecanmsk="/mnt/lustre/scratch/nlsas/home/empresa/now/iba/RUNS/IBIRYS36/staticinput/assim/reducecanmsk_NEATL36_sampling3.cmz" reducecanwgt="/mnt/lustre/scratch/nlsas/home/empresa/now/iba/RUNS/IBIRYS36/staticinput/assim/reducecanweight_NEATL36_sampling3.cmz" bathy3D="/mnt/lustre/scratch/nlsas/home/empresa/now/iba/RUNS/IBIRYS36/staticinput/assim/bathy3D_NEATL36.cmz" cdfprefix="NEATL36" cdffreq="1d"/>
+
+ <structure name="HSSTHTSUV" shapiro="NOT_USED.txt" base_file="/mnt/lustre/scratch/nlsas/home/empresa/now/iba/RUNS/IBIRYS36/staticinput/assim/file_init_SSHTHHTSUV.cpmx" file_type="cmx">
+   <vars>
+     <var nam="SSHEIG" cdfdef="2Dt" size="1"  dim="2" cdflevel="1" cdftime="1" cdfvarnam="sla"      cdfgrid="gridSLA"    cdfconventionDimName="4" cdfconventionAtt="3"/>
+     <var nam="SST"    cdfdef="3Dt" size="1"  dim="2" cdflevel="1" cdftime="1" cdfvarnam="sst"      cdfgrid="2DT-oce"    cdfconventionDimName="4" cdfconventionAtt="3"/>
+     <var nam="H"      cdfdef="2Dt" size="1"  dim="2" cdflevel="1" cdftime="1" cdfvarnam="ssh"      cdfgrid="2DT-oce"    cdfconventionDimName="4" cdfconventionAtt="3"/>
+     <var nam="HBRST"  cdfdef="2Dt" size="1"  dim="2" cdflevel="1" cdftime="1" cdfvarnam="diffhbar" cdfgrid="gridHBAR"   cdfconventionDimName="4" cdfconventionAtt="3"/>
+     <var nam="TEM"    cdfdef="3Dt" size="50" dim="3" cdflevel="1" cdftime="1" cdfvarnam="thetao"   cdfgrid="3DT-thetao" cdfconventionDimName="4" cdfconventionAtt="3"/>
+     <var nam="SAL"    cdfdef="3Dt" size="50" dim="3" cdflevel="1" cdftime="1" cdfvarnam="so"       cdfgrid="3DT-so"     cdfconventionDimName="4" cdfconventionAtt="3"/>
+     <var nam="U"      cdfdef="3Dt" size="50" dim="3" cdflevel="1" cdftime="1" cdfvarnam="uo"       cdfgrid="3DU-uo"     cdfconventionDimName="5" cdfconventionAtt="3" />
+     <var nam="V"      cdfdef="3Dt" size="50" dim="3" cdflevel="1" cdftime="1" cdfvarnam="vo"       cdfgrid="3DV-vo"     cdfconventionDimName="6" cdfconventionAtt="3"/>
+   </vars>
+ </structure>
+
+</structures>

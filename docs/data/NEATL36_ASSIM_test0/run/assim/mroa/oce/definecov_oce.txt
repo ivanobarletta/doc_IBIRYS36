@@ -1,0 +1,98 @@
+#version @vercov_i
+@vercov2
+#
+#DIMENSION
+#----------
+#nmodetimes(in [1:]) nbstructdta(in [1:]) nbstructscale(in [1:]) nbstructgrid(in [1:]) nbstructcov(in [1:])
+#nbdir(in [1:]) jpwtimestate(in [1:]) (case vercov2)
+#
+#[9|7|5]   6 1 1 1   ###IAU14C[7|5|3]
+#[16|12|8] 6 1 1 1   ###IAU24C[7|5|3]
+#[17|11]   6 1 1 1   ###IAU34C[5|3]
+#[14]      6 1 1 1   ###IAU44C[3]
+#
+9 1 1 1 1
+1 1
+#
+#centermodetimes centercovtimes algowselectmode(in [0:2]) algomodemean(in [0:1]) algofloadmean(in [0:1])
+#algoscalegridcov(in [0:1]) algocovweight(in [0:nmodetimes]) algogridcovweight(in [0:nmodetimes])
+#
+# [3.5|2.5|1.5]  [4.0|3.0|2.0]  1 1 0  ###IAU14C[7|5|3]
+#-[3.5|2.5|1.5] -[3.0|2.0|1.0]  1 1 0  ###IAU24C[7|5|3]
+#-[7.5|4.5]     -[7.0|4.0]      1 1 0  ###IAU34C[5|3]
+#-[7.5]         -[7.0]          1 1 0  ###IAU44C[3]
+#
+3.5 4.0 1 1 0
+0 0 0
+#
+#Definition of structdta
+#-----------------------
+#LOOP structdta[1:nbstructdta]
+#-----------------------------
+#structdtanam_i
+#nvarstructdta_i(in [1:]) jvarfirststructdta_i(in [1:dtaend]) jstructcov_covweight_i(in [0:structcov])
+#subbloc covweight only if lalgocovweight (ncovweighttimes0=ialgocovweight) and jstructcov_covweight_i/=0
+#ncovweighttimes_i(in [1:ncovweighttimes0]) covweightr_i(in [0:2]) covweightz_i(in [0:2]) covweightx_i(in [0:2])
+#subsubbloc tcovweighttimes_i only if ncovweighttimes_i>1
+#tcovweighttimes_i[1:ncovweighttimes_i]
+#subsubbloc rcovweight_i only if covweightr_i>
+#rcovweight_i[1 or 1:ncovweighttimes_i]
+#subsubbloc fcovweightz_i only if covweightz_i>0
+#fcovweightz_i[1 or 1:ncovweighttimes_i]
+#subsubbloc fcovweightx_i only if covweightx_i>0
+#fcovweightx_i[1 or 1:ncovweighttimes_i]
+#
+HSSTHTSUV
+8 1 0
+#
+#Definition of structgrid
+#------------------------
+#LOOP structgrid[1:nbstructgrid]
+#-------------------------------
+#structgridnam_i
+#fcangridcov_i
+#equigridcov_i(in [0:2]) bathygridcov_i(in [0:1]) reducegridcovmsk_i(in [0:1]) scalegridcov_i(in [0:1])
+#fequigridcov_i fbathygridcov_i freducegridcovmsk_i freducegridcovweight_i
+#subbloc scalegridcov only if algoscalegridcov=1 and scalegridcov_i=1
+#fscalegridcovptjz_i fscalegridcovweight_i
+#
+GRD_NEATL36_REDUCE3
+canevas.grd
+0 1 1 0
+NONE.cmz bathy3D.cmz reducecanmsk_NEATL36_sampling3.cmz reducecanweight_NEATL36_sampling3.cmz
+#
+#Definition of structcov
+#-----------------------
+#LOOP structcov[1:nbstructcov]
+#-----------------------------
+#structcovnam_i
+#SUBLOOP_i [1:nbstructdta]
+#typefload_ij jstructgrid_ij nmodetimes_ij gridcovweighttimes_ij
+#subbloc tmodetimes only if nmodetimes_ij>1
+#tmodetimes_ij[1:nmodetimes_11]
+COV_NEATL36_1
+cpmx 1 9 0
+-0.5 0.5 1.5 2.5 3.5 4.5 5.5 6.5 7.5
+#
+#List of dir
+#-----------
+#LOOP dir[1:nbdir]
+#-----------------
+#dir_i
+#jptstructcov_i wselectmode_i wselecttimestate_i
+#juliandeltainf0_i,juliandeltasup0_i,juliandeltainf1_i,juliandeltasup1_i
+#julianwselectmode0_i julianwselectmode1_i julianefoldmode0_i julianefoldmode1_i
+#julianwselecttimestate0_i julianwselecttimestate1_i
+#dyearrangemin_i,dyearrangemax_i
+/mnt/netapp2/Store_uni/home/empresa/now/iba/static/MODES/NEATL36_V6_2013-2019_HAN48_SHAPIRO4-SST225-HBRST270_HSSTHTSUV
+1 1.0 1.0
+-45.0 45.0 -45.0 45.0
+1.0 0.8 90.0 90.0
+1.0 0.8 90.0 90.0
+-30 30
+#SUBLOOP_j [1:nbstructdta]
+#subnumdeb_ij subnumfin_ij subnumdelta_ij
+49 2500 2
+1 1 0
+0.0
+1.0

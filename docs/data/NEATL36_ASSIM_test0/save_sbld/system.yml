@@ -1,0 +1,80 @@
+config: NEATL36
+system: IBIRYS36
+expnam: test0
+exemode_capital: REA
+# Suite directories
+# Dir at local ecflow server host
+exp:
+  config_dir: '/home/empresa/now/iba/tools/ease/configs/NEATL36_ASSIM_test0'
+  postdir: '{exp.config_dir}/post'
+  predir: '{exp.config_dir}/pre'
+  run: '{exp.config_dir}/run'
+
+# Dir at calc host
+dir_calc:
+  base_dir: '/mnt/lustre/scratch/nlsas//home/empresa/now/iba/RUNS'
+  selected_data: '{dir_calc.base_dir}/{system}/{expnam}/SELECT_DATA'
+  atm_forcing: '{dir_calc.base_dir}/{system}/{expnam}/ATM_FORCING/'
+  bdy_forcing: '{dir_calc.base_dir}/{system}/{expnam}/BDY_FORCING/'
+  obc_forcing: '{dir_calc.base_dir}/{system}/{expnam}/OBC_FORCING/'
+  static: '{dir_calc.base_dir}/{system}/staticinput'
+  exe: '{dir_calc.base_dir}/{system}/{expnam}/config'
+  tmp: '{dir_calc.base_dir}/{system}/{expnam}'
+  param: '{dir_calc.base_dir}/{system}/{expnam}/paraminput'
+
+# Dir and type of storage host
+storage:
+  dir: '/mnt/netapp2/Store_uni/home/empresa/now/iba/outputs/{system}/{expnam}'
+  fsys: 'default'
+### From herein all should be revisited. MOI_dirout_xxx will be constructed in init_envvars
+dirout:
+  log: 'LOG'
+  build: 'BUILD'
+  ola: 'OLA'
+  dia: 'DIA'
+  dup: 'DUP'
+  rst: 'RESTART'
+  cmxz: 'CMXZ'
+  free:
+    cdf: 'FREE/CDF'
+    state: 'FREE/STATE'
+    stat: 'FREE/STAT'
+    moorings: 'FREE/MOORINGS'
+  now:
+    cdf: 'FCST/CDF'
+    state: 'FCST/STATE'
+    stat: 'FCST/STAT'
+    moorings: 'FCST/MOORINGS'
+  ana:
+    cdf: 'BEST/CDF'
+    state: 'BEST/STATE'
+    stat: 'BEST/STAT'
+    moorings: 'BEST/MOORINGS'
+# cleanup frequency in number of cycles
+cleanup_freq:
+  log: "100"
+  ola: "100"
+  dup: "3"  # comm between noobs and MROA
+  modes: "3"
+  dia: "100"
+  ncdf: "3"
+  cmxz: "3"
+  stat: "3"
+  rst: "3"
+  mooring: "100"
+  list: "MOI_cleanup_freq_log:MOI_dirout_log
+         MOI_cleanup_freq_ola:MOI_dirout_ola 
+         MOI_cleanup_freq_dup:MOI_dirout_dup
+         MOI_cleanup_freq_cmxz:MOI_dirout_cmxz
+         MOI_cleanup_freq_dia:MOI_dirout_dia
+         MOI_cleanup_freq_dia:MOI_dirout_binnedola
+         MOI_cleanup_freq_mooring:MOI_dirout_fcst_mooring
+         MOI_cleanup_freq_ncdf:MOI_dirout_fcst_cdf
+         MOI_cleanup_freq_stat:MOI_dirout_fcst_stat
+         MOI_cleanup_freq_mooring:MOI_dirout_best_mooring
+         MOI_cleanup_freq_ncdf:MOI_dirout_best_cdf
+         MOI_cleanup_freq_stat:MOI_dirout_best_stat
+         MOI_cleanup_freq_mooring:MOI_dirout_free_mooring
+         MOI_cleanup_freq_ncdf:MOI_dirout_free_cdf
+         MOI_cleanup_freq_stat:MOI_dirout_free_stat
+         MOI_cleanup_freq_rst:MOI_dirout_restart"

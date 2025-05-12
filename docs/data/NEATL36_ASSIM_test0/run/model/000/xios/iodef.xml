@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<simulation> 
+
+<!-- 
+##########################################
+# CONTEXT NEMO
+##########################################
+-->
+
+ <context id="nemo" >
+    <variable_definition>
+        <variable id="ref_year" type="int"> 1950 </variable> <!-- Year of time origin for NetCDF files; defaults to 1950 -->
+    </variable_definition>    
+    <field_definition src="./field_def.xml"/>
+    <file_definition type="_X-FILE_" name="_PATH-OUT_/@expname@_@freq@" sync_freq="1d" min_digits="4" src="./file_def.xml" />
+    <axis_definition src="./axis_def.xml"/>  
+    <domain_definition src="./domain_def.xml"/>
+    <grid_definition src="./grid_def.xml"/>    
+ </context>
+
+<!--
+##########################################
+# CONTEXT NEMO CRS
+##########################################
+-->
+
+ <context id="nemo_crs" >
+    <variable_definition>
+        <variable id="ref_year" type="int"> 1950 </variable> <!-- Year of time origin for NetCDF files; defaults to 1950 -->
+    </variable_definition>
+    <field_definition src="./field_def.xml"/>
+    <file_definition type="_X-FILE_" name="_PATH-OUT_/@expname@_@freq@" sync_freq="1d" min_digits="4" src="./file_def_crs.xml" />
+    <axis_definition src="./axis_def.xml"/>
+    <domain_definition src="./domain_def.xml"/>
+    <grid_definition src="./grid_def.xml"/>
+ </context>
+
+<!-- 
+##########################################
+# CONTEXT XIOS
+##########################################
+-->
+  <context id="xios">
+    <variable_definition>
+	   <variable id="info_level"                type="int">0</variable>
+	   <variable id="using_server"              type="bool">true</variable>
+	   <variable id="using_oasis"               type="bool">false</variable>
+	   <variable id="oasis_codes_id"            type="string" >oceanx,sas</variable>
+    </variable_definition>
+  </context>
+  
+</simulation>

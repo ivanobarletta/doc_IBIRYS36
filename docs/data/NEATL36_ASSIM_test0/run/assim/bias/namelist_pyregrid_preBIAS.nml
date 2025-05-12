@@ -1,0 +1,21 @@
+; Namelist pyregrid
+
+[GENERAL]
+; Mandatory
+SYSid_in:{MOI_system}
+SYSid_out:BIAS05full
+dirlog:{MOI_dirout_log}/BIAS/
+dirweights:/mnt/netapp2/Store_uni/home/empresa/now/iba/static/bias_HTS/weights/
+dirout:./
+lg_drown:True
+; Optional
+fill_value:9999.
+lg_hourly_output:False
+save_coords:x,y,t
+
+[GRID]
+; Mandatory
+maskin:/mnt/netapp2/Store_uni/home/empresa/now/iba/static/ocean/domcfg_NOOBS.nc
+maskout:/mnt/netapp2/Store_uni/home/empresa/now/iba/static/bias_HTS/maskfull_3D_gridbias05_3dvar_eNEATL36.nc
+; Optional
+lg_cgridout:True

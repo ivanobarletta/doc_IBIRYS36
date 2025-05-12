@@ -1,0 +1,198 @@
+ _VALID4ALL: &DEF
+   type: 'SLA'
+   stru: 'IS'
+   fsys: 'Local'
+   dbase_rt: &BASE_rt '/mnt/netapp2/Store_uni/home/empresa/now/iba/myrea/IBIRYS36/OBS/SLA/'
+   strudta: 'H'
+   layer: 'None'
+   idloadr: '4'
+   isverif: '0'
+   tshift: '0.0'
+   errfac: 'None'
+   errmin: 'None'
+   errmax: 'None'
+   misfitmax: '1.5'
+   algoice: '5'
+   anause: '3'
+   list: 'None None None None'
+   jkdta: '0'
+
+# rt
+
+ setid1:
+   name: 'alg'
+   start: '26875'
+   stop:  '26925'
+   dir:   !join [*BASE_rt,'L3/alg']
+   catalog: 'CATALOG_alg'
+   err: '0.03'
+   <<: *DEF
+
+ setid2:
+   name: 'c2n'
+   start: '26875'
+   stop:  '26925'
+   dir:   !join [*BASE_rt,'L3/c2n']
+   catalog: 'CATALOG_c2n'
+   err: '0.03'
+   <<: *DEF
+
+ setid3:
+   name: 'h2b'
+   start: '26878'
+   stop:  '26924'
+   dir:   !join [*BASE_rt,'L3/h2b']
+   catalog: 'CATALOG_h2b'
+   err: '0.03'
+   <<: *DEF
+
+ setid4:
+   name: 'j3n'
+   start: '26875'
+   stop:  '26925'
+   dir:   !join [*BASE_rt,'L3/j3n']
+   catalog: 'CATALOG_j3n'
+   err: '0.03'
+   <<: *DEF
+
+ setid5:
+   name: 's3a'
+   start: '26875'
+   stop:  '26925'
+   dir:   !join [*BASE_rt,'L3/s3a']
+   catalog: 'CATALOG_s3a'
+   err: '0.03'
+   <<: *DEF
+
+ setid6:
+   name: 's3b'
+   start: '26875'
+   stop:  '26925'
+   dir:   !join [*BASE_rt,'L3/s3b']
+   catalog: 'CATALOG_s3b'
+   err: '0.03'
+   <<: *DEF
+
+ setid7:
+   name: 's6a'
+   start: '26875'
+   stop:  '26925'
+   dir:   !join [*BASE_rt,'L3/s6a']
+   catalog: 'CATALOG_s6a'
+   err: '0.03'
+   <<: *DEF
+
+ setid8:
+   name: 'swon'
+   start: '26875'
+   stop:  '26925'
+   dir:   !join [*BASE_rt,'L3/swon']
+   catalog: 'CATALOG_swon'
+   err: '0.03'
+   <<: *DEF
+
+ setid9:
+   name:  'SLA_L4'
+   start: '26875'
+   stop:  '26925'
+   dir:   !join [*BASE_rt,'L4']
+   catalog: 'CATALOG_SLA_L4'
+   idloadr: '60'
+   err: '0.05'
+   anause: '1'
+   <<: *DEF
+
+---
+ _VALID4ALL: &DEF
+   type: 'SST'
+   stru: 'DS'
+   fsys: 'Local'
+   dbase: &BASE '/mnt/netapp2/Store_uni/home/empresa/now/iba/myrea/IBIRYS36/OBS/SST/'
+   strudta: 'SST'
+   layer: '1'
+   err: 'None'
+   errfac: '1'
+   errmin: '0.35'
+   errmax: 'None'
+   misfitmax: '6'
+   algoice: '5'
+   anause: '3'
+   list: '1.0 2 1 1'
+
+ setid1:
+   name:  'SST_OSTIA'
+   start: '26889'
+   stop:  '26999'
+   dir:   !join [*BASE,'OSTIA/']
+   catalog: 'CATALOG_OSTIA'
+   tshift: '0.5'
+   errfac: '0.65'
+   idloadr: '3'
+   isverif: '0'
+   anause: '1'
+   jkdta: '2'
+   <<: *DEF
+
+ setid2:
+   name:  'ODYSSEA'
+   start: '26875'
+   stop:  '26925'
+   dir:   !join [*BASE,'ODYSSEA/']
+   catalog: 'CATALOG_ODYSSEA_IBI'
+   tshift: '0.'
+   idloadr: '13'
+   isverif: '0'
+   anause: '3'
+   jkdta: '5'
+   <<: *DEF
+
+
+---
+ _VALID4ALL: &DEF
+   type: 'VP'
+   stru: 'VP'
+   fsys: 'Local'
+   dbase: &BASE '/mnt/netapp2/Store_uni/home/empresa/now/iba/myrea/IBIRYS36/OBS/INSITU'
+   layer: 'None'
+   err: 'None'
+   errmax: 'None'
+   misfitmax: '4.0'
+   algoice: '5'
+   anause: '3'
+   list: 'None None None None'
+   jkdta: '0'
+#
+ setid1:
+   name:  'INSITU_ARMOR'
+   strudta: 'TEM'
+   start: '26875'
+   stop:  '26925'
+   dir:   *BASE
+   catalog: 'CATALOG_INSITU'
+   tshift: '0.0'
+   idloadr: '310'
+   isverif: '0'
+   errmin: '0.04'
+   errfac: '0.75'
+   <<: *DEF
+#
+ setid2:
+   name:  'INSITU_ARMOR'
+   strudta: 'SAL'
+   start: '26875'
+   stop:  '26925'
+   dir:   *BASE
+   catalog: 'CATALOG_INSITU'
+   tshift: '0.0'
+   idloadr: '310'
+   isverif: '0'
+   misfitmax: '1.0'
+   errmin: '0.01'
+   errfac: '0.75'
+   <<: *DEF
+
+
+
+
+
+

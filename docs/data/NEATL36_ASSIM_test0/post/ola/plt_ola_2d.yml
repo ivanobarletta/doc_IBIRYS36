@@ -1,0 +1,77 @@
+---
+ _VALID4ALL: &DEF
+   type: 'olacdf4'
+   proj: 'PlateCarree'
+   clon: '0'
+   extent: '-21 17 26 64'
+   nl: '0'
+   time: !ENV ${MOI_julstart} ${MOI_julstop} 7
+   olastr: 'is'
+   setid: 'SLA_L4'
+   cmap: 'MO_sla'
+   statstr: 'Nb {nb:04d} \nMean {mean:04.4f} \nRms {rms:04.4f}'
+ var1:
+   var: 'mis'
+   vminmax: '-0.3 0.3'
+   title: 'Innov_SLA_{time0:.1f}_{time1:0.1f}'
+   FigOUTName: 'Innov_SLA_{time0:.1f}_{time1:0.1f}'
+   <<: *DEF
+ var2:
+   var: 'obs'
+   vminmax: '-1 1'
+   title: 'Obs_SLA_{time0:.1f}_{time1:0.1f}'
+   FigOUTName: 'Obs_SLA_{time0:.1f}_{time1:0.1f}'
+   <<: *DEF
+
+---
+ _VALID4ALL: &DEF
+   type: 'olacdf4'
+   proj: 'PlateCarree'
+   clon: '0'
+   extent: '-21 17 26 64'
+   nl: '0'
+   time: !ENV ${MOI_julstart} ${MOI_julstop} 7
+   cmap: 'MO_sla'
+   statstr: 'Nb {nb:04d} \nMean {mean:04.4f} \nRms {rms:04.4f}'
+   olastr: 'vp'
+   time: !ENV '${MOI_julstart} ${MOI_julstop} 7'
+ var1:
+   var: 'obs_temperature'
+   setid: 'INSITU_ARMOR'
+   vminmax: '-2 31'
+   title: 'Obs_T_{time0:.1f}_{time1:0.1f}'
+   FigOUTName: 'Obs_T_{time0:.1f}_{time1:0.1f}'
+   <<: *DEF
+ var3:
+   var: 'eqv_temperature'
+   setid: 'INSITU_ARMOR'
+   vminmax: '-2 31'
+   title: 'Bck_T_{time0:.1f}_{time1:0.1f}'
+   FigOUTName: 'Bck_T_{time0:.1f}_{time1:0.1f}'
+   <<: *DEF
+ var2:
+   var: 'mis_temperature'
+   setid: 'INSITU_ARMOR'
+   vminmax: '-2 2'
+   title: 'Innov_T_{time0:.1f}_{time1:0.1f}'
+   FigOUTName: 'Innov_T_{time0:.1f}_{time1:0.1f}'
+   <<: *DEF
+
+---
+ _VALID4ALL: &DEF
+   type: 'olacdf4'
+   proj: 'PlateCarree'
+   clon: '0'
+   extent: '-21 17 26 64'
+   nl: '0'
+   time: !ENV ${MOI_julstart} ${MOI_julstop} 7
+   cmap: 'MO_sla'
+   statstr: 'Nb {nb:04d} \nMean {mean:04.4f} \nRms {rms:04.4f}'
+ var2:
+   var: 'mis'
+   setid: 'SST_OSTIA'
+   vminmax: '-2 2'
+   title: 'Innov_SST_{time0:.1f}_{time1:0.1f}'
+   FigOUTName: 'Innov_SST_{time0:.1f}_{time1:0.1f}'
+   <<: *DEF
+

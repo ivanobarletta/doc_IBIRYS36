@@ -1,0 +1,15 @@
+; Namelist pyregrid
+
+[GENERAL]
+SYSid_in:BIAS05
+SYSid_out:{MOI_system}
+dirlog:{MOI_dirout_log}/BIAS/
+dirweights:{MOI_interp_delta_dirweights}
+dirout:{MOI_dir_calc_tmp}/BIAS/DELTA/M000
+lg_drown:True
+fill_value:0
+                                                                  
+[GRID]
+maskin:/mnt/netapp2/Store_uni/home/empresa/now/iba/static/bias_HTS/mask_3D_gridbias05_3dvar_eNEATL36.nc
+maskout:/mnt/netapp2/Store_uni/home/empresa/now/iba/static/ocean/domcfg_NOOBS.nc
+lg_cgridout:True

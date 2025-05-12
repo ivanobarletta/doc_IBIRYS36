@@ -1,0 +1,50 @@
+  <file_definition>
+
+     <file_group id="1ts" output_freq="1ts"  output_level="10" enabled=".TRUE."/> <!-- 1 time step files -->
+     <file_group id="1h" output_freq="1h"  output_level="10" enabled=".TRUE."/> <!-- 1h files -->
+     <file_group id="2h" output_freq="2h"  output_level="10" enabled=".TRUE."/> <!-- 2h files -->
+     <file_group id="3h" output_freq="3h"  output_level="10" enabled=".TRUE."/> <!-- 3h files -->
+     <file_group id="4h" output_freq="4h"  output_level="10" enabled=".TRUE."/> <!-- 4h files -->
+     <file_group id="6h" output_freq="6h"  output_level="10" enabled=".TRUE."/> <!-- 6h files -->
+     <file_group id="1d" output_freq="1d"  split_freq="1d" output_level="10" enabled=".TRUE."/> <!-- 1d files -->
+     <file_group id="3d" output_freq="3d"  output_level="10" enabled=".TRUE."/> <!-- 3d files -->
+     <file_group id="5d" output_freq="5d"  output_level="10" enabled=".TRUE."/> <!-- 5d files -->
+     <file_group id="7d" output_freq="7d"  split_freq="7d" output_level="10" enabled=".TRUE."> <!-- 7d files -->
+        <file id="file116" name_suffix="-m_3DT-bgc-crs"    description="pisces sms variables" >
+           <field field_ref="DIC"      name="dic"  operation="average" />
+           <field field_ref="Alkalini" name="alk"  operation="average" />
+           <field field_ref="O2"       name="o2"   operation="average" />
+           <field field_ref="CaCO3"    name="calc" operation="average" />
+           <field field_ref="PO4"      name="po4"  operation="average" />
+           <field field_ref="POC"      name="poc"  operation="average" />
+           <field field_ref="Si"       name="si"   operation="average" />
+           <field field_ref="PHY"      name="phy"  operation="average" />
+           <field field_ref="ZOO"      name="zoo"  operation="average" />
+           <field field_ref="DOC"      name="doc"  operation="average" />
+           <field field_ref="PHY2"     name="phy2" operation="average" />
+           <field field_ref="ZOO2"     name="zoo2" operation="average" />
+           <field field_ref="DSi"      name="dsi"  operation="average" />
+           <field field_ref="Fer"      name="fe"   operation="average" />
+           <field field_ref="BFe"      name="bfe"  operation="average" />
+           <field field_ref="GOC"      name="goc"  operation="average" />
+           <field field_ref="SFe"      name="sfe"  operation="average" />
+           <field field_ref="DFe"      name="dfe"  operation="average" />
+           <field field_ref="GSi"      name="gsi"  operation="average" />
+           <field field_ref="NFe"      name="nfe"  operation="average" />
+           <field field_ref="NCHL"     name="nchl" operation="average" />
+           <field field_ref="DCHL"     name="dchl" operation="average" />
+           <field field_ref="NO3"      name="no3"  operation="average" />
+           <field field_ref="NH4"      name="nh4"  operation="average" />
+        </file>
+      </file_group>
+      <file_group id="1m" output_freq="1mo" output_level="10" enabled=".TRUE."/> <!-- real monthly files -->
+      <file_group id="2m" output_freq="2mo" output_level="10" enabled=".TRUE."/> <!-- real 2m files -->
+      <file_group id="3m" output_freq="3mo" output_level="10" enabled=".TRUE."/> <!-- real 3m files -->
+      <file_group id="4m" output_freq="4mo" output_level="10" enabled=".TRUE."/> <!-- real 4m files -->
+      <file_group id="6m" output_freq="6mo" output_level="10" enabled=".TRUE."/> <!-- real 6m files -->
+      <file_group id="1y"  output_freq="1y" output_level="10" enabled=".TRUE."/> <!-- real yearly files -->
+      <file_group id="2y"  output_freq="2y" output_level="10" enabled=".TRUE."/> <!-- real 2y files -->
+      <file_group id="5y"  output_freq="5y" output_level="10" enabled=".TRUE."/> <!-- real 5y files -->
+      <file_group id="10y" output_freq="10y" output_level="10" enabled=".TRUE."/> <!-- real 10y files -->
+ 
+   </file_definition>

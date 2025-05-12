@@ -1,0 +1,34 @@
+---
+# Model conf
+obsopr:
+  prognam: 'noobs_mpi'
+  namlist_modelgrid: 'NOOBS_modelgrid.nml'
+  namlist_mroagrid: 'NOOBS_mroagrid.nml'
+  ntasks_modelgrid: '256' # 64 (procs_node)* 4 (tvar)
+  ntasks_mroagrid: '256'
+  procs_node: '64' 
+  tvars: 'SLA SST VPT VPS'
+  samtyp: 'IS DS VP'
+  conda: '/mnt/netapp2/Store_uni/home/empresa/now/iba/tools/ease_lib_IBIRYS36/ease_env'
+  iosam: '0'
+  ini: '19920902'
+  detide: 'true'
+  detide_prognam: 'pyhana_mpi'
+  dir_hana: '/mnt/lustre/scratch/nlsas/home/empresa/now/iba/temp_harmonic_analysis_computation'
+  # mssh shift on-line estimation
+  msshshift_ini: '19930101'
+  msshshift_online_estimation: 'true'
+  msshshift_gain: '0.8'
+  msshshift_apply: 'true'
+  msshshift_apply_traj: 'FCST'
+  msshshift_noregion: '-10 20 48 62'
+
+pmsft:
+  prognam: 'noobs_mpi'
+  ntasks: '128'
+  procs_node: '64'
+
+binnedola:
+  lat_grid: '26 64.5 1'
+  lon_grid: '-20 17 1'
+

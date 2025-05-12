@@ -1,0 +1,94 @@
+---
+# Model conf
+model:
+  prognam_dir: '/home/empresa/now/iba/tools/ease_lib_IBIRYS36/nemo3.6_ibirys36/NEMOGCM/CONFIG/NEATL36/BLD/bin'
+  prognam: 'nemo.exe'
+  ntasks: '992'
+  procs_node: '64'
+  total_ntasks: '1024'
+  # Rebuild info
+  rebuild_dir: '/home/empresa/now/iba/tools/ease_lib_IBIRYS36/nemo3.6_ibirys36/NEMOGCM/TOOLS/MERGE_MPP/BLD/bin/'
+  rebuild: 'mergefile_mpi.exe'
+  rebuild_nstasks: '64'
+  rebuild_procs_node: '64'
+  # Convert moorings
+  convmoor_dir: '/home/empresa/now/iba/tools/ease_lib_IBIRYS36/nemo3.6_ibirys36/NEMOGCM/TOOLS/MOOR/BLD/bin/'
+  convmoor: 'bin_to_ncdf.exe'
+  # time space geometry
+  oce_rdt: '150'
+  jpniproc: '29'
+  jpnjproc: '51'
+  jpnijproc: '992'
+  # Atmospheric Pressure
+  ib: 'true'
+  # Tides
+  tide: 'true'
+  # Ensemble/stochastic model information
+  ensemble_start: '0'
+  ensemble_end: '0'
+  ens_run_size: '1'
+  ens_tag: 'True'
+  # This is the date of the first day using sto and bgc
+  ini_sto: '2016/12/28'
+  ini_bgc: '2016/12/28'
+  # input files information
+  domain_dir: '/mnt/netapp2/Store_uni/home/empresa/now/iba/static/ocean/'
+  domain: 'mesh_hgr.nc'
+  # SALCLM ??
+  reg_weights_dir: '/mnt/netapp2/Store_uni/home/empresa/now/iba/static/ocean/'
+  reg_weights:
+    - 'weights_bilinear_tmx.nc'
+    - 'weights_bilinear_bgc.nc'
+  atm_weights_dir: '/mnt/netapp2/Store_uni/home/empresa/now/iba/static/ocean/'
+  atm_weights:
+    - 'weights_bilinear_ERA5_NEATL36.nc'
+    - 'weights_bicubic_ERA5_NEATL36.nc'
+  # model inputs on regular grid
+  inputs_reg_dir: '/mnt/netapp2/Store_uni/home/empresa/now/iba/static/ocean/'
+  inputs_reg:
+    - 'coordinates.nc'
+    - 'bathy_meter.nc'
+    - 'kpar.nc'
+    - 'tide_dta_grid_T.nc'
+    - 'tide_dta_grid_U.nc'
+    - 'tide_dta_grid_V.nc'
+    - 'tide_LOAD_grid_T.nc'
+    - 'shlat2d.nc'
+    - 'coordinates.bdy.nc'
+    - 'new_tmx_forcing_fields_drwn2.nc'
+    - 'Levitus13_Tem_ORCA025m10.nc'
+    - 'Levitus13_Sal_ORCA025m10.nc'
+    - 'atcco2.txt'
+    - 'position.moor'
+  #  The list of file below is linked from paraminput/model to TMPRUN
+  hard_coded_files:
+    - 'coordinates.nc'
+    - 'bathy_meter.nc'
+    - 'shlat2d.nc'
+    - 'position.moor'
+  #
+  bdy_statics_dir: '/mnt/netapp2/Store_uni/home/empresa/now/iba/static/ocean/'
+  bdy_statics: 
+    - 'runoff_2D_sans_bdy.nc'
+    - 'bathyfer_NEATL36.nc'
+    - 'NEATL36_Global_News2.nc'
+    - 'ndep_MERCATOR-ORCA025toNEATL36_.nc'
+    - 'solubility1_MERCATOR-ORCA025toNEATL36_.nc'
+    - 'weights_bilinear_camsco2-1deg_NEATL36.nc'
+    - 'weights_bilinear_camsra_NEATL36.nc'
+  # BGC
+  BGC_online_FCST: 'false'
+  BGC_online_BEST: 'true'
+  BGC_online_FREE: 'false'
+   
+
+# IO server conf
+ioserver:
+  prognam_dir: '/home/empresa/now/iba/tools/ease_lib_IBIRYS36/xios'
+  prognam: 'xios_server.exe'
+  type: 'multiple_file'
+  ntasks: '32'
+  procs_node: '2'
+  # ntasks for dualgrid configurations
+  ntasks_mroa: '32'
+  

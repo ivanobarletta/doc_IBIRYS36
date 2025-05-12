@@ -1,0 +1,54 @@
+---
+ _VALID4ALL: &DEF
+   type: 'FORC'
+   fsys: 'Local'
+   start: '0'
+   stop: '10000000'
+   dbase: &BASE '/mnt/netapp2/Store_uni/home/empresa/now/iba/myrea/IBIRYS36/'
+
+ 
+ setid1:
+   type: 'BDY'
+   name: 'BDY_PHY'
+   dir: !join [*BASE,'OBC/PHY/']
+   catalog: 'CATALOG_OBC_FORCING'
+   <<: *DEF  
+
+ setid2:
+   type: 'BDY'
+   name: 'BDY_BIO'
+   dir: !join [*BASE,'OBC/BIO/']
+   catalog: 'CATALOG_OBC_FORCING_BIO'
+   <<: *DEF  
+
+ setid3:
+   name: 'RUNOFF'
+   dir: !join [*BASE,'RUNOFF/PHY/']
+   catalog: 'CATALOGUE_RUNOFF_NEATL36'
+   <<: *DEF
+
+ setid4:
+   name: 'RUNOFF_BIO'
+   dir: !join [*BASE,'RUNOFF/BIO/']
+   catalog: 'CATALOG_RUNOFF_BGC'
+   <<: *DEF
+
+ setid5:
+   name: 'DUST'
+   dir: !join [*BASE,'BIO_FORC/DUST/']
+   catalog: 'CATALOG_DUST'
+   <<: *DEF
+
+ setid6:
+   name: 'CO2'
+   dir: !join [*BASE,'BIO_FORC/CO2/']
+   catalog: 'CATALOG_CO2'
+   <<: *DEF
+
+ setid7:
+   name: 'CHL'
+   dir: !join [*BASE,'BIO_FORC/CHL/']
+   catalog: 'CATALOG_CHL'
+   <<: *DEF
+
+

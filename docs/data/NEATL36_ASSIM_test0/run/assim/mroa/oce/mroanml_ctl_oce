@@ -1,0 +1,640 @@
+:>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+:
+: PALM namelist :
+: ---------------
+:
+:>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+:
+:
+:'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+:       defctl : Control parameters of the system
+:,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+:
+: cg_dirname_outfiles : Nom du repertoire OUTFILES
+: cg_expenam          : Nom experience
+: cg_typerun          : Nom repertoire typerun (NONE=>non defini)
+: rg_ttmin          : Date de depart (en jour julien reference 1950) du modele 
+:                     starting Julian date of assimilation run
+: ig_ntimes         : Nbre de cycle analyse
+:                     number of assimilation cycles, number of integrations,
+:                     number of analyses
+: rg_tint           : Range windows
+: rg_tintcm1        : Range windows of the cm1 cycle
+: ig_modesystem : Modes de fonctionnement du systeme
+:                    -2 => ASSIM (non standard start directly on 3eme run MODEL(IAU) 
+:                                must be consistent with the IAU version where (-tint<=restartIAU<0.0)
+:                                stop at ig_ntimes(>1) cycle after analysis)
+:                          - launch of ANALYSE_BIAS_IAULF (3D-Var_LF)
+:                          - launch of ANALYSE_SAM2_IAULF (SEEK SAM2_LF not yet implemented)
+:                          - launch of ANALYSE_SAM2_IAUHF (SEEK SAM2_HF)
+:                    -1 => ASSIM (non standard start directly on 2eme run MODEL(IAU) 
+:                                must be consistent with the IAU version where (0.0<=restartIAU<tint)
+:                                stop at ig_ntimes cycle after analysis)
+:                          - launch of ANALYSE_BIAS_IAULF (3D-Var_LF)
+:                          - launch of ANALYSE_SAM2_IAULF (SEEK SAM2_LF not yet implemented)
+:                          - launch of ANALYSE_SAM2_IAUHF (SEEK SAM2_HF)
+:                     0 => ASSIM (standard start|stop at beginning|end of observation cycle)
+:                          - launch of ANALYSE_BIAS_IAULF (3D-Var_LF)
+:                          - launch of ANALYSE_SAM2_IAULF (SEEK SAM2_LF not yet implemented)
+:                          - launch of ANALYSE_SAM2_IAUHF (SEEK SAM2_HF)
+:                     1 => ASSIM (standard start|stop at beginning|end of observation cycle)
+:                          - launch of ANALYSE_BIAS_IAULF (3D-Var_LF)
+:                          - launch of ANALYSE_SAM2_IAULF (SEEK SAM2_LF not yet implemented)
+:                          - no launch of ANALYSE_SAM2_IAUHF (not able to go backward)
+:                     2 => free simulation with data but without analyse
+:                          - no launch of ANALYSE_BIAS
+:                          - no launch of ANALYSE_SAM2
+:                          length=tint*ntimes or length=ndaysrunfcst if /=0
+:                     3 => free simulation without data and without analyse
+:                          - no launch of ANALYSE_BIAS
+:                          - no launch of ANALYSE_SAM2
+:                          length=tint*ntimes or length=ndaysrunfcst if /=0
+:                     4 => build db and system files
+:                          we stop after the build of db
+:                     5 => build system files
+:                          we stop without the build of db
+: ig_ndaysrunfcst : length (in days) of fcst run, 0 => NO FCST RUN
+: lg_misfdatafcst : Activ misfit for FCST cycle
+: ig_write_DUP      : available with ig_modesystem=0|1
+:                     = 0 => standard case, no write DUP
+:                     = 1 => first run considering the IAU case and write the DUP file
+:                            stop after Misfit_post
+:                     = 2 => idem 1, launch the following set of ANALYSIS (SAM2_IAUHF,SAM2_IAULF,BIAS_IAULF) and stop
+: ig_reload_DUP     : available with ig_modesystem=0|1
+:                     = 0 => standard case, no load of DUP
+:                     = 1 => reload of DUP file (no model run) and launch the first analysis, no second model run
+:                     = 2 => reload of DUP file (no model run) launch the first analysis and the second model run
+: lg_writeonlybestdia : limite les sorties au run BEST
+: lg_daily_forecast : daily forecast for real time (need lg_mode_prevision=.TRUE. and ig_modesystem=3)
+: lg_mode_prevision : mode_prevision for real time (need ig_modesystem=3)
+: lg_newalgo        : Variable logical pour devlpt de nouveaux algo   
+: ig_newalgo        : Variable integer pour devlpt de nouveaux algo     
+: rg_newalgo        : Variable real pour devlpt de nouveaux algo    
+:                     sens selon utilisation mais non present dans la base cvs
+:
+ &defctl
+   cg_dirname_outfiles='{MOI_dir_calc_tmp}',
+   cg_expenam='{MOI_tagcycle}',
+   cg_typerun='{MOI_exemode_capital}',
+   rg_ttmin={MOI_julstart},
+   ig_ntimes=1,
+   rg_tint={MOI_lcycle},
+   rg_tintcm1={MOI_lcycle},
+   ig_ntimes=1,
+   ig_modesystem=0,
+   ig_ndaysrunfcst=0,
+   lg_misfdatafcst=.TRUE.,
+   ig_write_DUP=0, 
+   ig_reload_DUP=0,
+   lg_writeonlybestdia=.FALSE.,
+   lg_daily_forecast=.FALSE.,
+   lg_mode_prevision=.FALSE.,
+   lg_newalgo=.FALSE.,
+   ig_newalgo=0,
+   rg_newalgo=0.0
+/
+:
+:'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+:       defmod   : Parameters defining the model
+:,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+:
+: ig_jpnij         : number of processor jpnij associated to jpni*jpnj for the MOD exe
+: ig_domember_wdia  : [0:1] if Ensrun we  compute dia for each member if Mo, DIA(M0) always exist
+: ig_domember_wola  : [0:1] if Ensrun we  compute ola for each member if Mo, OLA(M0) always exist
+: ig_domember_wcom  : [0:1] if Ensrun we  compute com for each member if Mo, COM(M0) always exist
+:
+ &defmod
+   ig_jpnij={MOI_ioserver_ntasks_mroa},
+   ig_domember_wdia=1,
+   ig_domember_wola=1,
+   ig_domember_wcom=0
+/
+:
+:'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+:       defcan : Control parameters for canevas     
+:,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+:
+: ig_ens_start     : start num  of the ensemble [0:1], ig_ens_end=start+size-1  
+: ig_ens_size      : size of the ensemble [1:]          
+:                    determinist approach                              [start,size]=[0,1] 
+:                    ens approach                                      [start,size]=[1,n] 
+:                    ens approach including M0 (which use the ens cov) [start,size]=[0,n] 
+: ig_nproc         : number of processor for the SAM exe
+: ig_jpiregion     : nombre de region selon i pour le decoupage du domaine
+: ig_jpjregion     : nombre de region selon j pour le decoupage du domaine
+: ig_jpicutproc    : nombre de proc selon i pour la repartition en proc sur une region
+: ig_jpimergeproc  : nombre de proc melange selon i pour la repartition en proc sur une region
+: ig_sblocz        : dimension maximum du bloc courant (<=ip_sblocz)
+: lg_fgrpregion    : existence du fichier IN cg_fgrpregion
+: cg_fgrpregion    : Nom du fichier IN (XXX.cmz) de definition des sous-regions
+: lg_fgrpregionout : existence du fichier OUT cg_fgrpregionouit sur la grille z (dimension ip_jpz)
+: cg_fgrpregionout : Nom du fichier OUT (XXX.cmz) de definition des sous-regions
+: lg_fbijvctz      : existence du fichier IN cg_fbijvctz
+: cg_fbijvctz      : Nom du fichier IN (XXX.cmz) de definition des bijections 
+:                    au sein de chaque sous-region 
+: lg_fmaskz        : existence du fichier IN cg_fmaskz
+: cg_fmaskz        : Nom du fichier IN (XXX.cmz) du masque du canevas effectif
+: lg_fcangrd       : creation ou pas du fichier OUT cg_fcangrd
+: cg_fcangrd       : Nom du fichier OUT (XXX.grd) stockant les informations relatives au canevas
+:
+ &defcan
+   ig_ens_start={MOI_model_ensemble_start},
+   ig_ens_size={MOI_model_ensemble_size},
+   ig_nproc={MOI_assim_ntasks}
+   ig_jpiregion=1,
+   ig_jpjregion=1,    !10, !2,
+   ig_jpicutproc=32,  !24, !48,
+   ig_jpimergeproc=1, !1,  !2,	
+   ig_sblocz=50, !140, !70, !310,
+   lg_fgrpregion=.FALSE.,
+   cg_fgrpregion='grpregion.cmz',
+   lg_fgrpregionout=.FALSE.,
+   cg_fgrpregionout='grpregionout.cmz',
+   lg_fbijvctz=.FALSE.,
+   cg_fbijvctz='bijvctz.cmz',
+   lg_fcangrd=.FALSE.,
+   cg_fcangrd='canevas.grd'
+/
+:
+:'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+:       defstructdta   : Control parameters for structdta
+:,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+:
+: cg_definestructdtatxt : name of definition file for structdta
+: ig_sampling       : Choix d'echantillonnage du vecteur de controle
+:                     = 0  full vector
+:                     = 1  On echantillonne de facon reguliere
+:                     = 2  On echantillonne de facon irreguliere (on va lire dans un fichier)
+: ig_sampling_level : regular sampling level of control vector
+: cg_fsampling      : Nom du fichier IN contenant l'echantillonnage irregulier
+:
+ &defstructdta
+   cg_definestructdtatxt='definestructdta_oce.txt',
+   ig_sampling=0,
+   ig_sampling_level=1,
+   cg_fsampling='sampling_control.ascii'
+/
+:
+:'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+:       defobs   : Control parameters for observation vector
+:,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+:
+: cg_obsDUPnam               : Begin name of obs DUP file 
+: ig_obsDUPnumcycle[deb|fin] : range cycle to build obsDUPnam 
+: lg_loadmultiobsDUPfile     : Load multi obs DUPfile (T) following obsDUPnumcycle[deb|fin] or only one (F)
+: lg_applyreduceobs: Active ou non algorithme eliminant observations 
+:                    en fonction du canevas effectif du proc courant
+: ig_sampling_obs   : Choix d'echantillonnage du vecteur de controle pour la selection des donnees
+:                     = 0  full vector
+:                     = 1  On echantillonne de facon reguliere
+:                     = 2  On echantillonne de facon irreguliere (on va lire dans un fichier)
+: ig_sampling_obs_level : regular sampling level of control vector for indatvpnetcdf
+: cg_fsampling_obs  : Nom du fichier IN contenant l'echantillonnage irregulier
+:
+ &defobs
+   cg_obsDUPnam='COM',
+   ig_obsDUPnumcycledeb=0,
+   ig_obsDUPnumcyclefin=0,
+   lg_loadmultiobsDUPfile=.TRUE.,
+   lg_applyreduceobs=.TRUE.,
+   ig_sampling_obs=0,
+   ig_sampling_obs_level=1,
+   cg_fsampling_obs='sampling_obs.ascii'
+/
+:
+:'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+:       defcov    : Control parameters for forecast error covariance
+:,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+:
+: cg_definecovtxt  : name of definition file for loading the cov
+: ig_jprmax        : max number of modes      (must be in [1:ip_maxjpr])
+: ig_jpfloadmax    : max number of file load  (must be in [1:ip_maxjpfload])
+:
+: ig_subfloadsizemax: gestion du pic memoire de paquet de fichiers cmx/cpmx (Mo)         (Unit_Hcov only)
+: ig_jpsubfloadmax  : gestion du pic memoire de paquet de fichiers cmx/cpmx (Nbr max)    (Unit_Hcov only)
+: ig_grpfloadsizemax: gestion du pic memoire du load des fichiers  cmx/cpmx (Mo)         (Unit_Hcov only)
+: ig_jpngrpfloadmax : gestion du pic memoire du load des fichiers  cmx/cpmx (Nbr max)    (Unit_Hcov only)
+:
+: ig_loadtabzsizemax: gestion du pic memoire du load de un fichier cmz (Mo)
+:
+: ig_algo_mpiiogroup: mpiio configuration
+:                     0 load by all proc
+:                     1 load by one proc
+:                     2 load considering a repartition using ig_nproc_mpiiogroup 
+: ig_nproc_mpiiogroup_nemo|sam : def size of proc by group load in NEMO|SAM2 routine 
+: ig_nproc_mpiiogroup_hcov|delta : size of proc by group load in Hcov|deltaSAM2 routine 
+:                                (only rank 0 of each group load the files, need format dmx|dpmx|dmz)
+:
+ &defcov
+   cg_definecovtxt='definecov_oce.txt',
+   ig_jprmax=900,
+   ig_jpfloadmax=1000,
+   ig_subfloadsizemax=160,	
+   ig_jpsubfloadmax=1000,
+   ig_grpfloadsizemax=80,
+   ig_jpngrpfloadmax=30,
+   ig_loadtabzsizemax=100,
+   ig_algo_mpiiogroup=0,
+   ig_nproc_mpiiogroup_nemo=1,
+   ig_nproc_mpiiogroup_sam=1,  !2,
+   ig_nproc_mpiiogroup_hcov=1, !2,
+   ig_nproc_mpiiogroup_delta=1
+/
+:
+:'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+:       defroa    :  Control parameters for analyses 
+:,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+:
+: cg_defineroatxt           : name of definition file for loading the roasub structure
+: ig_freq_wproc             : freq of proc for writing in diagbloc
+:                             0 write by one proc (0)
+:                             1 write by all proc
+:                             >=2 write by a set of proc considering ig_freq_wproc
+: ig_algoreducesblocz_wproc : activ(1) or not (0) algo for reduction of activ bub for the wproc
+: rg_reducesblocz_wproc     : reduction of activ bub for the wproc (in [0:1.0])
+: ig_diagblocmpisizemax     : gestion du pic memoire mpi de paquet de fichiers dans diagbloc (Mo)
+:
+ &defroa
+   cg_defineroatxt='defineroa_oce.txt'
+   ig_freq_wproc=1,  !24,
+   ig_algoreducesblocz_wproc=1,
+   rg_reducesblocz_wproc=0.9,
+   ig_diagblocmpisizemax=100
+/
+:
+:'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+:       defdelta   : Control parameters for delta 
+:,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+:
+: cg_definedeltatxt : name of definition file for delta
+:
+: ig_typedeltatimes  : default type for deltatimes algorithm
+:                      0 => definition using parameters
+:                      1 => technic 1
+: Parameters controlled by typedeltatimes : (ndeltatimes,tdeltatimes)
+: ig_ndeltatimes     : number of delta (must be in [1:ip_maxdeltatimes])
+: rga_tdeltatimes    : date list of the delta around the windows relative to the beginning of the windows
+: ig_ndeltatimescm1  : ig_ndeltatimes for cm1
+: rga_tdeltatimescm1 : rga_tdeltatimes for cm1
+:
+: lg_freduceincmsk : existence du fichier IN cg_freduceincmsk sur la grille z (dimension ip_jpz)
+: cg_freduceincmsk : Nom du fichier IN (XXX.cmz) du mask du canevas reduit pour les modes
+:                    (mask/=0 => pt du can reduit pour l increment)
+:                    determine les points du canevas ou les modes sont effectivement definis
+:                    le reste des autres points doivent etre interpoles selon les poids 
+:                    du fichier cg_freduceincweight
+: cg_freduceincweight :  Nom du fichier IN (XXX.cmz) des poids interpolations du canevas reduit pour l increment
+: lg_fdeltaweightz      : existence du fichier cg_fdeltaweightz
+: cg_fdeltaweightz      : Nom du fichier IN (XXX.cmz) de poids applique a la correction (1 coef par colonne)
+: lg_fdeltaweightx      : existence du fichier cg_fdeltaweightx
+: cg_fdeltaweightx      : Nom du fichier IN (XXX.[cmx|cpmx]) de poids applique a la correction
+:
+ &defdelta
+!
+    cg_definedeltatxt='definedelta.txt'
+!
+!   ig_typedeltatimes=0,
+!
+!3D	
+!ig_ndeltatimes=1,
+!rga_tdeltatimes(1)=2.0,
+!ig_ndeltatimescm1=1,
+!rga_tdeltatimescm1(1)=2.0,
+!	
+!4D
+!   ig_ndeltatimes=3,	
+!   rga_tdeltatimes(1)=1.0,
+!   rga_tdeltatimes(2)=2.0,
+!   rga_tdeltatimes(3)=3.0,
+!   ig_ndeltatimescm1=3,	
+!   rga_tdeltatimescm1(1)=1.0,
+!   rga_tdeltatimescm1(2)=2.0,
+!   rga_tdeltatimescm1(3)=3.0,
+!
+!   lg_freduceincmsk=.TRUE.,
+!   cg_freduceincmsk='reduceincmsk.cmz',
+!   cg_freduceincweight='reduceincweight.cmz',
+!   lg_fdeltaweightz=.FALSE.,
+!   cg_fdeltaweightz='deltaweightz.cmz',
+!   lg_fdeltaweightx=.FALSE.,
+!   cg_fdeltaweightx='deltaweightx.cmx'
+/
+:
+:'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+:       defiau : Parametres de definition du schema IAU
+:,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+:
+: lg_algoIAU       : Active ou non algorithme IAU
+: ig_modeIAU      : definition of the IAU use 
+:                   -infini:-3 start the IAU from a simulation without all IAU
+:                   -2 start the IAU from a simulation without IAUcm1 and IAUcm2
+:                   -1 start the IAU from a simulation without IAUcm2
+:                    0 start the IAU from a simulation with IAU
+:                    1 start the IAU from a simulation using some parameters
+:                    (only lg_applydeltaIAUcm2,lg_applydeltaIAUcm1,lg_applydeltaIAU)
+: ig_typeIAU       : type par default algorithme IAU
+:                0 => definition par parametres
+:                1 => technique 1
+:                2 => technique 2
+:                3 => technique 3
+: rg_ampldeltaIAU[|cm1] : amplification of deltaIAU
+:
+: Parameters controlled by typeIAU : (applydeltaIAU,restartIAU,stopIAU,timetopIAU,typefctdelta,sumfctdelta)
+: lg_applydeltaIAU[|cm1|cm2] : ON/OFF IAU on subpart [c0|cm1|cm2] (for development&sensibility test)
+: rg_restartIAU   : time start IAU relative to rg_ttmin(begin of the windows)
+: rg_stopIAU      : time stop IAU relative to rg_ttmin(begin of the windows)  must be in >=rg_restartIAU
+: rg_timetopIAU   : time position of the top IAU fct relative to rg_ttmin (begin of the windows) must be in [rg_restartIAU:rg_stopIAU]
+: ig_typefctdelta : type of IAU fct 
+: rg_sumfctdelta  : sum of the weight IAU for the overall range [rg_restartIAU:rg_stopIAU]
+:
+: rg_restartIAUcm1,rg_stopIAUcm1,rg_timetopIAUcm1,rg_tintcm1,ig_typefctdeltacm1,rg_sumfctdeltacm1 idem for cm1 IAU sub part
+:
+ &defiau
+   lg_algoIAU=.TRUE.,
+!   ig_typeIAU=0,
+   ig_modeIAU=-3,
+!   rg_ampldeltaIAU=1.0,	
+!   rg_ampldeltaIAUcm1=1.0,
+   lg_applydeltaIAU=.FALSE.,
+!
+!  rg_restartIAU[|cm1]=0,              #IAU14C[7|5|3]
+!  rg_stopIAU[|cm1]=[8.0|6.0|4.0],     #IAU14C[7|5|3]
+!
+!  rg_restartIAU[|cm1]=-[7.0|5.0|3.0], ###IAU24C[7|5|3]
+!  rg_stopIAU[|cm1]=1.0,               ###IAU24C[7|5|3]
+!
+!  rg_restartIAU[|cm1]=-[10.0|6.0],    ###IAU34C[5|3]
+!  rg_stopIAU[|cm1]=-[4.0|2.0],        ###IAU34C[5|3]
+!
+!  rg_restartIAU[|cm1]=-[9.0],         ###IAU44C[3]
+!  rg_stopIAU[|cm1]=-[5.0],            ###IAU44C[3]
+!
+   rg_restartIAU=0.0,
+   rg_stopIAU=8.0,
+!
+!   rg_timetopIAU=7.0,
+!   ig_typefctdelta=3,
+!   rg_sumfctdelta=1.0,
+!   rg_timesumfctdelta=8.0,
+   lg_applydeltaIAUcm1=.FALSE.,
+!
+   rg_restartIAUcm1=0.0,
+   rg_stopIAUcm1=8.0,
+!
+!   rg_timetopIAUcm1=7.0,
+!   ig_typefctdeltacm1=3,
+!   rg_sumfctdeltacm1=1.0,
+!   rg_timesumfctdeltacm1=8.0,
+   lg_applydeltaIAUcm2=.FALSE.
+/
+:
+:'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+:       defgetcoroce : Control parameters for modegetcoroce
+:,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+:
+: ig_modegetcorIAU_ssh   : Choix type algorithme pour sshforcing getcor en version IAU
+:                     = 0      NO IAU sshforcing
+:                     = 1         IAU ssh forcing
+:                     = 2         IAU ssh forcing using minmax
+: ig_modegetcorIAU_algobuildssh : Choix type algorithme pour sshforcing getcor en version IAU
+:                     = 1         IAU sshforcing=SSH=HBAR+HDYN(T,S)
+:                     = 2         IAU sshforcing=SSH=HBAR+HDYN(T,S)-HBRST
+:                     = 3         IAU sshforcing=SSH=H
+:                     = 4         IAU sshforcing=SSH=H-HBRST
+: ig_modegetcorIAU_algomeanssh : Choix type algorithme pour calage de la mean(sshforcing)
+:                     = 0      no calage
+:                     = 1      we remove mean(ssh-hdyn)
+:                     = 2      we remove mean(hdyn)
+:                     = 3      we remove mean(ssh) => mean=0
+: ig_modegetcorIAU_algomeanhbr : Choix type algorithme pour calage de la mean(hbar,hbrst)
+:                     = 0      no calage
+:                     = 1      we remove mean(hbar,hbrst)
+: ig_modegetcorIAU_[t|s|uv]  : Choix type algorithme pour [t|s|uv]forcing getcor en version IAU
+:                     = 0      NO IAU [T|S|U,V] forcing
+:                     = 1         IAU [T|S|U,V] forcing
+:                     = 2         IAU [T|S|U,V] forcing using minmax
+:
+ &defgetcoroce
+   ig_modegetcorIAU_ssh=1,
+   ig_modegetcorIAU_algobuildssh=3,
+   ig_modegetcorIAU_algomeanssh=0,
+   ig_modegetcorIAU_algomeanhbr=1,
+   ig_modegetcorIAU_t=1,
+   ig_modegetcorIAU_s=1,
+   ig_modegetcorIAU_uv=1
+/
+:
+:'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+:       defgetcorice : Control parameters for modegetcorice
+:,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+:
+: ig_modegetcorIAU_siuv : Choix type algorithme pour siuvforcing getcor en version IAU
+:                     = 0      NO IAU SIUV forcing
+:                     = 1         IAU SIUV forcing
+:                     = 2         IAU SIUV forcing using minmax
+: ig_modegetcorIAU_sic : Choix type algorithme pour sicforcing getcor en version IAU
+:                     = 0      NO IAU SIC forcing
+:                     = [-1|1]    IAU SIC [-1]CAT forcing
+:                     = [-2|2]    IAU SIC [-2]CAT forcing using minmax
+: ig_modegetcorIAU_[sivolu|sithi] : Choix type algorithme pour [sivolu|sithi]forcing getcor en version IAU
+:                     = 0      NO IAU [SIVOLU|SITHI] forcing
+:                     = [-1|1]    IAU [SIVOLU|SITHI] [-1]CAT forcing
+:                     = [-2|2]    IAU [SIVOLU|SITHI] [-2]CAT forcing using minmax
+:                     = [-3|3]    IAU [SIVOLU|SITHI] [-3]CAT forcing using dat to limit dvt
+: ig_modegetcorIAU_algobuildacat : Choix type algorithme pour construire acat
+:                     = 1         from siconcatforcing => need to have SICONCAT in state vector
+:                     = 2         from current shape acat
+:                     = 3         from distrib only
+:                     = 4         from siconcatforcing(1) and distrib(3)
+:                                      following avcat_distrib_merge 
+:                                      => need to have SICONCAT in state vector
+: ig_modegetcorIAU_algobuildvt : Choix type algorithme pour construire vt (only if [SIVOLU|SITHI][CAT]=0)
+:                     = -2        from current hmin_cat and da_cat
+:                     = -1        from current h_cat and da_cat
+:                     = 1         from current ht and dat
+:                     = 2         from himean and current dat
+: ig_modegetcorIAU_algobuildvcat : Choix type algorithme pour construire vcat
+:                     = 1         from [sivolu|sithi]catforcing and/or siconcatforcing => need to have [SIVOLU|SITHI]CAT and/or SICONCAT in state vector
+:                     = 2         from current shape vcat
+:                     = 3         from distrib only
+:                     = 4         from [sivolu|sithi]catforcing and/or siconcatforcing(1) and distrib(3)
+:                                       following avcat_distrib_merge
+:                                       => need to have [SIVOLU|SITHI]CAT and/or SICONCAT in state vector
+: ig_modegetcorIAU_avcat_distrib: Choix type distribution pour construire acat et vcat
+:                     = 1         uniforme en acat
+:                     = 2         dirac sur 1
+:                     = 3         distribution gamma following ig_modegetcorIAU_avcat_gammalaw_k|theta|cut
+: rg_modegetcorIAU_avcat_gammalaw_k|theta|cut gamma law parameter (k,theta,cut)=(2.0,0.4,4.0)
+: rg_modegetcorIAU_avcat_distrib_merge in [0.0:1.0]
+:                                 0.0=> 100% from [sicon|sivolu|sithi]catforcing
+:                                 1.0=> 100% from distrib
+ &defgetcorice
+   lg_useantar=.TRUE.,
+   ig_modegetcorIAU_siuv=0,
+   ig_modegetcorIAU_sic=0,                               !1,!REA120   !1,!REA121   !-1,!REA130   !-1,!REA150   !-1,
+   ig_modegetcorIAU_sivolu=1,             !1, !REA120   !0,!REA121   !0, !REA130   !-3,!REA150   !0,
+   ig_modegetcorIAU_sivolu_antar=0, !0, !REA120   !0,!REA121   !0, !REA130   !-3,!REA150   !0,
+   ig_modegetcorIAU_sithi=0,                             !            !            !             !             !
+   ig_modegetcorIAU_sithi_antar=0,                       !            !            !             !             !
+   ig_modegetcorIAU_algobuildacat=2,                     !2,!REA120   !3,!REA121   !1, !REA130   !1, !REA150   !1,
+   ig_modegetcorIAU_algobuildvt=2,                       !            !            !             !             !
+   ig_modegetcorIAU_algobuildvcat=2,                     !2,!REA120   !2,!REA121   !3, !REA130   !1, !REA150   !1, module_IAU(sicvoluforcing):Error bad case  ...algobuildvcat=[1,4]...
+   ig_modegetcorIAU_avcat_distrib=3,
+   rg_modegetcorIAU_avcat_gammalaw_k=2.0,
+   rg_modegetcorIAU_avcat_gammalaw_theta=0.4,
+   rg_modegetcorIAU_avcat_gammalaw_cut=4.0,
+   rg_modegetcorIAU_avcat_distrib_merge=0.0
+/
+:
+:'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+:       defgetcorforcing : Control parameters for modegetcorforcing
+:,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+:
+: ig_algogetcorIAU_forcing : Choix type algorithme pour IAU_forcing
+:                     = 0      pas de decorrelation sur cycle courant
+:                     = 1      integration par jour et decorrelation sur cycle courant des jours integre
+:                     = 2      decorrelation au timestep model (ig_n*forcingmax=1)
+: ig_modegetcorIAU_tair : Choix type algorithme pour tairforcing getcor en version IAU
+:                     = -2        IAU TAIR forcing using minmax (method SST_on_bulk)
+:                     = -1        IAU TAIR forcing              (method SST_on_bulk)
+:                     = 0      NO IAU tairforcing
+:                     = 1         IAU TAIR forcing
+:                     = 2         IAU TAIR forcing using minmax
+: ig_modegetcorIAU_algobuildtair : Choix type algorithme pour construire tairforcing getcor en version IAU
+:                     = 1         IAU TAIR forcing=TEM
+:                     = 2         IAU TAIR forcing=SST
+:                     = 3         IAU TAIR forcing=TAIR
+: ig_modegetcorIAU_[humre|srfl] : Choix type algorithme pour [humre|srfl]forcing getcor en version IAU
+:                     = 0      NO IAU [humre|srfl] forcing
+:                     = 1         IAU [humre|srfl] forcing
+:                     = 2         IAU [humre|srfl] forcing using minmax
+: ig_n[tair|humre|srfl]forcingmax     : nbre de champs a sauvegarder
+: rg_lcorrel[tair|humre|srfl]forcing  : longueur de decorrelation sur les cycles suivant des champs sauv
+:
+ &defgetcorforcing
+   ig_algogetcorIAU_forcing=2,
+   ig_modegetcorIAU_tair=0!,-1,
+   ig_modegetcorIAU_algobuildtair=2,
+   ig_modegetcorIAU_humre=0,
+   ig_modegetcorIAU_srfl=0,
+   ig_ntairforcingmax=1,
+   ig_nhumreforcingmax=0,
+   ig_nsrflforcingmax=0,
+   rg_lcorreltairforcing=7.0,
+   rg_lcorrelhumreforcing=0.0,
+   rg_lcorrelsrflforcing=0.0
+/
+:
+:'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+:       defbias : Control parameters for bias correction
+:,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+:
+: ig_bias_[hts|uv]_modeIAU        : ]-inf:+inf[ define the absolute cycle where the first bias_[hts|uv] is activated
+:                                   from ksh ((ig_bias_[hts|uv]_modeIAU=(julstart-julmin_apply_HTS_bias_correction)/cycle_length ))
+:                                   warning the first absolute cycle with activ bias is not always for ig_bias_[hts|uv]_modeIAU=0
+:                                   because it depends of (cycIAU,ig_bias_[hts|uv]_cycle_before,ig_bias_[hts|uv]_algoforcing)       
+:                                   activation in ig_bias_[hts|uv]_modeIAU>=-1 if ig_restartIAU<rg_tint and ig_bias_[hts|uv]_algoforcing<0
+: ig_bias_[hts|uv]_algoforcing    : algo for the bias
+:                                   -2 = time linear interpolation (two biases files located on nitend and nitend-cyclelength)
+:                                   -1 = a constant bias (one bias file located on nitend)
+:                                  [-] => add a windows lag for numcycle<0
+:                                        simulations NOW and [HCST,BEST] use different biases files on the same cycle
+:                                    0 = no bias
+:                                    1 = a constant bias (one bias located on nitend)
+:                                    2 = time linear interpolation (two biases files located on nitend and nitend-cyclelength)
+:                                  [+] => simulations NOW and [HCST,BEST] use the same bias file on the same cycle 
+: ig_bias_[hts|uv]_cycle_before   : -1
+:                                 :  0  for operational (only if hindcast and nowcast are not made the same day)
+:                                    1  for rtr or reanalysis
+:                                   conseil reglage (bias_[hts|uv]_algoforcing|bias_[hts|uv]_cycle_before) 
+:                                   pour avoir le dernier bias_jstop.nc du cycle precedent avec a un tag en jstop du cycle precedent
+:                                   => (bias_[hts|uv]_algoforcing|bias_[hts|uv]_cycle_before) = (-2|0) (-1|-1) (1|0) (2|1)
+: rg_bias_[hts|uv]_lengthforecast : lengthattenuation for the forecast (only) (if equal 0.0 => cte)
+: ig_bias_[ssh|t|s|uv]forcing     : bias correction parameter
+:                                  -1 = no bias load if ig_bias_algoforcing not equal 0
+:                                   0 = no bias apply but output diag 
+:                                   1 = bias using rg_bias_[ssh|t|s|uv]forcing for time scale
+: rg_bias_[ssh|t|s|uv]forcing     : bias correction time scale in days (typical value is 1~3 month)
+:                                   rg_bias_[ssh|t|s|uv]forcing must be > rg_tint
+: cg_bias_[hts|uv]_system_name    : use this system for bias files
+: cg_bias_[hts|uv]_weigth_name    : 
+:
+ &defbias
+   ig_bias_hts_modeIAU=0,
+   ig_bias_hts_algoforcing=0,
+   ig_bias_hts_cycle_before=0,
+   rg_bias_hts_lengthforecast=63.0,
+   ig_bias_sshforcing=1,
+   ig_bias_tforcing=1,
+   ig_bias_sforcing=1,
+   rg_bias_sshforcing=63.0,
+   rg_bias_tforcing=63.0,
+   rg_bias_sforcing=63.0,
+   cg_bias_hts_system_name='IBI36',
+   cg_bias_hts_weigth_name='',
+   ig_bias_uv_modeIAU=0,
+   ig_bias_uv_algoforcing=0,
+   ig_bias_uv_cycle_before=0,
+   rg_bias_uv_lengthforecast=63.0,
+   ig_bias_uvforcing=0,
+   rg_bias_uvforcing=63.0,
+   cg_bias_uv_system_name='_BIAS-UV-SYSTEM-NAME_',
+   cg_bias_uv_weigth_name='_WEIGHT-BIAS-UV_'
+/
+:
+:'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+:       defobc : Control parameters for obc correction
+:,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+:
+: ig_algoobcforcing : Choix type algorithme pour obcforcing getcor en version IAU
+:                     = 0   NO IAU obcforcing
+:                     = 1   IAU obcforcing without stored file (approximative method)
+:                     = 2   IAU obcforcing with stored file
+: ig_modegetcorIAU_[t|s|ssh|uv]obc : Choix type algorithme pour [t|s|ssh|uv]obcforcing getcor en version IAU
+:                     = 0      NO IAU [t|s|ssh|uv]obcforcing
+:                     = 1         IAU [t|s|ssh|uv]obcforcing
+:                     = 2         IAU [t|s|ssh|uv]obcforcing using minmax
+: rg_lcorrelobcforcing     : lengthattenuation for the obc forecast in days
+:
+ &defobc
+   ig_algoobcforcing=0,
+   ig_modegetcorIAU_tobc=0,
+   ig_modegetcorIAU_sobc=0,
+   ig_modegetcorIAU_sshobc=0,
+   ig_modegetcorIAU_uvobc=0,
+   rg_lcorrelobcforcing=3.0
+/
+:
+:'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+:       defbgc : Control parameters for bgc correction
+:,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+:
+: ig_modegetcorIAU_sschl   : Choix type algorithme pour sschlforcing getcor en version IAU
+:                     = 0      NO IAU sschlforcing
+:                     = [-1|1]    IAU sschl forcing              [-1]sschl use ss[d|n]chl
+:                     = [-2|2]    IAU sschl forcing using minmax [-2]sschl use ss[d|n]chl
+: ig_modegetcorIAU_chl   : Choix type algorithme pour chlforcing getcor en version IAU
+:                     = 0      NO IAU chlforcing
+:                     = [-1|1]    IAU chl forcing              [-1]chl use [d|n]chl
+:                     = [-2|1]    IAU chl forcing using minmax [-2]chl use [d|n]chl
+:
+ &defbgc
+   ig_modegetcorIAU_sschl=0,
+   ig_modegetcorIAU_chl=0
+/
+:
+:'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+:       defdrz : Control parameters for drz
+:,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+:
+: ig_computedrz : Control parameter for the computation of drz
+:                     = 0   NO computation
+:                     = 1   computation
+: lg_use_2Ddrzerrormin : Use or not (1/0) 2D map to impose a minimum of observation error
+:
+ &defdrz
+   ig_computedrz_SLA=0,
+   ig_computedrz_SST=0,
+   lg_use_2DdrzerrorminSLA=.FALSE.,	
+   lg_use_2DdrzerrorminSST=.FALSE.
+/

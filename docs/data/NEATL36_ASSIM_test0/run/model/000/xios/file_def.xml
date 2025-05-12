@@ -1,0 +1,238 @@
+
+<file_definition>
+   <file_group id="1ts" output_freq="1ts"  output_level="10" enabled=".TRUE."/> <!-- 1 time step files -->
+   <file_group id="1h" output_freq="1h" split_freq="1d" output_level="10" enabled=".TRUE."> <!-- 1h files -->
+      <file id="file01" name_suffix="-m_2DT-oce" description="ocean T grid variables" >
+         <field field_ref="sst"          name="tos"  operation="instant" freq_op="1h" > @sst_e3t / @e3t_s </field>
+         <field field_ref="sss"          name="sos"  operation="instant" freq_op="1h" > @sss_e3t / @e3t_s </field>
+         <field field_ref="e3t_s"                       />
+         <field field_ref="ssht"         name="ssh"     />
+         <field field_ref="mldr10_1"     name="mlotst"  />
+         <field field_ref="uoce100"      name="uo100"   />
+         <field field_ref="voce100"      name="vo100"   />
+         <field field_ref="sshdyn"       name="zos"       />
+         <field field_ref="ssh_ib"       name="ssh_ib"    />
+         <field field_ref="sodynhei"     name="st"        />
+      </file>
+      <file id="file1" name_suffix="-i_2DT-NOOBS" description="ocean T grid variables" >
+         <field field_ref="sst"          name="tos"     operation="instant" />
+         <field field_ref="ssht"         name="ssh"     operation="instant" />
+         <field field_ref="ssh_ib"       name="ssh_ib"  operation="instant" />
+         <field field_ref="sodynhei"     name="st"      operation="instant" />
+      </file>
+      <file id="file02" name_suffix="-m_2DU-oce" description="ocean U grid variables" >
+         <field field_ref="ssu"          name="uos"  operation="instant" freq_op="1h" > @ssu_e3u / @e3u_s </field>
+         <field field_ref="e3u_s"                       />
+         <field field_ref="ubar"         name="ubar"    />
+         <field field_ref="utau"         name="tauuo"   />
+      </file>
+      <file id="file03" name_suffix="-m_2DV-oce" description="ocean V grid variables" >
+         <field field_ref="ssv"          name="vos"  operation="instant" freq_op="1h" > @ssv_e3v / @e3v_s </field>
+         <field field_ref="e3v_s"                       />
+         <field field_ref="vbar"         name="vbar"    />
+         <field field_ref="vtau"         name="tauvo"   />
+      </file>
+   </file_group>
+   <file_group id="2h" output_freq="2h"  output_level="10" enabled=".TRUE."/> <!-- 2h files -->
+   <file_group id="3h" output_freq="3h"  output_level="10" enabled=".TRUE."/> <!-- 3h files -->
+   <file_group id="3h"  output_freq="3h"  split_freq="1d" output_level="10" enabled=".TRUE." > <!-- 3h files -->
+      <file id="file2" name_suffix="-i_3DT-thetao-NOOBS" description="ocean T grid variables" >
+         <field field_ref="toce"         name="thetao"  operation="instant" />
+      </file>
+      <file id="file3" name_suffix="-i_3DT-so-NOOBS" description="ocean T grid variables" >
+         <field field_ref="soce"         name="so"      operation="instant" />
+      </file>
+   </file_group>
+   <file_group id="4h" output_freq="4h"  output_level="10" enabled=".TRUE."/> <!-- 4h files -->
+   <file_group id="6h" output_freq="6h"  output_level="10" enabled=".TRUE."/> <!-- 6h files -->
+   <file_group id="1d" output_freq="1d"  split_freq="1d"  output_level="10" enabled=".TRUE."> <!-- 1d files -->
+      <file id="file04" name_suffix="-m_0DT-oce" >         <!-- scalar -->
+         <field field_ref="masstot"    long_name="sea_water_mass"                               />
+         <field field_ref="voltot"     long_name="sea_water_volume"                             />
+         <field field_ref="sshtot"     long_name="global_average_sea_level_change"              />
+         <field field_ref="sshsteric"  name="stga"  long_name="global_average_steric_sea_level_change"       />
+         <field field_ref="sshthster"  name="tstga" long_name="global_average_thermosteric_sea_level_change" />
+         <field field_ref="sshhaster"  name="hstga" long_name="global_average_halosteric_sea_level_change"   />
+         <field field_ref="temptot"    long_name="sea_water_potential_temperature"              />
+         <field field_ref="saltot"     long_name="sea_water_salinity"                           />
+         <field field_ref="densewtr" />
+      </file>
+      <file id="file05" name_suffix="-m_0DT-bgc" >         <!-- scalar -->
+         <field field_ref="pno3tot"  name="mean_n"   long_name="global mean N concentration"    unit="mol C l-1"  />
+         <field field_ref="ppo4tot"  name="mean_p"   long_name="global mean P concentration"    unit="mol C l-1"  />
+         <field field_ref="psiltot"  name="mean_si"  long_name="global mean Si concentration"   unit="mol Si l-1" />
+         <field field_ref="pfertot"  name="mean_fe"  long_name="global mean Fe concentration"   unit="mol Fe l-1" />
+         <field field_ref="palktot"  name="mean_alk" long_name="global mean Alk concentration"  unit="mol C l-1"  />
+      </file>
+      <file id="file06" name_suffix="-m_2DT-oce" description="ocean T grid variables" >
+         <field field_ref="mldkz5"       name="mldkz5"    />
+         <field field_ref="mld_dt02"     name="mlddt02"   />
+         <field field_ref="mldr10_1"     name="mlotst"    />
+         <field field_ref="qt"           name="hfds"      />
+         <field field_ref="qsr"          name="rsntds"    />
+         <field field_ref="empmr"        name="wfo"       />
+         <field field_ref="qla_oce"      name="hfls"      />
+         <field field_ref="qlw_oce"      name="rlds"      />
+         <field field_ref="qsb_oce"      name="hfss"      />
+         <field field_ref="qemp_oce"     name="qemp_oce"  />
+         <field field_ref="qair"         name="qair"      />
+         <field field_ref="tair"         name="tas"       />
+         <field field_ref="wspd"         name="sfcWind"   />
+         <field field_ref="precip"       name="pr"        />
+         <field field_ref="taum"         name="taum"      />
+         <field field_ref="atmpre"       name="psl"       />
+         <field field_ref="ssh_ib"       name="ssh_ib"    />
+         <field field_ref="chl_surf"     name="chl_surf"  />
+         <field field_ref="botpres"      name="pbo"       />
+         <field field_ref="sshdyn"       name="zos"       />
+         <field field_ref="sodynhei"     name="st"        />
+      </file>
+      <file id="file07" name_suffix="-m_2DU-oce" description="ocean U grid variables" >
+         <field field_ref="utau"         name="tauuo"     />
+      </file>
+      <file id="file08" name_suffix="-m_2DV-oce" description="ocean V grid variables" >
+         <field field_ref="vtau"         name="tauvo"     />
+      </file>
+      <file id="file09" name_suffix="25h-m_2DT-oce" description="ocean T grid variables" >
+         <field field_ref="ssh25h"       name="ssh"    operation="average" />
+         <field field_ref="sbs25h500"    name="sob"    operation="average" />
+         <field field_ref="sbt25h500"    name="tob"    operation="average" />
+         <field field_ref="taub25h"      name="taub"   operation="average" />
+         <field field_ref="uoce25h100"   name="uo100"  operation="average" />
+         <field field_ref="voce25h100"   name="vo100"  operation="average" />
+      </file>
+      <file id="file10" name_suffix="25h-m_3DT-thetao" description="ocean T grid variables" >
+         <field field_ref="toce25h"      name="thetao" operation="average" />
+      </file>
+      <file id="file11" name_suffix="25h-m_3DT-so" description="ocean T grid variables" >
+         <field field_ref="soce25h"      name="so"     operation="average" />
+      </file>
+      <file id="file12" name_suffix="25h-m_3DT-e3t"    description="scale factor T" >
+         <field field_ref="e3t25h"                     operation="average"  />
+      </file>
+      <file id="file13" name_suffix="25h-m_2DU-oce" description="ocean U grid variables" >
+         <field field_ref="sbu25h"       name="uob"    operation="average" />
+         <field field_ref="utau25h"      name="tauuo"  operation="average" />
+      </file>
+      <file id="file14" name_suffix="25h-m_3DU-uo" description="ocean U grid variables" >
+         <field field_ref="uoce25h"      name="uo"     operation="average" />
+      </file>
+      <file id="file15" name_suffix="25h-m_3DU-e3u"    description="scale factor U" >
+         <field field_ref="e3u25h"   operation="average" />
+      </file>
+      <file id="file16" name_suffix="25h-m_2DV-oce" description="ocean V grid variables" >
+         <field field_ref="sbv25h"       name="vob"    operation="average" />
+         <field field_ref="vtau25h"      name="tauvo"  operation="average" />
+      </file>
+      <file id="file17" name_suffix="25h-m_3DV-vo" description="ocean V grid variables" >
+         <field field_ref="voce25h"      name="vo"     operation="average" />
+      </file>
+      <file id="file18" name_suffix="25h-m_3DV-e3v"    description="scale factor V" >
+         <field field_ref="e3v25h"   operation="average" />
+      </file>
+      <file id="file19" name_suffix="25h-m_3DW-wo"  description="ocean W grid variables" >
+         <field field_ref="woce25h"  name="wo"         operation="average" />
+      </file>
+      <file id="file20" name_suffix="-m_2DT-bgc" description="pisces sms variables" >
+         <field field_ref="EPC100"   name="epc100"   />
+         <field field_ref="EPFE100"  name="epfe100"  />
+         <field field_ref="EPSI100"  name="epsi100"  />
+         <field field_ref="EPCAL100" name="epcal100" />
+         <field field_ref="Cflx"     name="cflx"     />
+         <field field_ref="Oflx"     name="oflx"     />
+         <field field_ref="Kg"       name="kg"       />
+         <field field_ref="spco2"    name="spco2"    />
+         <field field_ref="Dpco2"    name="dpco2"    />
+         <field field_ref="Dpo2"     name="dpo2"     />
+         <field field_ref="Heup"     name="zeu"      />
+         <field field_ref="Irondep"  name="irondep"  />
+         <field field_ref="pdust"    name="pdust"    />
+         <field field_ref="Sdenit"   name="sdenit"   />
+         <field field_ref="INTPP"    name="npp"  />
+         <field field_ref="SSC"      name="ssc"  />
+      </file>
+      <file id="file21" name_suffix="-m_3DT-dic"    description="pisces sms variables" >
+         <field field_ref="DIC"      name="dic"        operation="instant" freq_op="1d" > @DIC_e3t_trc      / @e3t_trc </field>
+      </file>
+      <file id="file22" name_suffix="-m_3DT-alk"   description="pisces sms variables" >
+         <field field_ref="Alkalini" name="alk"        operation="instant" freq_op="1d" > @Alkalini_e3t_trc / @e3t_trc </field>
+      </file>
+      <file id="file23" name_suffix="-m_3DT-o2"    description="pisces sms variables" >
+         <field field_ref="O2"       name="o2"         operation="instant" freq_op="1d" > @O2_e3t_trc       / @e3t_trc </field>
+      </file>
+      <file id="file24" name_suffix="-m_3DT-po4"   description="pisces sms variables" >
+         <field field_ref="PO4"      name="po4"        operation="instant" freq_op="1d" > @PO4_e3t_trc      / @e3t_trc </field>
+      </file>
+      <file id="file25" name_suffix="-m_3DT-si"    description="pisces sms variables" >
+         <field field_ref="Si"       name="si"         operation="instant" freq_op="1d" > @Si_e3t_trc       / @e3t_trc </field>
+      </file>
+      <file id="file26" name_suffix="-m_3DT-phyc"  description="pisces sms variables" >
+         <field field_ref="PHYTO"    name="phyc"       operation="instant" freq_op="1d" > @PHYTO_e3t_trc    / @e3t_trc </field>
+      </file>
+      <file id="file27" name_suffix="-m_3DT-fe"    description="pisces sms variables" >
+         <field field_ref="Fer"      name="fe"         operation="instant" freq_op="1d" > @Fer_e3t_trc      / @e3t_trc </field>
+      </file>
+      <file id="file28" name_suffix="-m_3DT-no3"   description="pisces sms variables" >
+         <field field_ref="NO3"      name="no3"        operation="instant" freq_op="1d" > @NO3_e3t_trc      / @e3t_trc </field>
+      </file>
+      <file id="file29" name_suffix="-m_3DT-nh4"   description="pisces sms variables" >
+         <field field_ref="NH4"      name="nh4"        operation="instant" freq_op="1d" > @NH4_e3t_trc      / @e3t_trc </field>
+      </file>
+      <file id="file30" name_suffix="-m_3DT-zooc"  description="pisces sms variables" >
+         <field field_ref="ZOOC"     name="zooc"       operation="instant" freq_op="1d" > @ZOOC_e3t_trc     / @e3t_trc </field>
+      </file>
+      <file id="file32" name_suffix="-m_3DT-ph"    description="pisces sms variables" >
+         <field field_ref="PH"       name="ph"         operation="instant" freq_op="1d" > @PH_e3t_trc       / @e3t_trc </field>
+      </file>
+      <file id="file33" name_suffix="-m_3DT-nppv"  description="pisces sms variables" >
+         <field field_ref="TPP"      name="nppv"       operation="instant" freq_op="1d" > @TPP_e3t_trc      / @e3t_trc </field>
+      </file>
+      <file id="file34" name_suffix="-m_3DT-chl"   description="pisces sms variables" >
+         <field field_ref="CHL"      name="chl"        operation="instant" freq_op="1d" > @CHL_e3t_trc      / @e3t_trc </field>
+      </file>
+      <file id="file35" name_suffix="-m_3DT-kd"    description="coefficient of attenuation of light" >
+         <field field_ref="Kd_B"     name="kd_blue"    operation="instant" freq_op="1d" > @Kd_B_e3t_trc      / @e3t_trc </field>
+      </file>
+      <file id="file36" name_suffix="-m_3DT-e3ttrc" description="scale factor TRC" >
+         <field field_ref="e3t_trc"  />
+      </file>
+      <file id="file37" name_suffix="-i_2DT-chl-NOOBS"   description="pisces sms variables" >
+         <field field_ref="SSC"   name="schl"      operation="instant" />
+      </file>
+   </file_group>
+   <file_group id="3d" output_freq="3d"  split_freq="3d"  output_level="10" enabled=".TRUE."/> <!-- 3d files -->
+   <file_group id="5d" output_freq="5d"  output_level="10" enabled=".TRUE."/>  <!-- 5d files -->
+   <file_group id="7d" output_freq="7d"  split_freq="7d" output_level="10" enabled=".TRUE.">  <!-- 7d files -->
+      <file id="file38" name_suffix="-m_3DT-bgc"  description="pisces fluxes" >
+         <field field_ref="ZOO"        name="microzoo"   operation="average" />
+         <field field_ref="ZOO2"       name="mesozoo"    operation="average" />
+         <field field_ref="GRAZ1"      name="graz1"      operation="average" />
+         <field field_ref="GRAZ2"      name="graz2"      operation="average" />
+         <field field_ref="LINMORT1"   name="linmort1"   operation="average" />
+         <field field_ref="QUADMORT1"  name="quadmort1"  operation="average" />
+         <field field_ref="LINMORT2"   name="linmort2"   operation="average" />
+         <field field_ref="QUADMORT2"  name="quadmort2"  operation="average" />
+         <field field_ref="SedC"       name="sedC"       operation="average" />
+         <field field_ref="CO3sat"     name="CO3sat"     operation="average" />
+         <field field_ref="xfracal"    name="xfracal"    operation="average" />
+         <field field_ref="NCHL"       name="NCHL"       operation="average" />
+      </file>
+   </file_group>
+   <file_group id="7d" output_freq="7d"  output_level="10" enabled=".TRUE." >  <!-- 7d files -->
+      <file id="file4" name_suffix="-m_3DT-thetao" description="ocean T grid variables" >
+         <field field_ref="toce"      name="thetao"   operation="average" freq_op="7d" > @toce_e3t / @e3t </field>
+      </file>
+      <file id="file5" name_suffix="-m_3DT-so" description="ocean T grid variables" >
+         <field field_ref="soce"      name="so"       operation="average" freq_op="7d" > @soce_e3t / @e3t </field>
+      </file>
+   </file_group>
+   <file_group id="1m" output_freq="1mo" output_level="10" enabled=".TRUE."/> <!-- real monthly files -->
+   <file_group id="2m" output_freq="2mo" output_level="10" enabled=".TRUE."/> <!-- real 2m files -->
+   <file_group id="3m" output_freq="3mo" output_level="10" enabled=".TRUE."/> <!-- real 3m files -->
+   <file_group id="4m" output_freq="4mo" output_level="10" enabled=".TRUE."/> <!-- real 4m files -->
+   <file_group id="6m" output_freq="6mo" output_level="10" enabled=".TRUE."/> <!-- real 6m files -->
+   <file_group id="1y"  output_freq="1y" output_level="10" enabled=".TRUE."/> <!-- real yearly files -->
+   <file_group id="2y"  output_freq="2y" output_level="10" enabled=".TRUE."/> <!-- real 2y files -->
+   <file_group id="5y"  output_freq="5y" output_level="10" enabled=".TRUE."/> <!-- real 5y files -->
+   <file_group id="10y" output_freq="10y" output_level="10" enabled=".TRUE."/> <!-- real 10y files -->
+</file_definition>

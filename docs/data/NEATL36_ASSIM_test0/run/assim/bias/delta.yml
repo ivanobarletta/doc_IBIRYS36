@@ -1,0 +1,45 @@
+
+ _VALID4ALL: &DEF
+    config: '{MOI_system}'
+    nz: 50
+    nj: 1894
+    ni: 1093
+    nam_TEM : 'None'
+    fnam_TEM : 'None'
+    dim_TEM : 3
+    nam_SAL : 'None'
+    fnam_SAL : 'None'
+    dim_SAL : 3
+    nam_SSH : 'None'
+    fnam_SSH : 'None'
+    dim_SSH : 2
+    nam_U : 'None'
+    fnam_U : 'None'
+    dim_U : 3
+    nam_V : 'None'
+    fnam_V : 'None'
+    dim_V : 3
+
+ delta_0:
+    tag: 'BIAS'
+    ncyc_wght: {MOI_bias_ncycregime}
+    nam_TEM : 'temperature'
+    fnam_TEM : 'INTERPtemperature_{MOI_model_ensemble_start}{MOI_system}_gridbias_BIAST'
+    nam_SAL : 'salinity'
+    fnam_SAL : 'INTERPsalinity_{MOI_model_ensemble_start}{MOI_system}_gridbias_BIASS'
+    <<: *DEF
+
+ delta_1:
+    tag: 'MROA'
+    ncyc_wght: 1
+    nam_TEM : 'TEM'
+    fnam_TEM : '000delta_HSSTHTSUV_OCE'
+    nam_SAL : 'SAL'
+    fnam_SAL : '000delta_HSSTHTSUV_OCE'
+    nam_SSH : 'H'
+    fnam_SSH : '000delta_HSSTHTSUV_OCE'
+    nam_U : 'U'
+    fnam_U : '000delta_HSSTHTSUV_OCE'
+    nam_V : 'V'
+    fnam_V : '000delta_HSSTHTSUV_OCE'
+    <<: *DEF

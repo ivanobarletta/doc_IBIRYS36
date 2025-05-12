@@ -1,0 +1,95 @@
+#/scratch/work/legalloudeco/PERMANENT_SPACE/ATMO_FORCINGS/IFS_GAUSS1280/daily/1h/BULKTAIR/CATALOG_BULKTAIR_GAUSS1280
+#BULKHUMI  BULKTAIR  BULKU10M  BULKV10M  FLCOPRE  FLUXPRE  FLUXSSRD  FLUXSTRD  ICEFRAC  PRES  rep_nemo  SNOWFALL
+---
+ _VALID4ALL: &DEF
+   type: 'ATM'
+   fsys: 'Local'
+   dbase: &BASE '/mnt/netapp2/Store_uni/home/empresa/now/iba/myrea/IBIRYS36/ATM_FORC/'
+   interp_weight: 'weights_bilinear_ERA5_NEATL36.nc'
+   fname_prefix: 'ERA5'
+   freq: '1'
+   is_ens: 'false'
+   start: '0'
+   stop: '1000000'
+
+
+ setid1:
+   name: 'BULKHUMI'
+   varname: 'q2m'
+   struct: 'sn_humi'
+   unit: '%'
+   long_name: 'specific humidity'
+   dir:   !join [*BASE,'BULKHUMI']
+   catalog: 'CATALOG_BULKHUMI_ERA5'
+   <<: *DEF
+
+ setid2:
+   name:  'BULKTAIR'
+   varname: 't2m'
+   struct: 'sn_tair'
+   unit: 'Kelvin'
+   dir:   !join [*BASE,'BULKTAIR']
+   catalog: 'CATALOG_BULKTAIR_ERA5'
+   <<: *DEF
+
+ setid3:
+   name:  'MSLP'
+   varname: 'slp'
+   struct: 'sn_slp'
+   dir:   !join [*BASE,'MSLP']
+   catalog: 'CATALOG_MSLP_ERA5'
+   <<: *DEF
+
+ setid4:
+   name:  'SNOWFALL'
+   varname: 'sf'
+   struct: 'sn_snow'
+   dir:   !join [*BASE,'SNOWFALL']
+   catalog: 'CATALOG_SNOWFALL_ERA5'
+   <<: *DEF
+
+ setid5:
+   name:  'FLUXSSRD'
+   varname: 'ssrd'
+   struct: 'sn_qsr'
+   dir:   !join [*BASE,'FLUXSSRD']
+   catalog: 'CATALOG_FLUXSSRD_ERA5'
+   <<: *DEF
+
+ setid6:
+   name:  'FLUXSTRD'
+   varname: 'strd'
+   struct: 'sn_qlw'
+   dir:   !join [*BASE,'FLUXSTRD']
+   catalog: 'CATALOG_FLUXSTRD_ERA5'
+   <<: *DEF
+
+ setid7:
+   name:  'BULKV10M'
+   varname: 'v10'
+   struct: 'sn_wndj'
+   interp_weight: 'weights_bicubic_ERA5_NEATL36.nc'
+   dir:   !join [*BASE,'BULKV10M']
+   catalog: 'CATALOG_BULKV10M_ERA5'
+   <<: *DEF
+
+ setid8:
+   name:  'BULKU10M'
+   varname: 'u10'
+   struct: 'sn_wndi'
+   interp_weight: 'weights_bicubic_ERA5_NEATL36.nc'
+   dir:   !join [*BASE,'BULKU10M']
+   catalog: 'CATALOG_BULKU10M_ERA5'
+   <<: *DEF
+
+ setid9:
+   name:  'FLUXPRE'
+   varname: 'tp'
+   struct: 'sn_prec'
+   unit: 'kg.m**-2.s**-1'
+   dir:   !join [*BASE,'FLUXPRE']
+   catalog: 'CATALOG_FLUXPRE_ERA5'
+   <<: *DEF
+
+
+

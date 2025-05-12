@@ -1,0 +1,63 @@
+---
+# Sets the default values for modules needed for each tasks. 
+# The values herein correspond to an usage at Meteo-France Calcul2020 (Belenos+Taranis)
+defaults:
+   paths:
+      - /home/ext/mr/spsy/mercator/modules/modulefiles
+      - /home/ext/mr/smer/ruggierog/SAVE/modulefiles
+      - /home/ext/mr/smer/soniv/tools/perf-modules
+
+   modules:       
+      - cesga/2020
+      - intel/2021.2.0
+      - impi/2021.2.0
+      - safestringlib/20210525
+      - miniconda3
+      - hdf5/1.10.7 
+      - netcdf/4.8.1
+      - netcdf-fortran/4.5.3
+      - gcccore/system
+     
+# Changes the default values for each task. Easy to update in the case of adding
+# or removing modules for a given task
+
+
+pmsft:    # this is for ensembles
+   modules:
+      - ibi/2021
+      - intel/2021.2.0
+      - iimpi/2021.2.0
+      - netcdf-fortran
+      - imkl/2021.2.0
+      - ucx/1.11.2
+      - miniconda3/4.11.0
+ana:
+   modules:
+      - ibi/2021
+      - intel/2021.2.0
+      - iimpi/2021.2.0
+      - netcdf-fortran
+      - imkl/2021.2.0
+      - ucx/1.11.2
+      - miniconda3/4.11.0
+bias:
+   modules:
+      - cesga/2020
+      - intel/2021.2.0
+      - impi/2021.2.0
+      - safestringlib/20210525
+      - miniconda3
+      - hdf5/1.10.7 
+      - netcdf/4.8.1
+      - netcdf-fortran/4.5.3
+      - gcccore/system
+
+model:
+   modules:
+      - ibi/2021
+      - intel/2021.2.0
+      - iimpi/2021.2.0
+      - netcdf-fortran
+      - imkl/2021.2.0
+      - ucx/1.11.2
+  

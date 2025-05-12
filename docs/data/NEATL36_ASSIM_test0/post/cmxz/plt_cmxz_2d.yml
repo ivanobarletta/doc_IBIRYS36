@@ -1,0 +1,173 @@
+--- 
+ _VALID4ALL: &DEF
+   type: 'cmx'
+   proj: 'NorthPolarStereo'
+   grid: !ENV ${MOI_DIR_CALCU_STATIC}/assim/canevas_NEATL36.grd
+   clon: '-30' 
+   extent: '-180 180 60 90'
+   statpos: '110 63'
+   cmap: 'MO_sla' 
+   statstr: 'Mean {mean:04.4f} \nRms {rms:04.4f}' 
+
+ var1:
+   var: 'SIC'
+   vminmax: '-0.5 0.5'
+   title: 'delta_SIC'
+   FigOUTName: 'delta_NP'
+   <<: *DEF  
+
+ var2:
+   var: 'SIVOLU'
+   vminmax: '-0.15 0.15'
+   title: 'delta_SIVOLU'
+   FigOUTName: 'delta_NP'
+   <<: *DEF  
+--- 
+ _VALID4ALL: &DEF
+   type: 'cmx'
+   proj: 'SouthPolarStereo'
+   grid: !ENV ${MOI_DIR_CALCU_STATIC}/assim/canevas_NEATL36.grd
+   clon: '-65' 
+   extent: '-180 180 -50 -90'
+   statpos: '50 -86'
+   cmap: 'MO_sla' 
+   statstr: 'Mean {mean:04.4f} \nRms {rms:04.4f}' 
+
+ var1:
+   var: 'SIC'
+   vminmax: '-0.5 0.5'
+   title: 'delta_SIC'
+   FigOUTName: 'delta_SP'
+   <<: *DEF  
+
+ var2:
+   var: 'SIVOLU'
+   vminmax: '-0.15 0.15'
+   title: 'delta_SIVOLU'
+   FigOUTName: 'delta_SP'
+   <<: *DEF  
+--- 
+ _VALID4ALL: &DEF
+   type: 'cmx'
+   proj: 'PlateCarree'
+   grid: !ENV ${MOI_DIR_CALCU_STATIC}/assim/canevas_NEATL36.grd
+   clon: '-150' 
+   extent: '-180 180 -75 85'
+   cmap: 'MO_sla' 
+   statstr: 'Mean {mean:04.4f} \nRms {rms:04.4f}' 
+   title: 'delta_{var}_L{layer:02d}'
+
+ var5:
+   var: 'U'
+   nl: 0 1 
+   vminmax: '-0.5 0.5'
+   FigOUTName: 'delta_L{layer:02d}_'
+   <<: *DEF 
+ var6:
+   var: 'U'
+   nl: 30 32 
+   vminmax: '-0.5 0.5'
+   FigOUTName: 'delta_L{layer:02d}_'
+   <<: *DEF 
+ var66:
+   var: 'U'
+   nl: 53 54 
+   vminmax: '-0.05 0.05'
+   FigOUTName: 'delta_L{layer:02d}_'
+   <<: *DEF 
+ var7:
+   var: 'V'
+   nl: 0 1 
+   vminmax: '-0.5 0.5'
+   FigOUTName: 'delta_L{layer:02d}_'
+   <<: *DEF 
+ var8:
+   var: 'V'
+   nl: 30 32 
+   vminmax: '-0.5 0.5'
+   FigOUTName: 'delta_L{layer:02d}_'
+   <<: *DEF 
+ var88:
+   var: 'V'
+   nl: 53 54 
+   vminmax: '-0.05 0.05'
+   FigOUTName: 'delta_L{layer:02d}_'
+   <<: *DEF 
+ var1:
+   var: 'TEM'
+   nl: 0 1 
+   vminmax: '-2 2'
+   FigOUTName: 'delta_L{layer:02d}_'
+   <<: *DEF 
+ 
+ var2:
+   var: 'TEM'
+   nl: 30 32 
+   vminmax: '-2 2'
+   FigOUTName: 'delta_L{layer:02d}_'
+   <<: *DEF 
+
+ var22:
+   var: 'TEM'
+   nl: 53 54 
+   vminmax: '-0.3 0.3'
+   FigOUTName: 'delta_L{layer:02d}_'
+   <<: *DEF 
+
+ var3:
+   var: 'SAL'
+   nl: 0 1 
+   vminmax: '-0.3 0.3'
+   FigOUTName: 'delta_L{layer:02d}_'
+   <<: *DEF 
+ var4:
+   var: 'SAL'
+   nl: 30 32 
+   vminmax: '-0.3 0.3'
+   FigOUTName: 'delta_L{layer:02d}_'
+   <<: *DEF 
+ var44:
+   var: 'SAL'
+   nl: 53 54 
+   vminmax: '-0.05 0.05'
+   FigOUTName: 'delta_L{layer:02d}_'
+   <<: *DEF 
+--- 
+ _VALID4ALL: &DEF
+   type: 'cmx'
+   proj: 'PlateCarree'
+   grid: !ENV ${MOI_DIR_CALCU_STATIC}/assim/canevas_NEATL36.grd
+   clon: '-150' 
+   extent: '-180 180 -75 85'
+   cmap: 'MO_sla' 
+   statstr: 'Mean {mean:04.4f} \nRms {rms:04.4f}' 
+
+ var1:
+   var: 'SSHEIG'
+   vminmax: '-0.3 0.3'
+   title: 'delta_{var}'
+   FigOUTName: 'delta_'
+   <<: *DEF  
+
+--- 
+ _VALID4ALL: &DEF
+   type: 'cmx'
+   proj: 'PlateCarree'
+   grid: !ENV ${MOI_DIR_CALCU_STATIC}/assim/canevas_NEATL36.grd
+   clon: '-150' 
+   extent: '-180 180 -75 85'
+   cmap: 'MO_sla' 
+   statstr: 'Mean {mean:04.4f} \nRms {rms:04.4f}' 
+   title: 'delta_{var}'
+
+ var1:
+   var: 'SST'
+   vminmax: '-2 2'
+   FigOUTName: 'delta_'
+   <<: *DEF 
+ 
+ var2:
+   var: 'SSS'
+   vminmax: '-0.3 0.3'
+   FigOUTName: 'delta_'
+   <<: *DEF 

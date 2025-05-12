@@ -1,0 +1,24 @@
+#version @verstructdta_i
+@verstructdta1
+#
+#DIMENSION
+#----------
+#nbstructdta,nbvarstructdta
+1 8
+#
+#Definition of structdta
+#-----------------------
+#LOOP structdta[1:nbstructdta]
+#-----------------------------
+#structdtanam_i
+#nvarstructdta_i jvarfirststructdta_i
+#subbloc dtanam_i,nbr_i,dim_i
+#dtanamstructdta_i[1:nvarstructdta_i]
+#nbrstructdta_i[1:nvarstructdta_i]
+#dimstructdta_i[1:nvarstructdta_i]
+#
+HSSTHTSUV
+8 1
+SSHEIG SST H HBRST TEM SAL U V
+1 1 1 1 50 50 50 50
+2 2 2 2 3 3 3 3
