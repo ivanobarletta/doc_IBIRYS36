@@ -7,6 +7,9 @@ point. For details on the ecflow server capabilities / functionalities check the
 
 To install the server follow the instruction given in :ref:`ease_env-label`. 
 
+
+.. _port-host-label:
+
 Setting up PORT and HOST
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
