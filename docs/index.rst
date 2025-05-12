@@ -15,6 +15,7 @@ Welcome to IBIRYS36_on_FT3's documentation!
    programs.rst
    setting_server.rst
    command_line_instructions.rst
+   experiment_setup.rst
    issues.rst 
    create_harm_files.rst
 
