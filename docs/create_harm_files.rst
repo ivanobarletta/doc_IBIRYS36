@@ -20,7 +20,7 @@ used in the NEMO computations. More specifically, pyhana requires files organize
         0031/res_harm_ssh_0031.nc
         
             
-where res_harm_ssh_????.nc are the aforementioned files for the case of 32 XIOS processes. Setting the following paths
+where "res_harm_ssh_????.nc" are the aforementioned files for the case of 32 XIOS processes. Setting the following paths
 
 .. code-block:: bash
 

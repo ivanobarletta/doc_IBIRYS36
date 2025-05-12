@@ -1,8 +1,8 @@
 .. _programs-label:
 
-***************
-Python Programs
-***************
+*****************
+IBIRYS36 Programs
+*****************
 
 .. _ease_env-label:
 
