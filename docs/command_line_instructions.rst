@@ -18,7 +18,7 @@ Interaction with Ecflow Server
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The communication with the ecflow server can be made through the command-line program `Link ecflow_client
-<https://ecflow.readthedocs.io/en/5.13.7/glossary.html#term-ecflow_client>`. 
+<https://ecflow.readthedocs.io/en/5.13.7/glossary.html#term-ecflow_client>`_. 
 
 After the creation of the server the status can be viewed with the command
 
