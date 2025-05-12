@@ -33,4 +33,8 @@ run the ecflow_start.sh script
    ssh username@desired-hostname
    ecflow_start.sh -p port_number
 
+To check the status of the server type:
 
+.. code-block:: bash
+
+   

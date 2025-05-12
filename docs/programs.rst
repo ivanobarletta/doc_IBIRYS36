@@ -1,6 +1,6 @@
-********
-Programs
-********
+***************
+Python Programs
+***************
 
 Install EASE conda environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -14,20 +14,31 @@ repository you can clone the ease repository
     git clone -b RE_IBIdev_2024 git@gitlab.mercator-ocean.fr:internal/ease.git ease
 
 In the root directory of the repository there is the description file of the conda environment 
-to create
+to create. Before using it, it is recommended to append to conda-env.yml the prefix directive
 
 .. code-block:: bash
-
+   
     cd ease/
+    echo "prefix: /path/to/your/environments/conda/envs/ecflow" >> conda-env.yml
     conda env create -f conda-env.yml
     conda activate ecflow
     pip install ./
+
+This environment contains both executables of EASE and Ecflow (under the /bin directory). It is convenient to include this
+directory in the $PATH variable in your .bashrc
+
+.. code-block:: bash
+
+   export PATH=${PATH}:/path/to/your/environments/conda/envs/ecflow/bin
+
+
 
 
 Install Python Programs Environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The python programs of IBIRYS36 require a specific environment. This is defined in the
+The python programs of IBIRYS36 require a specific environment. This is defined in the following configuration
+file
 
 .. code-block:: yml
 
@@ -200,7 +211,7 @@ The python programs of IBIRYS36 require a specific environment. This is defined 
         - urllib3==2.1.0
         - werkzeug==3.0.1
         - xarray==2022.3.0
-    prefix: /path/to/your/environments/conda/envs/ease_env
+    prefix: /path/to/your/environments/conda/envs/ease_env  #modify this!
 
 
 Before installing the IBIRYS36 python program you have to activate ease_env. It is convenient
