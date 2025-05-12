@@ -80,7 +80,8 @@ Examples of sbld files:
 pre, run and post Folders
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The configuration directory contains also the templates of the namelists for the several IBIRYS36 programs. 
+The folders pre, run and post contain further yml description files with paths that need to be correctly spcified. The EASE documentation 
+gives more insights on the `Link Experiment Configuration <https://internal.pages.mercator-ocean.fr/ease/configs.html>`_.
 
 
 
