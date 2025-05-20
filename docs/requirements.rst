@@ -32,6 +32,7 @@ Make sure the assim folder to contain the following:
 
     :caption: files to be present in assim folder
 
+with "000IBIRYS36_swnode_zone_nxios32.pck" matching the number of XIOS processes in NEMO runs and 
 and that the monthly_climato folder contains the following files:
 
 .. code-block:: bash
@@ -86,6 +87,18 @@ and that the monthly_climato folder contains the following files:
 
 Static Ocean
 ^^^^^^^^^^^^
+
+The ocean folder must contain the following:
+
+.. collapse:: ls ocean
+    
+    
+    .. literalinclude:: data/lsocean.txt
+        :emphasize-lines: 15,15    
+
+    :caption: files to be present in ocean folder
+
+
 
 MODES
 ^^^^^
