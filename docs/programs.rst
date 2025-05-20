@@ -53,7 +53,7 @@ file
     :caption: Conda environment for IBIRYS36 programs  
 
 
-Before installing the IBIRYS36 python program you have to activate ease_env. It is convenient
+Before installing the IBIRYS36 python program you have to activate the ibirys36_env. It is convenient
 to gather all the programs needed by IBIRYS36 in the same folder. In this guide it will be called
 $IBIRYS36_PROGRAMS_PATH. 
 
