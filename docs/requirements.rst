@@ -24,7 +24,7 @@ Assim
 
 Make sure the assim folder to contain the following:
 
-.. collapse:: ls_assim
+.. collapse:: ls assim
 
    .. literalinclude:: data/ls_assim.txt
 
