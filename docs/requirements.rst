@@ -94,10 +94,20 @@ The ocean folder must contain the following:
     
     
     .. literalinclude:: data/lsocean.txt
-        :emphasize-lines: 15,15    
+        :emphasize-lines: 61,61    
 
     :caption: files to be present in ocean folder
 
+and that the rnf_forcing folder contains the files:
+
+.. code-block:: bash
+
+   CATALOG_RUNOFF_BGC
+   runoff_BIO_clim_T.nc
+   runoff_BIO_T_y1992.nc
+   runoff_BIO_T_y1993.nc
+   ...
+   runoff_BIO_T_y2024.nc
 
 
 MODES
