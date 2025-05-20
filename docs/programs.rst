@@ -7,7 +7,7 @@ IBIRYS36 Programs
 .. _ease_env-label:
 
 Install EASE conda environment
-==============================
+""""""""""""""""""""""""""""""
 
 It is convenient to create a conda environment that has both EASE and Ecflow functionalities. If you have access to MOi gitlab
 repository you can clone the EASE repository 
@@ -38,7 +38,7 @@ directory in the $PATH variable in your .bashrc
 
 
 Install Python Programs Environment
-===================================
+"""""""""""""""""""""""""""""""""""
 
 The python programs of IBIRYS36 require a specific environment. This is defined in the following configuration
 file
@@ -223,7 +223,7 @@ $IBIRYS36_PROGRAMS_PATH.
 
 
 Install NOOBS
-=============
+"""""""""""""
 
 NOOBS is the observation operator
 
@@ -235,7 +235,7 @@ NOOBS is the observation operator
     pip install ./
 
 Install Pyhana
-==============
+""""""""""""""
 
 .. code-block:: bash
 
@@ -247,7 +247,7 @@ Install Pyhana
     make clean; make
 
 Install py4ease
-===============
+"""""""""""""""
 
 .. code-block:: bash
 
@@ -261,7 +261,7 @@ Fortran Programs
 ^^^^^^^^^^^^^^^^
 
 Install BIAS
-==============
+""""""""""""
 
 .. code-block:: bash
 
@@ -272,7 +272,7 @@ Install BIAS
 
 
 Install MROA
-==============
+""""""""""""""
 
 .. code-block:: bash
 
@@ -283,7 +283,7 @@ Install MROA
 
 
 Install MROATOOLS
-=================
+"""""""""""""""""
 
 .. code-block:: bash
 
@@ -293,7 +293,7 @@ Install MROATOOLS
     sbatch compile_MROATOOLS.sub
 
 Install NEMO3.6
-================
+""""""""""""""""
 
 .. code-block:: bash
 
