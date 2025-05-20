@@ -44,7 +44,6 @@ kpar_IBI12_REA.nc
 kpar.nc
 Levitus13_Sal_ORCA025m10.nc
 Levitus13_Tem_ORCA025m10.nc
-lsocean.txt
 Mean_pressure_Glo_y2002.nc
 mesh_alleges.nc
 mesh_alleges.nc_avec_la_dim_t_unlimited
