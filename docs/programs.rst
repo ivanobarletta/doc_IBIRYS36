@@ -49,7 +49,7 @@ file
 .. collapse:: ibirys36_env.yml
 
     .. literalinclude:: data/ibirys36_env_ibirys36.yml
-            
+
     :caption: Conda environment for IBIRYS36 programs  
 
 
