@@ -24,7 +24,7 @@ regardless any possible error in the job submission to the scheduler. In case th
 among the scheduled jobs check for possible misspelling in the job header:
 
 .. code-block:: bash 
-    :caption example of recup_obs task sbatch header
+    :caption: example of recup_obs task sbatch header
 
     #!/bin/bash
     #SBATCH --output=/mnt/lustre/scratch/nlsas/home/empresa/now/iba/RUNS/IBIRYS36/test0/ecflow-jobs//emnowiba_NEATL36_ASSIM_test0/pre/recup_obs_R20230823-20250513-1034.1
