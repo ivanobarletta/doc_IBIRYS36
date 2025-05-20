@@ -4,6 +4,9 @@
 IBIRYS36 Programs
 *****************
 
+Python Programs
+==============
+
 .. _ease_env-label:
 
 Install EASE conda environment
@@ -256,7 +259,7 @@ Install py4ease
 
 
 Fortran Programs
-===============
+================
 
 Install BIAS
 """"""""""""
