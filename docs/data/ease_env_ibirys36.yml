@@ -1,4 +1,4 @@
-name: ease_env
+name: ibirys36_env
 channels:
   - https://nexus.mercator-ocean.fr/repository/conda-proxy
   - defaults
@@ -166,4 +166,4 @@ dependencies:
     - urllib3==2.1.0
     - werkzeug==3.0.1
     - xarray==2022.3.0
-prefix: /mnt/netapp2/Store_uni/home/empresa/now/iba/conda/envs/ease_env
+prefix: /mnt/netapp2/Store_uni/home/empresa/now/iba/conda/envs/ibirys36_env
