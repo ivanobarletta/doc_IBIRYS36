@@ -1,3 +1,5 @@
+.. _create-harm-label:
+
 **********************
 Create Harmonics Files
 **********************
