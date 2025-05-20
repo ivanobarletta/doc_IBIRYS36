@@ -8,7 +8,7 @@ IBIRYS36 Programs
 .. _ease_env-label:
 
 Install EASE conda environment
-""""""""""""""""""""""""""""""
+==============================
 
 It is convenient to create a conda environment that has both EASE and Ecflow functionalities. If you have access to MOi gitlab
 repository you can clone the EASE repository 
