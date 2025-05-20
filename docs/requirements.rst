@@ -26,9 +26,9 @@ Make sure the assim folder to contain the following:
 
 .. collapse:: ls assim
 
-.. literalinclude:: data/ls_assim.txt
+    .. literalinclude:: data/lsassim.txt
 
-      :caption: files to be present in assim folder
+    :caption: files to be present in assim folder
 
 and that the monthly_climato folder contains the following files:
 
