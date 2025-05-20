@@ -4,8 +4,6 @@
 IBIRYS36 Programs
 *****************
 
-Python Programs
-==============
 
 .. _ease_env-label:
 
@@ -36,6 +34,9 @@ directory in the $PATH variable in your .bashrc
 .. code-block:: bash
 
    export PATH=${PATH}:/path/to/your/environments/conda/envs/ecflow/bin
+
+Python Programs
+==============
 
 
 Install Python Programs Environment
