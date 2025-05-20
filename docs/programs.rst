@@ -35,8 +35,6 @@ directory in the $PATH variable in your .bashrc
    export PATH=${PATH}:/path/to/your/environments/conda/envs/ecflow/bin
 
 
-
-
 Install Python Programs Environment
 """""""""""""""""""""""""""""""""""
 
@@ -258,7 +256,7 @@ Install py4ease
 
 
 Fortran Programs
-^^^^^^^^^^^^^^^^
+===============
 
 Install BIAS
 """"""""""""
@@ -272,7 +270,7 @@ Install BIAS
 
 
 Install MROA
-""""""""""""""
+""""""""""""
 
 .. code-block:: bash
 
