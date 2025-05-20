@@ -1,3 +1,5 @@
+.. _experiment-setup-label:
+
 ****************
 Experiment Setup
 ****************

@@ -36,7 +36,7 @@ And then run the ease command to create the experiment folder
 
     ease_createxp -proto_dir ${PATH2CONF}/${PROTO} -exp_dir ${PATH2CONF}/${EXPNAME} -b_dir ${LUSTRE}/RUNS/${SYSTEM}/${VERSION} -c_dir ${PATH2CONF}/${PROTO}/sbld/expdtree.yml -host ${ECF_HOST} -storage 'default' -exemode REA -nens_in 000
 
-This command generates a folder named NEATL36_ASSIM_test0. For further details on the experiment setup see ().
+This command generates a folder named NEATL36_ASSIM_test0. For further details on the experiment setup see (:ref:`experiment-setup-label`).
 
 Create workflow Definition File for the Experiment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
