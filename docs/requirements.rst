@@ -27,8 +27,8 @@ Make sure the assim folder to contain the following:
 .. collapse:: ls assim
     
     
-    :emphasize-lines: 15    
     .. literalinclude:: data/lsassim.txt
+        :emphasize-lines: 15,15    
 
     :caption: files to be present in assim folder
 
