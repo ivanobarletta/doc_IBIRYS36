@@ -58,7 +58,7 @@ OSTIA_SST_ORIGIN_SAM2_format.nc
 position.moor
 position.moor_NEATL36_MyO_v2
 river.orca.nc
-rnf_forcing
+rnf_forcing/
 runoff_2D_sans_bdy.nc
 section_ijglobal.diadct_IBI12_REA
 shlat2d_IBI12_REA.nc

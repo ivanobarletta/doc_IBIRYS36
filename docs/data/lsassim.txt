@@ -12,7 +12,7 @@ MASK1010.nc
 maxdev+bias_inno_S_seas_regul_gred_QConline.nc
 maxdev+bias_inno_T_seas_regul_gred_QConline.nc
 Min_error_SLA.cmz
-monthly_climato
+monthly_climato/
 MSSH_error_IBI36_202109.nc
 MSSH_error_IBI36_202109_NOOBS.nc
 MSSH_FREERUN_NEATL36_V6.2_2013-2019_corrected.nc
