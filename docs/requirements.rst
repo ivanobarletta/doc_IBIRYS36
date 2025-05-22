@@ -83,6 +83,53 @@ and that the monthly_climato folder contains the following files:
             ...
             Levitus13_Tem_NEATL36m12.nc -> ../Levitus13_Tem_NEATL36m12.nc
 
+where the files in the 1990,2000,2010,2020 folders are simply links to the root directory.
+
+
+BIAS
+^^^^
+
+The bias_HTS folder must contain the following:
+
+.. code-block:: bash
+
+    EN4.2.0/
+        1990/
+        2000/
+        2010/
+            EN4.2.0_01_Sal_mercator_1degree_fortran.nc
+            EN4.2.0_01_Tem_mercator_1degree_fortran.nc
+            EN4.2.0_02_Sal_mercator_1degree_fortran.nc
+            EN4.2.0_02_Tem_mercator_1degree_fortran.nc
+            EN4.2.0_03_Sal_mercator_1degree_fortran.nc
+            EN4.2.0_03_Tem_mercator_1degree_fortran.nc
+            EN4.2.0_04_Sal_mercator_1degree_fortran.nc
+            EN4.2.0_04_Tem_mercator_1degree_fortran.nc
+            EN4.2.0_05_Sal_mercator_1degree_fortran.nc
+            EN4.2.0_05_Tem_mercator_1degree_fortran.nc
+            EN4.2.0_06_Sal_mercator_1degree_fortran.nc
+            EN4.2.0_06_Tem_mercator_1degree_fortran.nc
+            EN4.2.0_07_Sal_mercator_1degree_fortran.nc
+            EN4.2.0_07_Tem_mercator_1degree_fortran.nc
+            EN4.2.0_08_Sal_mercator_1degree_fortran.nc
+            EN4.2.0_08_Tem_mercator_1degree_fortran.nc
+            EN4.2.0_09_Sal_mercator_1degree_fortran.nc
+            EN4.2.0_09_Tem_mercator_1degree_fortran.nc
+            EN4.2.0_10_Sal_mercator_1degree_fortran.nc
+            EN4.2.0_10_Tem_mercator_1degree_fortran.nc
+            EN4.2.0_11_Sal_mercator_1degree_fortran.nc
+            EN4.2.0_11_Tem_mercator_1degree_fortran.nc
+            EN4.2.0_12_Sal_mercator_1degree_fortran.nc
+            EN4.2.0_12_Tem_mercator_1degree_fortran.nc
+        2020/            
+    mask_3D_gridbias05_3dvar_eNEATL36.nc
+    mask_3D_gridbias05_z23_3dvar_eNEATL36.nc
+    maskfull_3D_gridbias05_3dvar_eNEATL36.nc
+    weights/
+        weights_bilin_BIAS05-IBI36RYS_gridt.nc
+        weights_bilin_BIASreg-IBI36RYS_gridt.nc
+        weights_bilin_IBI36RYS-BIAS05full_gridt.nc
+
 
 
 Static Ocean
