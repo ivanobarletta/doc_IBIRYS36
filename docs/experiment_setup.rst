@@ -25,6 +25,9 @@ is specified as follows:
         site.yml        # paths for troika configuration / ecflow jobs logs / path of conda ease_env 
         system.yml      # specify paths of calc folder / output folder / structure of output folder
         tasks.yml       # specify resources to assign to each group of tasks
+    pre/
+    run/
+    post/
 
 
 Examples of sbld files:
@@ -79,11 +82,53 @@ Examples of sbld files:
     :caption: Example of tasks.yml     
 
 
+
 pre, run and post Folders
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The folders pre, run and post contain further yml description files with paths that need to be correctly spcified. The EASE documentation 
-gives more insights on the `Link Experiment Configuration <https://internal.pages.mercator-ocean.fr/ease/configs.html>`_.
+gives more insights on the `Experiment Configuration <https://internal.pages.mercator-ocean.fr/ease/configs.html>`_.
 
+.. code-block:: bash
+
+    pre/bdyf.yml
+    pre/obs.yml
+    pre/atmf.yml
+    pre/outputdir.yml
+    run/assim/bias/delta.yml
+    run/assim/bias/namelist_bias
+    run/assim/bias/namelist_pyregrid_preBIAS.nml
+    run/assim/cassim.yml
+    run/assim/interpdelta/namelist_pyregrid_BIAS.nml
+    run/assim/mroa/definestatevector.xml
+    run/assim/mroa/oce/definecov_oce.txt
+    run/assim/mroa/oce/defineroa_oce.txt
+    run/assim/mroa/oce/definestructdta_oce.txt
+    run/assim/mroa/oce/mroanml_ctl_oce
+    run/assim/mroa/oce/mroanml_obs_oce
+    run/model/000/README.namelists
+    run/model/000/README.rst
+    run/model/000/bgc/namelist_pisces_cfg
+    run/model/000/bgc/namelist_pisces_ref
+    run/model/000/bgc/namelist_top_cfg
+    run/model/000/bgc/namelist_top_ref
+    run/model/000/ocean/namelist_ref
+    run/model/000/ocean/namelist_cfg
+    run/model/000/xios/axis_def.xml
+    run/model/000/xios/domain_def.xml
+    run/model/000/xios/field_def.xml
+    run/model/000/xios/file_def.xml
+    run/model/000/xios/file_def_crs.xml
+    run/model/000/xios/grid_def.xml
+    run/model/000/xios/iodef.xml
+    run/model/cmodel.yml
+    run/obsopr/cobsopr.yml
+    run/obsopr/noobs/NOOBS_modelgrid.nml
+    post/cmxz/plt_cmxz_2d.yml
+    post/cplot.yml
+    post/ola/ola2dia_regions.yml
+    post/ola/ola2dia_regions_ice.yml
+    post/ola/plt_ola_2d.yml
+    post/storagedir.yml
 
 
