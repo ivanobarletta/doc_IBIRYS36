@@ -89,19 +89,21 @@ pre, run and post Folders
 The folders pre, run and post contain further yml description files with paths that need to be correctly spcified. The EASE documentation 
 gives more insights on the `Experiment Configuration <https://internal.pages.mercator-ocean.fr/ease/configs.html>`_.
 
+The pre,run and post folder must contain the following files:
+
 .. code-block:: bash
 
-    pre/bdyf.yml
-    pre/obs.yml
-    pre/atmf.yml
+    pre/bdyf.yml                                # modify dbase path
+    pre/obs.yml                                 # modify dbase path
+    pre/atmf.yml                                # modify dbase path
     pre/outputdir.yml
     run/assim/bias/delta.yml
     run/assim/bias/namelist_bias
-    run/assim/bias/namelist_pyregrid_preBIAS.nml
-    run/assim/cassim.yml
-    run/assim/interpdelta/namelist_pyregrid_BIAS.nml
-    run/assim/mroa/definestatevector.xml
-    run/assim/mroa/oce/definecov_oce.txt
+    run/assim/bias/namelist_pyregrid_preBIAS.nml        # modify dirweights,maskin,maskout paths
+    run/assim/cassim.yml                                
+    run/assim/interpdelta/namelist_pyregrid_BIAS.nml    # modify maskin,maskout paths
+    run/assim/mroa/definestatevector.xml                # modify paths
+    run/assim/mroa/oce/definecov_oce.txt                
     run/assim/mroa/oce/defineroa_oce.txt
     run/assim/mroa/oce/definestructdta_oce.txt
     run/assim/mroa/oce/mroanml_ctl_oce
@@ -131,4 +133,5 @@ gives more insights on the `Experiment Configuration <https://internal.pages.mer
     post/ola/plt_ola_2d.yml
     post/storagedir.yml
 
+where the comments indicate paths that must be set properly.
 
