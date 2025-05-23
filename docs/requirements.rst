@@ -160,6 +160,38 @@ and that the rnf_forcing folder contains the files:
 MODES
 ^^^^^
 
+Your MODES folder must have the following structure with the following files: 
+
+.. code-block:: bash
+
+   NEATL36_V6_2013-2019_HAN48_SHAPIRO4-SST225-HBRST270_HSSTHTSUV/HSSTHTSUV/
+        definebas.txt
+        ano49.cpmx
+        ano50.cpmx
+        ano51.cpmx
+        ..
+        ano999.cpmx  
+        ano1000.cpmx
+        ..
+        ano2499.cpmx
+        ano2500.cpmx
+
+where the file definebas.txt is:
+
+.. code-block:: bash
+
+    #version
+    @verbas1
+    #debfile,ext,mean,std,weightx,weightz
+    ano cpmx 0 0 0 0
+    #numdeb,numfin,numdelta
+    49 2500 1
+    #juliandelta 22304=22304=d2j.ksh 25 11  2011
+    23060.5 1.0
+    #
+
+
+
 Harmonics
 =========
 
