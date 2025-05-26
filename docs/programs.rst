@@ -37,7 +37,7 @@ directory in the $PATH variable in your .bashrc
    export PATH=${PATH}:/path/to/your/environments/conda/envs/ecflow/bin
 
 Python Programs
-==============
+===============
 
 
 Install Python Programs Environment
