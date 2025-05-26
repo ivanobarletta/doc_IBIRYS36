@@ -61,7 +61,7 @@ $IBIRYS36_PROGRAMS_PATH.
 Install NOOBS
 """""""""""""
 
-NOOBS is the observation operator
+NOOBS is the observation operator used in the IBIRYS36 assimilation method. After activating the ibirys36_env to install NOOBS do:
 
 .. code-block:: bash
 
@@ -72,6 +72,8 @@ NOOBS is the observation operator
 
 Install Pyhana
 """"""""""""""
+
+Pyhana is the program used to remove the tidal trend from NEMO model outputs. To install it do the following:
 
 .. code-block:: bash
 
@@ -85,6 +87,8 @@ Install Pyhana
 Install py4ease
 """""""""""""""
 
+py4ease is a set of tools to handle files created in the workflow and is part of the IBIRYS36 set of programs
+
 .. code-block:: bash
 
     cd $IBIRYS_PROGRAMS_PATH
@@ -95,6 +99,9 @@ Install py4ease
 
 Fortran Programs
 ================
+
+The following are the remaining Fortran programs that IBIRYS36 is grounded on. Make sure of loading the 
+proper modules on your HPC system before compiling.
 
 Install BIAS
 """"""""""""
