@@ -19,7 +19,7 @@ The sbld folder in the folder of your configuration contains the files site.yml 
 
    /path/to/ease/install/folder/
         configs/
-            NEATL36_ASSIM_${VERSION}/
+            ${SYSTEM}_ASSIM_${VERSION}/                                 # SYSTEM=NEATL36
                 pre/
                 run/
                 post/
@@ -30,8 +30,12 @@ The sbld folder in the folder of your configuration contains the files site.yml 
                     ..
 
 
-.. code-block:: bash
 
+.. code-block:: bash
+   
+    :caption: site.yml
+
+    :caption: system.tml
     # edit please:
     # Third party package ecf_submit information
     troika: '/path/to/conda/envs/ecflow/bin/troika'                     # conda env defined in ease package 
@@ -50,7 +54,7 @@ The sbld folder in the folder of your configuration contains the files site.yml 
     front_host_port: '${ECF_PORT}'
     ecflow_server_dir: /home/empresa/now/iba/ecflow_server/             # directory containint ecflow_server logs and sbatch jobs
                                                                         # of the workflow tasks.
-                                                                        # under the directory ecflow_server_dir/ you have
+                                                                        # under the directory ecflow_server_dir/ you have:
                                                                         # ecflow_server_dir/
                                                                         #   ${username}_${SYSTEM}_ASSIM_${VERSION}/
                                                                                 pre/
@@ -85,22 +89,25 @@ The sbld folder in the folder of your configuration contains the files site.yml 
 
 .. code-block:: bash 
 
+    :caption: system.tml
 
     config: NEATL36
     system: IBIRYS36
-    expnam: test0
+    expnam: test0                   # to be changed 
     exemode_capital: REA
     # Suite directories
     # Dir at local ecflow server host
     exp:
-      config_dir: '/home/empresa/now/iba/tools/ease/configs/NEATL36_ASSIM_test0'
+      config_dir: '/path/to/ease/installation/directory/configs/${SYSTEM}_ASSIM_${VERSION}'
       postdir: '{exp.config_dir}/post'
       predir: '{exp.config_dir}/pre'
       run: '{exp.config_dir}/run'
     
     # Dir at calc host
     dir_calc:
-      base_dir: '/mnt/lustre/scratch/nlsas//home/empresa/now/iba/RUNS'
+      base_dir: '/path/to/calc_dir/RUNS'                                        # this path defines the directory were
+                                                                                # all computations are done. see next section
+                                                                                # for more details    
       selected_data: '{dir_calc.base_dir}/{system}/{expnam}/SELECT_DATA'
       atm_forcing: '{dir_calc.base_dir}/{system}/{expnam}/ATM_FORCING/'
       bdy_forcing: '{dir_calc.base_dir}/{system}/{expnam}/BDY_FORCING/'
