@@ -35,7 +35,6 @@ The sbld folder in the folder of your configuration contains the files site.yml 
    
     :caption: site.yml
 
-    :caption: system.tml
     # edit please:
     # Third party package ecf_submit information
     troika: '/path/to/conda/envs/ecflow/bin/troika'                     # conda env defined in ease package 
@@ -89,7 +88,7 @@ The sbld folder in the folder of your configuration contains the files site.yml 
 
 .. code-block:: bash 
 
-    :caption: system.tml
+    :caption: system.yml
 
     config: NEATL36
     system: IBIRYS36
@@ -108,7 +107,8 @@ The sbld folder in the folder of your configuration contains the files site.yml 
       base_dir: '/path/to/calc_dir/RUNS'                                        # this path defines the directory were
                                                                                 # all computations are done. see next section
                                                                                 # for more details    
-      selected_data: '{dir_calc.base_dir}/{system}/{expnam}/SELECT_DATA'
+
+      selected_data: '{dir_calc.base_dir}/{system}/{expnam}/SELECT_DATA'        # structure of RUNS dir
       atm_forcing: '{dir_calc.base_dir}/{system}/{expnam}/ATM_FORCING/'
       bdy_forcing: '{dir_calc.base_dir}/{system}/{expnam}/BDY_FORCING/'
       obc_forcing: '{dir_calc.base_dir}/{system}/{expnam}/OBC_FORCING/'
@@ -118,7 +118,8 @@ The sbld folder in the folder of your configuration contains the files site.yml 
       param: '{dir_calc.base_dir}/{system}/{expnam}/paraminput'
     # Dir and type of storage host
     storage:
-      dir: '/mnt/netapp2/Store_uni/home/empresa/now/iba/outputs/{system}/{expnam}'
+      dir: '/path/to/outputs/{system}/{expnam}'                                 # directory where assimilation cycle are 
+                                                                                # stored.            
       fsys: 'default'
     ### From herein all should be revisited. MOI_dirout_xxx will be constructed in init_envvars
     dirout:
