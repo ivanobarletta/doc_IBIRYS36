@@ -4,6 +4,7 @@
 IBIRYS36 Programs
 *****************
 
+This section is dedicated to the programs involved in the IBIRYS36 workflow.
 
 .. _ease_env-label:
 
