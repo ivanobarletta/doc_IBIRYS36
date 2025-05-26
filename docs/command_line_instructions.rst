@@ -2,6 +2,8 @@
 Command Line Instructions
 *************************
 
+.. _create-exp-label:
+
 Create An EASE Experiment
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 

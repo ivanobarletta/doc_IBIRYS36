@@ -4,7 +4,7 @@
 Experiment Setup
 ****************
 
-After the creation of an experiment folder with ease_createxp 
+After the creation of an experiment folder with ease_createxp (see :ref:`create-exp-label` for more details)
 
 .. code-block:: bash
 
