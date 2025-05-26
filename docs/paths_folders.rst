@@ -13,7 +13,7 @@ This chapter helps to navigate and configure all necessary file paths.
 Configuration Folder
 ^^^^^^^^^^^^^^^^^^^^
 
-The sbld folder in the folder of your configuration contains the files site.yml and system.yml:
+The sbld/ folder in your configurations folder contains the files site.yml and system.yml:
 
 .. code-block:: bash
 
@@ -52,7 +52,7 @@ The sbld folder in the folder of your configuration contains the files site.yml 
 
    front_host: login
    front_host_port: '${ECF_PORT}'
-   ecflow_server_dir: /home/empresa/now/iba/ecflow_server/             # directory containint ecflow_server logs and sbatch jobs
+   ecflow_server_dir: /path/to/ecflow_server/                          # directory containint ecflow_server logs and sbatch jobs
                                                                        # of the workflow tasks.
                                                                        # under the directory ecflow_server_dir/ you have:
                                                                        # ecflow_server_dir/
@@ -71,9 +71,9 @@ The sbld folder in the folder of your configuration contains the files site.yml 
                                                                                       model_run.job1.orig
                                                                                       model_run.job1.submitlog
                                                                                       model_run.job2
-                                                                                       model_run.job2.jid
-                                                                                       model_run.job2.orig
-                                                                                       model_run.job2.submitlog
+                                                                                      model_run.job2.jid
+                                                                                      model_run.job2.orig
+                                                                                      model_run.job2.submitlog
 
                                                                                    best/
                                                                                post/
@@ -86,6 +86,14 @@ The sbld folder in the folder of your configuration contains the files site.yml 
    
    # The suite will be hosted at chain_dir/ecflow/%SUITE_NAME%
    chain_dir: /path/to/ease/installation/directory/ 
+
+Relevant paths are:
+
+    * troika: path to troika executable
+    * calc_out_dir: folder where you have sbatch job files and standard output / error of the tasks
+    * front_out_dir: same as calc_out_dir 
+    
+The system.yml allows to provide more details, such as the structure of calc directory
 
 
 .. container:: code-caption
@@ -183,6 +191,40 @@ The sbld folder in the folder of your configuration contains the files site.yml 
 
 Execution Folder
 ^^^^^^^^^^^^^^^^
+
+The resulting execution folder looks like the following:
+
+.. code-block:: bash 
+
+    /path/to/calc_dir/RUNS/${SYSTEM}/
+        staticinput/
+        ${VERSION}/
+            ATM_FORCING/
+            BDY_FORCING/
+            BIAS/
+            ecflow-jobs/
+                ${username}_${SYSTEM}_ASSIM_${VERSION}/
+                    pre/
+                        ...
+                        recup_statics.job1                          # sbatch job script for recup_statics task
+                        recup_statics_R20230823-20250404-0919.1     # standard output / error of task with cycle date and actual
+                        recup_statics_R20230823-20250404-1202.1     # run date / time
+                        recup_statics_R20230823-20250404-1205.1
+                        recup_statics_R20230823-20250408-0800.1
+                        recup_statics_R20230823-20250408-1012.1
+                        ...
+                    run/
+                    post/
+            MODEL_SSH/
+            MODES/
+            OBC_FORCING/
+            paraminput/
+            R20230816M000_000/
+            R20230823M000_000/
+            SELECT_DATA/
+            TMPRUN/
+
+
 
 
 Outputs Folder
