@@ -40,13 +40,13 @@ run the ecflow_start.sh script
 
 .. warning::
 
-    Once you're logged in FT3 with a certain hostname like
+    Once you're logged in FT3 with a certain hostname
 
     [username@login210-1 ]$ 
 
     and you want to ssh into another login node, like:
 
-    ssh username@login201.2 
+    ssh username@login210-2 
 
     you will be asked for the password. To avoid this, you must copy your own ssh public key into your list of authorized ones.
 
