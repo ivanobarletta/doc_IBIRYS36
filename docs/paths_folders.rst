@@ -30,10 +30,10 @@ The sbld folder in the folder of your configuration contains the files site.yml 
                     ..
 
 
+**site.yml**
 
 .. code-block:: bash
-
-   :caption: site.yml 
+                      
 
    # edit please:
    # Third party package ecf_submit information
@@ -86,9 +86,10 @@ The sbld folder in the folder of your configuration contains the files site.yml 
    # The suite will be hosted at chain_dir/ecflow/%SUITE_NAME%
    chain_dir: /path/to/ease/installation/directory/ 
 
+**system.yml**
+
 .. code-block:: bash 
 
-   :caption: system.yml
 
    config: NEATL36
    system: IBIRYS36
