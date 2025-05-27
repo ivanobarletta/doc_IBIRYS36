@@ -192,6 +192,26 @@ The last command might lead to undesired outcome, since the **run** command does
 For further details on the ecflow_client commands you can check out the  
 `Command Line Interface (CLI) <https://ecflow.readthedocs.io/en/5.13.7/client_api/index.html>`_ section in the **ecFlow** documentation. 
 
+To check the **state** of your workflow type the following:
+
+.. code-block:: bash
+
+    ecflow_client --port=${ECF_PORT} --host=${ECF_HOST} --get_state                 # if you have only 1 suite loaded
+    ecflow_client --port=${ECF_PORT} --host=${ECF_HOST} --get_state=${suiteName}    # specify which suite if you
+                                                                                    # more than 1 loaded           
 
 
+The previous command gives an exhaustive summary but also very long. You can consider of filtering the output as follows:
+
+.. code-block:: bash
+
+   ecflow_client --port=${ECF_PORT} --host=${ECF_HOST} --get_state=${suiteName} grep --color=always -E "suite | task | family "
+
+to get only the lines for the suite name, families and tasks.  
+
+.. collapse:: example of get_state output
+
+    .. literalinclude:: data/example_get-state.txt
+
+    :caption: Example of get_state
 

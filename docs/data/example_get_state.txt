@@ -1,0 +1,71 @@
+suite emnowiba_NEATL36_ASSIM_test0 # begun:1 state:aborted dur:02:28:06 rt:00:01:00
+  family pre # state:submitted dur:119:29:11 flag:message rt:00:00:05
+    task init_family_vars # try:1 state:complete dur:119:29:06 rt:00:00:18
+    task recup_obs # passwd:ROeduXFu try:1 state:submitted dur:119:29:11 rt:00:01:05
+    task recup_atmf # passwd:VFOGs7RW try:1 state:submitted dur:119:29:11 rt:00:01:05
+    task recup_bdy # passwd:VI5sNlgi try:1 state:submitted dur:119:29:11 rt:00:01:05
+    task recup_statics # passwd:w0KiuDyP try:1 state:submitted dur:119:29:11 rt:00:01:05
+    task recup_postfiles # passwd:Vs0Cjnrr try:1 state:submitted dur:119:29:11 rt:00:01:05
+    task archi_mkoutputdir # passwd:PqvsHxsN try:1 state:submitted dur:119:29:11 rt:00:01:05
+    task archi_mkdirstorage # passwd:Jhe1RDY3 try:1 state:submitted dur:119:29:11 rt:00:01:05
+  family run # state:complete dur:02:07:06 flag:message rt:00:01:36
+    task init_family_vars # try:1 state:complete dur:00:03:38 rt:00:00:01
+    family fcst # state:complete dur:00:32:51 rt:00:00:45
+      task recup_mfiles # try:1 state:complete dur:00:04:11 rt:00:00:05
+      task recup_oofiles # try:1 state:complete dur:00:04:11 rt:00:00:05
+      task combine_delta # try:1 state:complete dur:00:04:15 rt:00:00:03
+      task model_run # try:1 state:complete dur:00:28:06 rt:00:23:00
+      task concat_nc # try:1 state:complete dur:00:31:06 rt:00:02:00
+      task maskqc # try:1 state:complete dur:00:31:28 rt:00:00:05
+      task qcola # try:1 state:complete dur:00:32:51 rt:00:00:25
+      task obsopr # try:1 state:complete dur:00:31:29 rt:00:02:06
+      task comfromola # try:1 state:complete dur:00:32:28 rt:00:00:22
+    family assim # state:complete dur:00:58:43 rt:00:00:37
+      task recup_assimparam # try:1 state:complete dur:00:04:11 rt:00:00:05
+      task bias # try:1 state:complete dur:00:57:06 rt:00:01:00
+      family interp_delta_bias # state:complete dur:00:58:43 rt:00:00:37
+        family interp_delta_biasBIAST # state:complete dur:00:58:43 rt:00:00:37
+          task interp_delta # try:1 state:complete dur:00:58:43 rt:00:00:37
+        family interp_delta_biasBIASS # state:complete dur:00:58:43 rt:00:00:37
+          task interp_delta # try:1 state:complete dur:00:58:43 rt:00:00:37
+      task modcom # state:complete dur:00:03:37 flag:by_rule rt:00:03:37
+      family oce # state:complete dur:00:55:06 rt:00:07:00
+        task ana_run # try:2 state:complete dur:00:55:06 rt:00:07:00
+    family best # state:complete dur:02:07:06 rt:00:01:36
+      task recup_oofiles # try:1 state:complete dur:00:56:20 rt:00:00:14
+      task recup_mfiles # try:1 state:complete dur:00:56:20 rt:00:00:14
+      task cpmx2nc # try:1 state:complete dur:01:00:15 rt:00:00:44
+      family interp_delta # state:complete dur:00:03:37 flag:by_rule rt:00:03:37
+      task combine_delta # try:1 state:complete dur:01:01:06 rt:00:00:22
+      task model_run # try:1 state:complete dur:02:05:06 rt:01:01:00
+      task obsopr # try:1 state:complete dur:02:07:06 rt:00:01:36
+  family post # state:aborted dur:02:28:06 flag:message rt:00:01:00
+    task init_family_vars # try:1 state:complete dur:00:00:06 rt:00:00:06
+    family fcst # state:complete dur:01:03:06 rt:00:03:00
+      task diafromola # try:1 state:complete dur:00:57:07 rt:00:01:01
+      task conv_moor # try:1 state:complete dur:00:56:22 rt:00:00:16
+      task archi_moor # try:1 state:complete dur:00:58:42 rt:00:00:02
+      task plot_ola # try:1 state:complete dur:00:59:06 rt:00:00:26
+      task archi_dia # try:1 state:complete dur:00:58:41 rt:00:00:01
+      task archi_ola # try:1 state:complete dur:00:59:39 rt:00:00:08
+      task rename_cdf # try:1 state:complete dur:00:59:42 rt:00:00:11
+      task archi_cdf # try:1 state:complete dur:01:03:06 rt:00:03:00
+    family assim # state:complete dur:02:10:06 rt:00:04:00
+      task plot_ana # try:1 state:complete dur:02:05:30 rt:00:00:06
+      task archi_ana # try:1 state:complete dur:02:10:06 rt:00:04:00
+    family best # state:aborted dur:02:28:06 rt:00:01:00
+      task concat_nc # try:1 state:complete dur:02:12:42 rt:00:04:36
+      task maskqc # try:1 state:complete dur:02:13:24 rt:00:00:18
+      task qcola # try:1 state:complete dur:02:13:33 rt:00:00:06
+      task diafromola # try:1 state:complete dur:02:09:06 rt:00:00:58
+      task plot_ola # try:1 state:complete dur:02:12:54 rt:00:02:31
+      task archi_rst # try:1 state:complete dur:02:12:06 rt:00:04:00
+      task archi_log # try:1 state:complete dur:02:11:07 rt:00:03:01
+      task conv_moor # try:1 state:complete dur:02:12:37 rt:00:04:28
+      task archi_moor # try:1 state:complete dur:02:13:25 rt:00:00:19
+      task archi_dia # try:1 state:complete dur:02:11:06 rt:00:00:43
+      task archi_ola # try:1 state:complete dur:02:14:48 rt:00:00:42
+      task rename_cdf # try:1 state:complete dur:02:13:27 rt:00:00:21
+      task archi_cdf # passwd:lJFNvwSu rid:12534575 abort<:trap>abort try:2 state:aborted dur:02:28:06 flag:task_aborted,message rt:00:01:00
+    family clean # state:queued dur:02:24:36 flag:message
+      task cleanup # state:queued dur:02:24:36
