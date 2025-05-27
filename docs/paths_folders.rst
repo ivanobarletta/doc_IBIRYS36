@@ -91,7 +91,7 @@ Relevant paths are:
 
     * troika: path to troika executable
     * calc_out_dir: folder where you have sbatch job files and standard output / error of the tasks
-    * front_out_dir: same as calc_out_dir 
+    * front_out_dir: same as calc_out_dir (depending on the machine architecture, these paths might differ, but not in FT3 case) 
     
 The system.yml allows to provide more details, such as the structure of calc directory
 
