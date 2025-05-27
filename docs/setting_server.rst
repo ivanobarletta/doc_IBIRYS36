@@ -22,9 +22,17 @@ are used to interact with the server in case there are different servers active 
 
 this will interact only with the server identified with port=4545 and host=hostname. 
 
-It is advisable to set up the ecflow server by running the script ecflow_start.sh. The script, though, does 
-not allow to create a server with a specific hostname but only allows to specify the port through command line
-argument. The hostname is taken from the prompt
+It is advisable to set up the ecflow server by running the script **ecflow_start.sh**.
+
+.. collapse:: ecflow_start.sh
+
+    .. literalinclude:: data/ecflow_start.sh
+
+    :caption: ecflow_start.sh
+
+
+
+The script, though, does  not allow to create a server with a specific hostname but only allows to specify the port through command line argument. The hostname is taken from the prompt
 
 .. code-block:: bash
 
