@@ -30,15 +30,30 @@ If you want to assume NEATL36_ASSIM_PROTO as prototype of experiment you can set
     VERSION=test0
     EXPNAME=${CONFIG}_ASSIM_${VERSION} 
     SUITE=${USER}_$EXPNAME
+    LUSTRE=/path/of/calc/dir
 
 
-And then run the ease command to create the experiment folder
+And then, after having activated the conda environment for ease executables (:ref:`ease_env-label`) , run the ease command **create_exp** to create the experiment folder
 
 .. code-block:: bash 
 
     ease_createxp -proto_dir ${PATH2CONF}/${PROTO} -exp_dir ${PATH2CONF}/${EXPNAME} -b_dir ${LUSTRE}/RUNS/${SYSTEM}/${VERSION} -c_dir ${PATH2CONF}/${PROTO}/sbld/expdtree.yml -host ${ECF_HOST} -storage 'default' -exemode REA -nens_in 000
 
 This command generates a folder named NEATL36_ASSIM_test0. For further details on the experiment setup see (:ref:`experiment-setup-label`).
+
+The breakdown of previous command is (run ease_createexp --help for more info)
+
+.. code-block:: bash
+
+    -proto_dir ${PATH2CONF}/${PROTO}            # reference configuration (or prototype)
+    -exp_dir ${PATH2CONF}/${EXPNAME}            # configuration folder to be created
+    -b_dir ${LUSTRE}/RUNS/${SYSTEM}/${VERSION}  # directory of temporary folders for computation
+    -c_dir ${PATH2CONF}/${PROTO}/sbld/expdtree.yml  # structure of folders
+    -host ${ECF_HOST}                           # hostname
+    -storage 'default' 
+    -exemode REA                                # Reanalysis
+    -nens_in 000                                # specify the number of ensemble members    
+
 
 Create workflow Definition File for the Experiment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -175,7 +190,7 @@ The command line allows to execute single tasks of a given suite
 The last command might lead to undesired outcome, since the **run** command does not check if the given task depends on other. The **run** command should be used in case the dependencies (such as files produced by previous tasks / namelist ) required by such tasks are already satisfied.    
 
 For further details on the ecflow_client commands you can check out the  
-`Command Line Interface (CLI) <https://ecflow.readthedocs.io/en/5.13.7/client_api/index.html>`_ section in the ecFlow documentation. 
+`Command Line Interface (CLI) <https://ecflow.readthedocs.io/en/5.13.7/client_api/index.html>`_ section in the **ecFlow** documentation. 
 
 
 
