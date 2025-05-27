@@ -26,10 +26,11 @@ to create. Before using it, it is recommended to append to conda-env.yml the pre
     cd ease/
     echo "prefix: /path/to/your/environments/conda/envs/ecflow" >> conda-env.yml
     conda env create -f conda-env.yml
-    conda activate ecflow
+    conda activate ecflow   # this env name can also be changed in the conda-env.yml
     pip install ./
 
-This environment contains both executables of EASE and Ecflow (under the /bin directory). It is convenient to include this
+This environment contains both executables of EASE and ecFlow (under the /bin directory). By default the name of the conda environment is "**ecflow**" but it
+might be convenient to change it since this conda env includes also EASE functionalities. It is convenient also to include this
 directory in the $PATH variable in your .bashrc
 
 .. code-block:: bash
