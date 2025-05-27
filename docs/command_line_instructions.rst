@@ -139,8 +139,43 @@ The ecflow_client command use can be sped up by means of an alias in your .bashr
 
     alias ec="ecflow_client --port=${ECF_PORT} --host=${ECF_HOST}"
 
+To load a definition file of a suite do:
+
+.. code-block:: bash
+
+    ecflow_client --port=${ECF_PORT} --host=${ECF_HOST} --load=suite_name.def 
+
+if suite_name.def is already loaded the last command will raise an error. If you want to force the 
+loading of the suite just add **force** to the command
+
+.. code-block:: bash
+
+    ecflow_client --port=${ECF_PORT} --host=${ECF_HOST} --load=suite_name.def force 
+
+The command line allows a full interaction with the ecFlow server. The manual can be accessed through
+
+.. code-block:: bash
+
+    ecflow_client --help
 
 
+or, to get a general view on the commands with a brief description
+
+.. code-block:: bash
+
+   ecflow_client --help=summary
+
+
+The command line allows to execute single tasks of a given suite
+
+.. code-block:: bash
+
+   ecflow_client --port=${ECF_PORT} --host=${ECF_HOST}  --run=/suite_name/f1/t1
+
+The last command might lead to undesired outcome, since the **run** command does not check if the given task depends on other. The **run** command should be used in case the dependencies (such as files produced by previous tasks / namelist ) required by such tasks are already satisfied.    
+
+For further details on the ecflow_client commands you can check out the  
+`Command Line Interface (CLI) <https://ecflow.readthedocs.io/en/5.13.7/client_api/index.html>`_ section in the ecFlow documentation. 
 
 
 
