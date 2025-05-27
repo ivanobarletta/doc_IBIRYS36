@@ -142,7 +142,7 @@ An example result is
    File Job out                    13
    File manual                     17
 
-It is advisable to specify the --port and --host when using ecflow_client to be sure of pointing to the server createid with
+It is advisable to specify the ---port and ---host when using ecflow_client to be sure of pointing to the server createid with
 the specific port and host. Check the section with suggestions on how to create the server :ref:`port-host-label` 
 
 The ecflow_client command use can be sped up by means of an alias in your .bashrc

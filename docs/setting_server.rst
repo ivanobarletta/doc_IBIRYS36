@@ -38,7 +38,7 @@ The script, though, does  not allow to create a server with a specific hostname 
 
    [username@hostname ~]$ 
 
-where hostname, on FTIII, is NOT always the same. One workaround is to do ssh into the desired hostname, and then
+where hostname, on FTIII, is **NOT** always the same. One workaround is to do ssh into the desired hostname, and then
 run the ecflow_start.sh script
 
 .. code-block:: bash
