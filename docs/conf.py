@@ -17,7 +17,7 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.napoleon',
     'sphinx_toolbox.collapse',
-    'sphinx_copybutton',
+#    'sphinx_copybutton',           # does not work on rtd!
 ]
 
 templates_path = ['_templates']
