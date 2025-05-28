@@ -19,6 +19,7 @@ Welcome to IBIRYS36_on_FT3's Documentation
    paths_folders.rst
    issues.rst 
    create_harm_files.rst
+   resources.rst 
 
 
 Indices and tables
