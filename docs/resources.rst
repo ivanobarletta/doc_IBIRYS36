@@ -17,12 +17,12 @@ suite status can be visualized in a brief manner through the script
 
     :caption: ecflow_get_state.sh
 
-with simple usage. First make the script executable and copy it in your ~/bin
+with simple usage. First make the script executable and move it in your ~/bin
 
 .. code-block:: bash
 
     chmod u+x ecflow_get_state.sh
-    cp ecflow_get_state.sh ~/bin
+    mv ecflow_get_state.sh ~/bin
 
 then execute it specifying the name of the suite:
 
@@ -31,12 +31,12 @@ then execute it specifying the name of the suite:
     ecflow_get_state.sh nameOfYourSuite # without .def!
 
 Specifying the name of the suite is necessary only in case you have more than one loaded in your server. In case you have only 
-one just type:
+to type:
 
 .. code-block:: bash 
 
     ecflow_get_state.sh 
 
-.. image:: docs/data/ecflow_get_state_example.png
+.. image:: data/ecflow_get_state_example.png
    
    Example output from ecflow_get_state.sh 
