@@ -38,5 +38,4 @@ to type:
     ecflow_get_state.sh 
 
 .. image:: data/ecflow_get_state_example.png
-   
-   Example output from ecflow_get_state.sh 
+ 
