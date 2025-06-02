@@ -30,8 +30,7 @@ then execute it specifying the name of the suite:
 
     ecflow_get_state.sh nameOfYourSuite # without .def!
 
-Specifying the name of the suite is necessary only in case you have more than one loaded in your server. In case you have only 
-to type:
+Specifying the name of the suite is necessary only in case you have more than one loaded in your server. In case you have only one loaded just type:
 
 .. code-block:: bash 
 
